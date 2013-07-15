@@ -1,0 +1,93 @@
+body {
+    font-family: sans-serif;
+    /*padding: 0em 0.5em 1em 0.5em;*/
+}
+    
+.statement {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(221, 221, 221);
+    padding: 8px 35px 8px 14px;
+    -webkit-border-radius: 6px 6px 6px 6px;
+     -moz-border-radius: 6px 6px 6px 6px;
+          border-radius: 6px 6px 6px 6px;
+}
+
+.bg-icon-circle {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      margin-top: 1px;
+      *margin-right: .3em;
+      line-height: 14px;
+      vertical-align: text-top;
+      background-image: url("../img/circle.png");
+      /*background-position: 14px 14px;*/
+      background-repeat: no-repeat;
+}
+
+.top-buffer { 
+    margin-top:100px; 
+}
+
+@media (min-width: 767px) {
+    .post {
+        max-width: 570px;
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+}
+
+#updates {
+    /*background-color: #00ffff;*/
+}
+
+#postingarea {
+    /*padding: 1em;*/
+}
+
+#adminpagecontent {
+    margin-top: 20px;
+}
+
+#header {
+    padding: 1em;
+}
+
+#options {
+    padding-left: 1em;
+}
+
+#formathelp {
+    background-color: #eee;
+    /*float:right;*/
+    -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+    /*margin: 1em;*/
+    padding: 1em;
+}
+
+.b {
+    font-weight: bold;
+}
+
+.i {
+    font-style: italic;
+}
+
+.red {
+    color: #d00;
+}
+
+.blue {
+    color: #00d;
+}
+
+.green {
+    color: #0a0;
+}
+
+td.code {
+    font-family: monospace;
+}
