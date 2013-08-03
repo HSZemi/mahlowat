@@ -3,18 +3,16 @@
     
     include 'includes/funcs.php';
     include 'includes/theses.php';
-    
+    include 'includes/hsg.php';
+
     $warning = false;
     if(!isset($_SESSION['answers'])){
       $warning = true;
       $_SESSION['answers'] = Array('skip','skip','skip','skip','skip','skip');
     }
     $ans = $_SESSION['answers'];
-    
-    
-    $warning = false;
+
     if(!isset($_SESSION['theses'])){
-      $warning = true;
       $_SESSION['theses'] = get_theses_array();
     } 
     
@@ -30,10 +28,14 @@
       for($i = 0; $i < sizeof($ans); $i = $i + 1){
             if(in_array('q'.$i, $_SESSION['multiplier'])){
                   $emph[$i]   = 2;
+            } else {
+                  $emph[$i]   = 1;
             }
       }
     }
     
+    $hsg_array = get_hsg_array();
+    $hsg_array = sort_hsgs($ans, $hsg_array, $emph);
     
 ?>
 <!DOCTYPE HTML>
@@ -51,7 +53,18 @@
   <script src="js/jquery-2.0.2.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   
-    <?php if($warning){ ?>
+  <div class="container top-buffer">
+    
+    <h1>Ergebnisse</h1>
+    
+    <div class="pagination">
+        <ul>
+            <li class="active"><a href="result-bars.php">Balken</a></li>
+            <li class=""><a href="result-table.php">Detail</a></li>
+        </ul>
+    </div>
+    
+      <?php if($warning){ ?>
       <div id="warning" class="modal hide fade">
             <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -76,38 +89,29 @@
       });
       </script>
      <?php } ?>
-  
-  <div class="container top-buffer">
-    
-    <h1>Ergebnisse</h1>
-    <form action="result-bars.php" method="post">
-      <table class="table table-bordered">
-            <tr><th>Deine Wahl</th><th>Doppelt gewichten</th>
-            <?php 
-            
-      
-            
-            for($i = 0; $i < sizeof($ans); $i = $i + 1){
-                  ($emph[$i] == 2) ? $checked = "checked='checked'" : $checked = "";
-                  $btnclass = code_to_btnclass($ans[$i]);
-                  echo "<tr>";
-                  echo "<td><a id='thesis$i' class='btn $btnclass btn-block' data-toggle='popover' data-placement='left' data-original-title='These ".($i+1)."' data-content='".$_SESSION['theses']['l'][$i]."'>".$_SESSION['theses']['s'][$i]."</a></td>
-                  <td><input type='checkbox' $checked name='multiplier[]' value='q$i'></td>";
-                  echo "</tr>\n";
-            }
-            
-            ?>     
-      </table>
-      <button class="btn btn-primary" type="submit">Zur Auswertung</button>
-    </form>
+     
+     <table class="table table-bordered table-hover">
+     <tr><th style="width: 200px;">Partei</th><th style="width:100px">Punkte</th><th style="width:640px;"> </th></tr>
+            <?php
+                  $top = similarity_index($ans, $hsg_array[0]['answers'], $emph);
+                  for($i = 0; $i < sizeof($hsg_array); $i++){
+                        (similarity_index($ans, $hsg_array[$i]['answers'], $emph) == $top) ? $class = "success" : $class = "";
+                        html_hsg_bar($hsg_array[$i], $ans, $emph, $class);
+                        echo "\n";
+                  }
+            ?>
+
+     </table>
     
     <div class="text-right">
     <hr />
       <small>Du kannst die Befragung 
-      <a href="killsession.php" title="Von vorn beginnen">neu starten</a>
-      oder deine
-      <a href="index.php" title="Antworten ändern">Antworten ändern</a>.<br />
-      Außerdem haben wir auch eine <a href="faq.php?from=multiplier.php" title="FAQ">FAQ-Seite</a>.
+      <a href="killsession.php" title="Von vorn beginnen">neu starten</a>,
+      deine 
+      <a href="index.php" title="Antworten ändern">Antworten ändern</a>
+      oder die 
+      <a href="multiplier.php" title="Gewichtung ändern">Gewichtung anpassen</a>.<br />
+      Außerdem haben wir auch eine <a href="faq.php?from=result-bars.php" title="FAQ">FAQ-Seite</a>.
       </small>
     </div>
     </div>
@@ -116,7 +120,7 @@
   <script type="text/javascript">
   <?php 
       
-      for($i = 0; $i < sizeof($ans); $i++){
+      for($i = 0; $i < 6; $i = $i + 1){
             echo "$('#thesis".$i."').popover();";
       }
       

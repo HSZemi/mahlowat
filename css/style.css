@@ -2,6 +2,10 @@ body {
     font-family: sans-serif;
     /*padding: 0em 0.5em 1em 0.5em;*/
 }
+
+.hsganswer{
+      width: 30px;
+}
     
 .statement {
     border-width: 1px;
@@ -26,8 +30,21 @@ body {
       background-repeat: no-repeat;
 }
 
+.bg-icon-circle.icon-white {
+      background-image: url("../img/circle-white.png");
+      background-position: 0px 0px;
+}
+
+.progress {
+	margin-bottom: 0px;
+}
+
 .top-buffer { 
     margin-top:100px; 
+}
+
+.bottom-buffer { 
+    margin-bottom:100px; 
 }
 
 @media (min-width: 767px) {

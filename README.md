@@ -7,6 +7,7 @@ Implementierung
 ---------------
 
 Reines PHP, alles im Quelltext. Noch.
+Benutzt bootstrap by Twitter.
 
 Funktionen
 ----------

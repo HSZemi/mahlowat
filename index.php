@@ -2,31 +2,22 @@
     session_start();
     
     include 'includes/funcs.php';
+    include 'includes/theses.php';
     
     if(!isset($_SESSION['answers'])){
-      $_SESSION['answers'] = Array(0,0,0,0,0,0);
-      $_SESSION['theses']['l'] = Array(
-      'Die UniCard muss so schnell wie möglich eingeführt werden!',
-      'Der VeggieDay ist des Teufels.',
-      'Vorwärts immerdar!',
-      'Das mit der IT-Technik muss der AStA noch lernen',
-      'Das NRW-Ticket ist eine tolle Einrichtung.',
-      'Der radikale Links-AStA muss umgehend abgewählt werden.'
-  );
-      $_SESSION['theses']['s'] = Array(
-      'UniCard',
-      'VeggieDay',
-      'Vorwärts',
-      'IT-Technik',
-      'NRW-Ticket',
-      'Links-AStA'
-   );
+      $_SESSION['answers'] = Array('skip','skip','skip','skip','skip','skip');
     }
     
-    if(!isset($_POST['q_id'])){
-      $q_id = -1;
-    } else {
+    if(!isset($_SESSION['theses'])){
+      $_SESSION['theses'] = get_theses_array();
+    } 
+    
+    if(isset($_POST['q_id'])){
       $q_id = intval($_POST['q_id']) + 1;
+    } elseif(isset($_GET['id'])){
+      $q_id = intval($_GET['id']) - 2;
+    } else {
+      $q_id = -1;
     }
     
     // check if last answer was yes, neutral, no or skip
@@ -34,13 +25,13 @@
       $_SESSION['answers'][$q_id] = 1;
     }
     if(isset($_POST['neutral'])){
-      $_SESSION['answers'][$q_id] = 2;
+      $_SESSION['answers'][$q_id] = 0;
     }
     if(isset($_POST['no'])){
-      $_SESSION['answers'][$q_id] = 3;
+      $_SESSION['answers'][$q_id] = -1;
     }
     if(isset($_POST['skip'])){
-      $_SESSION['answers'][$q_id] = 0;
+      $_SESSION['answers'][$q_id] = 'skip';
     }
     
     if($q_id > 4){
@@ -64,7 +55,7 @@
   
   <div class="container top-buffer">
   
-      <div class="pagination pagination-large">
+      <div class="pagination">
         <ul>
            <?php 
             for($i = 1; $i < sizeof($_SESSION['answers'])+1; $i = $i + 1){
@@ -82,19 +73,34 @@
         </p>
         <div class="control-group">
             <div class="controls">
-                <button type="submit" class="btn btn-success" name="yes"><i class="icon-thumbs-up"></i> Zustimmung</button>
-                <button type="submit" class="btn btn-warning" name="neutral"><i class="bg-icon-circle"></i> Neutral</button>
-                <button type="submit" class="btn btn-danger" name="no"><i class="icon-thumbs-down"></i> Ablehnung</button>
-
+            <?php
+                  $curr_ans = $_SESSION['answers'][$q_id+1];
+                  $yes_class = "icon-thumbs-up";
+                  $neutral_class = "bg-icon-circle";
+                  $no_class = "icon-thumbs-down";
+                  if(!($curr_ans === 'skip')){
+                        if($curr_ans == 1){$yes_class .= " icon-white";}
+                        if($curr_ans == 0){$neutral_class .= " icon-white";}
+                        if($curr_ans == -1){$no_class .= " icon-white";}
+                  }
+                  echo "<button type='submit' class='btn btn-success' name='yes'><i class='$yes_class'></i> Zustimmung</button>
+                  <button type='submit' class='btn btn-warning' name='neutral'><i class='$neutral_class'></i> Neutral</button>
+                  <button type='submit' class='btn btn-danger' name='no'><i class='$no_class'></i> Ablehnung</button>";
+            ?>
                 <button type="submit" class="btn" name="skip"><i class="icon-share-alt"></i> Überspringen</button>
             </div>
         </div>
     </form>
     
-    <div class="alert alert-info">
-      <?php print_r($_SESSION['answers']); ?><br />
+    <div class="text-right">
+    <hr />
+      <small>Du kannst die Befragung 
+      <a href="killsession.php" title="Von vorn beginnen">neu starten</a>
+      oder den Rest der Thesen 
+      <a href="multiplier.php" title="Gewichtung ändern">überspringen</a>.<br />
+      Außerdem haben wir auch eine <a href="faq.php?from=index.php?id=<?php echo $q_id+2; ?>" title="FAQ">FAQ-Seite</a>.
+      </small>
       
-      <a href="killsession.php" title="Session neu starten">Session neu starten</a>
     </div>
     </div>
   </div>
