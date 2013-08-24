@@ -47,11 +47,12 @@
       <li>Sind die Antworten entgegengesetzt oder hat eine Hochschulgruppe eine Frage nicht beantwortet, gibt es keine Punkte für die Hochschulgruppe.</li>
     </ul>
     <p>Eine Frage, die die Testperson übersprungen hat, wird nicht gewertet. Entsprechend gibt es dann insgesamt weniger Punkte zu erreichen.</p>
+    <p>Eine Frage, die doppelt gewichtet werden soll, wird doppelt gewichtet, das heißt, für sie wird die doppelte Punktzahl gutgeschrieben (0/2/4). Entsprechend gibt es insgesamt mehr Punkte zu erreichen.</p>
     
     <h4>Ich habe einen Fehler gefunden!</h4>
     <p>Dann solltest du das <a href="http://www.akut-bonn.de/kontakt/" title="Kontakt zur akut">melden</a>. Wir freuen uns über sachdienliche Hinweise.</p>
 
-    <a href="<?php echo $back; ?>" title="Zurück zum Mahlowat">Zurück zum Mahlowat</a>
+    <a class="btn btn-primary" href="<?php echo $back; ?>" title="Zurück zum Mahlowat">Zurück zum Mahlowat</a>
   </div>
 
 

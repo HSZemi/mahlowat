@@ -3,6 +3,7 @@
     
     include 'includes/funcs.php';
     include 'includes/theses.php';
+    include 'includes/file.php';
     
     $warning = false;
     if(!isset($_SESSION['answers'])){
@@ -64,7 +65,7 @@
             </div>
             <div class="modal-footer">
                   <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Schließen</button>
-                  <a href="index.php" class="btn btn-primary">Thesen bearbeiten</a>
+                  <a href="mahlowat.php" class="btn btn-primary">Thesen bearbeiten</a>
             </div>
       </div>
       
@@ -75,7 +76,9 @@
             }, 1000);
       });
       </script>
-     <?php } ?>
+     <?php } else {
+		add_visit(crypt($_SERVER['REMOTE_ADDR'], get_salt('./data/salt.sav')), './data/visits.sav');
+     } ?>
   
   <div class="container top-buffer">
     
@@ -106,7 +109,7 @@
       <small>Du kannst die Befragung 
       <a href="killsession.php" title="Von vorn beginnen">neu starten</a>
       oder deine
-      <a href="index.php" title="Antworten ändern">Antworten ändern</a>.<br />
+      <a href="mahlowat.php" title="Antworten ändern">Antworten ändern</a>.<br />
       Außerdem haben wir auch eine <a href="faq.php?from=multiplier.php" title="FAQ">FAQ-Seite</a>.
       </small>
     </div>

@@ -108,3 +108,11 @@ body {
 td.code {
     font-family: monospace;
 }
+
+.mow-container {
+    width: 700px;
+}
+
+.mow-container .form-horizontal .controls {
+    margin-left: 130px;
+}

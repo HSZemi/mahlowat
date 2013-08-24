@@ -65,7 +65,7 @@
             </div>
             <div class="modal-footer">
                   <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Schließen</button>
-                  <a href="index.php" class="btn btn-primary">Thesen bearbeiten</a>
+                  <a href="mahlowat.php" class="btn btn-primary">Thesen bearbeiten</a>
             </div>
       </div>
       
@@ -120,7 +120,7 @@
       <small>Du kannst die Befragung 
       <a href="killsession.php" title="Von vorn beginnen">neu starten</a>,
       deine 
-      <a href="index.php" title="Antworten ändern">Antworten ändern</a>
+      <a href="mahlowat.php" title="Antworten ändern">Antworten ändern</a>
       oder die 
       <a href="multiplier.php" title="Gewichtung ändern">Gewichtung anpassen</a>.<br />
       Außerdem haben wir auch eine <a href="faq.php?from=result-table.php" title="FAQ">FAQ-Seite</a>.

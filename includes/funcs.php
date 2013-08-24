@@ -210,7 +210,7 @@ function code_to_answer($code){
       if($i == $curr){
             return '<li class="active"><a href="#">'.$i."</a></li>\n";
       } else {
-            return '<li class=""><a href="index.php?id='.$i.'">'.$i."</a></li>\n";
+            return '<li class=""><a href="mahlowat.php?id='.$i.'">'.$i."</a></li>\n";
       }
     }
     
