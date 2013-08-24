@@ -8,7 +8,8 @@ function get_theses_array(){
       'Grün ist das neue Blau.',
       'Mehr Geld für die Universitäten!',
       'Das NRW-Ticket ist eine tolle Einrichtung.',
-      'Heute ist ein schöner Tag.'
+      'Heute ist ein schöner Tag.',
+      'Die Verfasste Studierendenschaft ist ein Juristensumpf!'
       );
       $theses_array['s'] = Array(
       'UniCard',
@@ -16,7 +17,8 @@ function get_theses_array(){
       'Grün',
       'Geld für Unis',
       'NRW-Ticket',
-      'schöner Tag'
+      'schöner Tag',
+      'Juristensumpf'
       );
       
       return $theses_array;

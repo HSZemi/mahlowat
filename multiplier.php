@@ -43,7 +43,8 @@
     <title>mahlowat - Ergebnis</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta content="">
-    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
     
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
@@ -80,7 +81,7 @@
 		add_visit(crypt($_SERVER['REMOTE_ADDR'], get_salt('./data/salt.sav')), './data/visits.sav');
      } ?>
   
-  <div class="container top-buffer">
+  <div class="container mow-container top-buffer">
     
     <h1>Ergebnisse</h1>
     <form action="result-bars.php" method="post">

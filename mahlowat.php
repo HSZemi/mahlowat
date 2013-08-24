@@ -4,37 +4,45 @@
     include 'includes/funcs.php';
     include 'includes/theses.php';
     
-    if(!isset($_SESSION['answers'])){
-      $_SESSION['answers'] = Array('skip','skip','skip','skip','skip','skip');
-    }
     
     if(!isset($_SESSION['theses'])){
       $_SESSION['theses'] = get_theses_array();
     } 
     
+    $theses_count = sizeof($_SESSION['theses']['s']);
+    
+    if(!isset($_SESSION['answers'])){
+      // initialize answers-array
+      for($i = 0; $i < $theses_count; $i++){
+          $_SESSION['answers'][$i] = 'skip';
+      }
+    }
+    
     if(isset($_POST['q_id'])){
       $q_id = intval($_POST['q_id']) + 1;
     } elseif(isset($_GET['id'])){
-      $q_id = intval($_GET['id']) - 2;
+      $q_id = intval($_GET['id']) - 1;
     } else {
-      $q_id = -1;
+      $q_id = 0;
     }
     
     // check if last answer was yes, neutral, no or skip
     if(isset($_POST['yes'])){
-      $_SESSION['answers'][$q_id] = 1;
+      $_SESSION['answers'][$q_id-1] = 1;
     }
     if(isset($_POST['neutral'])){
-      $_SESSION['answers'][$q_id] = 0;
+      $_SESSION['answers'][$q_id-1] = 0;
     }
     if(isset($_POST['no'])){
-      $_SESSION['answers'][$q_id] = -1;
+      $_SESSION['answers'][$q_id-1] = -1;
     }
     if(isset($_POST['skip'])){
-      $_SESSION['answers'][$q_id] = 'skip';
+      $_SESSION['answers'][$q_id-1] = 'skip';
     }
     
-    if($q_id > 4){
+
+    
+    if($q_id >= $theses_count){
       header("Location: multiplier.php");
     } else {
 
@@ -47,7 +55,8 @@
     <title>mahlowat</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta content="">
-    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
     
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
@@ -58,22 +67,22 @@
       <div class="pagination">
         <ul>
            <?php 
-            for($i = 1; $i < sizeof($_SESSION['answers'])+1; $i = $i + 1){
-                  echo pagitem($i, $q_id+2);
+            for($i = 1; $i < ($theses_count+1); $i = $i + 1){
+                  echo pagitem($i, $q_id+1);
             }
            ?>
         </ul>
     </div>
     
-    <h1>These <?php echo $q_id+2; ?></h1>
+    <h1>These <?php echo $q_id+1; ?></h1>
     <form class="form-horizontal" action="mahlowat.php" method="post">
         <input type="hidden" name="q_id" value="<?php echo $q_id; ?>">
         <p class="statement">
-            <?php echo $_SESSION['theses']['l'][$q_id+1]; ?>
+            <?php echo $_SESSION['theses']['l'][$q_id]; ?>
         </p>
             <div class="controls">
             <?php
-                  $curr_ans = $_SESSION['answers'][$q_id+1];
+                  $curr_ans = $_SESSION['answers'][$q_id];
                   $yes_class = "btn";
                   $neutral_class = "btn";
                   $no_class = "btn";
@@ -101,7 +110,7 @@
       <a href="killsession.php" title="Von vorn beginnen">neu starten</a>
       oder den Rest der Thesen 
       <a href="multiplier.php" title="Gewichtung ändern">überspringen</a>.<br />
-      Außerdem haben wir auch eine <a href="faq.php?from=mahlowat.php?id=<?php echo $q_id+2; ?>" title="FAQ">FAQ-Seite</a>.
+      Außerdem haben wir auch eine <a href="faq.php?from=mahlowat.php?id=<?php echo $q_id+1; ?>" title="FAQ">FAQ-Seite</a>.
       </small>
       
     </div>

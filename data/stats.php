@@ -27,7 +27,8 @@
     <title>mahlowat - Statistik</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta content="">
-    <link href="../css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../css/bootstrap-responsive.min.css" rel="stylesheet">
     
     <link rel="stylesheet" type="text/css" href="../css/style.css">
   </head>

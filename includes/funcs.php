@@ -48,7 +48,7 @@ function count_achievable_points($my, $emph){
 }
 
 function count_party_points($hsg, $votes, $emph){
-      return similarity_index($votes, $hsg, $emph);
+      return calculate_points($votes, $hsg, $emph);
 }
 
 function html_hsg_bar($hsg, $votes, $emph, $class){
@@ -135,7 +135,7 @@ function code_to_answer($code){
       }
     }
     
-    function similarity_index($my, $hsg, $emph){
+    function calculate_points($my, $hsg, $emph){
       $max = max(sizeof($my), sizeof($hsg));
       
       $pointvector = Array();
@@ -218,8 +218,8 @@ function code_to_answer($code){
       $offset = 1/floatval(sizeof($hsg_array));
       
       for($i = 0; $i < sizeof($hsg_array); $i = $i + 1){
-            $sorted[$i] = (similarity_index($my, $hsg_array[$i]['answers'], $emph)-($i*$offset));
-            $temp[(string)(similarity_index($my, $hsg_array[$i]['answers'], $emph)-($i*$offset))] = $hsg_array[$i];
+            $sorted[$i] = (calculate_points($my, $hsg_array[$i]['answers'], $emph)-($i*$offset));
+            $temp[(string)(calculate_points($my, $hsg_array[$i]['answers'], $emph)-($i*$offset))] = $hsg_array[$i];
       }
       
       sort($sorted);

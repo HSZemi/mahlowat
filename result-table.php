@@ -6,15 +6,20 @@
     include 'includes/hsg.php';
     
     $warning = false;
-    if(!isset($_SESSION['answers'])){
-      $warning = true;
-      $_SESSION['answers'] = Array('skip','skip','skip','skip','skip','skip');
-    }
-    $ans = $_SESSION['answers'];
-
+    
     if(!isset($_SESSION['theses'])){
       $_SESSION['theses'] = get_theses_array();
     } 
+    
+    $theses_count = sizeof($_SESSION['theses']['s']);
+    
+    if(!isset($_SESSION['answers'])){
+      $warning = true;
+      for($i = 0; $i < $theses_count; $i++){
+          $_SESSION['answers'][$i] = 'skip';
+      }
+    }
+    $ans = $_SESSION['answers'];
     
     if(isset($_POST['multiplier'])){
       $_SESSION['multiplier'] = $_POST['multiplier'];
@@ -43,7 +48,8 @@
     <title>mahlowat - Ergebnis</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta content="">
-    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
     
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
@@ -96,14 +102,14 @@
       
       
       for($i = 0; $i < sizeof($hsg_array); $i = $i + 1){
-            echo '<th>'.$hsg_array[$i]['name'].' ('.similarity_index($ans, $hsg_array[$i]['answers'], $emph).')</th>';   
+            echo '<th>'.$hsg_array[$i]['name'].' ('.calculate_points($ans, $hsg_array[$i]['answers'], $emph).')</th>';   
       }
       echo "</tr>\n";
       
-      for($i = 0; $i < sizeof($hsg_array); $i = $i + 1){
+      for($i = 0; $i < $theses_count; $i = $i + 1){
             $emph[$i]==2 ? $star = '<i class="icon-star" title="Doppelte Gewichtung"></i>' : $star = '';
             $emph[$i]==2 ? $tdcl = ' class="warning"' : $tdcl = '';
-            echo '<tr'.$tdcl.'>';
+            echo "<tr$tdcl>\n";
             echo '<td><p class="text-center">'.$star.'</p></td>';
             echo '<td><a id="thesis'.$i.'" class="btn '.code_to_btnclass($ans[$i]).' btn-block" data-toggle="popover" data-placement="left" data-original-title="These '.($i+1).'" data-content="'.$_SESSION['theses']['l'][$i].'">'.$_SESSION['theses']['s'][$i].'</a></td>';
             for($hsg = 0; $hsg < sizeof($hsg_array); $hsg = $hsg + 1){
@@ -130,13 +136,7 @@
   </div>
   
   <script type="text/javascript">
-  <?php 
-      
-      for($i = 0; $i < 6; $i = $i + 1){
-            echo "$('#thesis".$i."').popover();";
-      }
-
-  ?>
+      $('[id^="thesis"]').popover();
       $('.hsganswer').tooltip();
   </script>
 

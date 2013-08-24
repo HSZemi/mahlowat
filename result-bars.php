@@ -6,15 +6,22 @@
     include 'includes/hsg.php';
 
     $warning = false;
-    if(!isset($_SESSION['answers'])){
-      $warning = true;
-      $_SESSION['answers'] = Array('skip','skip','skip','skip','skip','skip');
-    }
-    $ans = $_SESSION['answers'];
-
+    
     if(!isset($_SESSION['theses'])){
       $_SESSION['theses'] = get_theses_array();
     } 
+    
+    $theses_count = sizeof($_SESSION['theses']['s']);
+    
+    if(!isset($_SESSION['answers'])){
+      $warning = true;
+      for($i = 0; $i < $theses_count; $i++){
+          $_SESSION['answers'][$i] = 'skip';
+      }
+    }
+    $ans = $_SESSION['answers'];
+
+    
     
     if(isset($_POST['multiplier'])){
       $_SESSION['multiplier'] = $_POST['multiplier'];
@@ -44,7 +51,8 @@
     <title>mahlowat - Ergebnis</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta content="">
-    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
     
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
@@ -93,9 +101,9 @@
      <table class="table table-bordered table-hover">
      <tr><th style="width: 200px;">Partei</th><th style="width:100px">Punkte</th><th style="width:640px;"> </th></tr>
             <?php
-                  $top = similarity_index($ans, $hsg_array[0]['answers'], $emph);
+                  $top = calculate_points($ans, $hsg_array[0]['answers'], $emph);
                   for($i = 0; $i < sizeof($hsg_array); $i++){
-                        (similarity_index($ans, $hsg_array[$i]['answers'], $emph) == $top) ? $class = "success" : $class = "";
+                        (calculate_points($ans, $hsg_array[$i]['answers'], $emph) == $top) ? $class = "success" : $class = "";
                         html_hsg_bar($hsg_array[$i], $ans, $emph, $class);
                         echo "\n";
                   }

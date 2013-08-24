@@ -109,10 +109,21 @@ td.code {
     font-family: monospace;
 }
 
+
+@media (min-width: 1200px) {
+
+.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+    width: 940px;
+}
+}
+
+@media (min-width: 767px) {
+
 .mow-container {
     width: 700px;
 }
-
+  
 .mow-container .form-horizontal .controls {
     margin-left: 130px;
+}
 }
