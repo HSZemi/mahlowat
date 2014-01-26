@@ -5,16 +5,21 @@ body {
 
 .hsganswer{
       width: 30px;
+	padding-left: auto;
+	padding-right: auto;
+	margin-left: auto;
+	margin-right: auto;
 }
     
 .statement {
-    border-width: 1px;
+    /*border-width: 1px;
     border-style: solid;
     border-color: rgb(221, 221, 221);
     padding: 8px 35px 8px 14px;
     -webkit-border-radius: 6px 6px 6px 6px;
      -moz-border-radius: 6px 6px 6px 6px;
-          border-radius: 6px 6px 6px 6px;
+          border-radius: 6px 6px 6px 6px;*/
+    min-height: 90px;
 }
 
 .bg-icon-circle {
@@ -40,11 +45,11 @@ body {
 }
 
 .top-buffer { 
-    margin-top:100px; 
+    margin-top:80px; 
 }
 
 .bottom-buffer { 
-    margin-bottom:100px; 
+    margin-bottom:60px; 
 }
 
 @media (min-width: 767px) {
@@ -109,6 +114,14 @@ td.code {
     font-family: monospace;
 }
 
+.pagination small ul > li > a{
+	padding: 2px 4px;
+}
+
+#spruch{
+	margin-top: 30px;
+}
+
 
 @media (min-width: 1200px) {
 
@@ -124,6 +137,32 @@ td.code {
 }
   
 .mow-container .form-horizontal .controls {
-    margin-left: 130px;
+    text-align: center;
+    /*margin-left: 130px;*/
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
+
+label {
+    display: block;
+    padding-left: 15px;
+    text-indent: -15px;
+}
+input {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin: 0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+}
+
+.multheseslong, .mtl, .table .mtl{
+	border-top: hidden;
+}
+
+
 }

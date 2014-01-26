@@ -52,7 +52,7 @@ function count_party_points($hsg, $votes, $emph){
 }
 
 function html_hsg_bar($hsg, $votes, $emph, $class){
-      $hsg_name = $hsg['name'];
+      $hsg_name = $hsg['name_x'];
       $party_points = count_party_points($hsg['answers'], $votes, $emph);
       $ach_points = count_achievable_points($votes, $emph);
       if($ach_points != 0){
@@ -86,6 +86,105 @@ function html_hsg_bar_tricolore($hsg, $votes, $emph, $class){
      </tr>";
 }*/
 
+function result_from_string($str, $numberoftheses){
+	$answers = Array();
+	$multiplier = Array();
+	$err = false;
+	if(strlen($str) != $numberoftheses){
+		$err = true;
+	} else {
+		$items = str_split($str);
+		for($i = 0; $i < sizeof($items); $i++){
+			if($items[$i] === 'a' ){
+				$answers[$i] = 1;
+				$multiplier[$i] = 1;
+			}
+			elseif($items[$i] === 'b'){
+				$answers[$i] = 0;
+				$multiplier[$i] = 1;
+			}
+			elseif($items[$i] === 'c'){
+				$answers[$i] = -1;
+				$multiplier[$i] = 1;
+			}
+			elseif($items[$i] === 'd'){
+				$answers[$i] = 'skip';
+				$multiplier[$i] = 1;
+			}
+			elseif($items[$i] === 'e' ){
+				$answers[$i] = 1;
+				$multiplier[$i] = 2;
+			}
+			elseif($items[$i] === 'f'){
+				$answers[$i] = 0;
+				$multiplier[$i] = 2;
+			}
+			elseif($items[$i] === 'g'){
+				$answers[$i] = -1;
+				$multiplier[$i] = 2;
+			}
+			elseif($items[$i] === 'h'){
+				$answers[$i] = 'skip';
+				$multiplier[$i] = 2;
+			}
+			else{
+				$err = true;
+			}
+		}
+	}
+	if($err){
+		for($i = 0; $i < $numberoftheses; $i++){
+			$answers[$i] = 'skip';
+			$multiplier[$i] = 1;
+		}
+	}
+	
+	$retval[0] = $answers;
+	$retval[1] = $multiplier;
+	
+	return $retval;
+}
+
+function result_to_string($answers, $multiplier){
+	$resstring = '';
+	$err = false;
+	for($i = 0; $i < sizeof($answers); $i++){
+		if($answers[$i] === 'skip' && $multiplier[$i] == 1){
+			$resstring .= 'd';
+		}
+		elseif($answers[$i] == 1 && $multiplier[$i] == 1){
+			$resstring .= 'a';
+		}
+		elseif($answers[$i] == 0 && $multiplier[$i] == 1){
+			$resstring .= 'b';
+		}
+		elseif($answers[$i] == -1 && $multiplier[$i] == 1){
+			$resstring .= 'c';
+		}
+		elseif($answers[$i] === 'skip' && $multiplier[$i] == 2){
+			$resstring .= 'h';
+		}
+		elseif($answers[$i] == 1 && $multiplier[$i] == 2){
+			$resstring .= 'e';
+		}
+		elseif($answers[$i] == 0 && $multiplier[$i] == 2){
+			$resstring .= 'f';
+		}
+		elseif($answers[$i] == -1 && $multiplier[$i] == 2){
+			$resstring .= 'g';
+		}
+		else{
+			$err = true;
+		}
+	}
+	
+	if($err){
+		return '==error==';
+	}
+	
+	return $resstring;
+}
+
 function code_to_answer($code){
       if($code === 'skip'){
             return '-';
@@ -107,17 +206,39 @@ function code_to_answer($code){
       $popover = 'data-toggle="tooltip" data-placement="top" data-original-title="'.$hsg['comments'][$i].'"';
       
       if($vote === 'skip'){
-            return "<td><a class='btn btn-block disabled hsganswer' $popover>-</a></td>";
+            return "<td><a class='btn btn-block disabled hsganswer' $popover>-</a></td>\n";
       }
       if($vote == 1){
-            return "<td><button class='btn btn-success btn-block disabled hsganswer' $popover><i class='icon-thumbs-up'></i></button></td>";
+            return "<td><a class='btn btn-success btn-block disabled hsganswer' $popover><i class='icon-thumbs-up'></i></a></td>\n";
       }
       if($vote == 0){
-            return "<td><button class='btn btn-warning btn-block disabled hsganswer' $popover><i class='bg-icon-circle'></i></button></td>";
+            return "<td><a class='btn btn-warning btn-block disabled hsganswer' $popover><i class='bg-icon-circle'></i></a></td>\n";
       }
       if($vote == -1){
-            return "<td><button class='btn btn-danger btn-block disabled hsganswer' $popover><i class='icon-thumbs-down'></i></button></td>";
+            return "<td><a class='btn btn-danger btn-block disabled hsganswer' $popover><i class='icon-thumbs-down'></i></a></td>\n";
       }
+    }
+    
+    function hsg_get_explanation($hsg, $i){
+      $vote  = $hsg['answers'][$i];
+      $etext = $hsg['comments'][$i];
+      $name  = $hsg['name'];
+      $prefix = "";
+      
+      if($vote === 'skip'){
+            $prefix = "<span class='label'>$name</span>\n";
+      }
+      elseif($vote == 1){
+            $prefix = "<span class='label label-success'>$name</span>\n";
+      }
+      elseif($vote == 0){
+            $prefix = "<span class='label label-warning'>$name</span>\n";
+      }
+      elseif($vote == -1){
+            $prefix = "<span class='label label-important'>$name</span>\n";
+      }
+      
+      return $prefix . "<p>$etext</p>\n\n";
     }
     
     function code_to_btnclass($int){
@@ -132,6 +253,21 @@ function code_to_answer($code){
       }
       if($int == -1){
             return 'btn-danger';
+      }
+    }
+    
+    function code_to_labelclass($int){
+      if($int === 'skip'){
+            return '';
+      }
+      if($int == 1){
+            return 'label-success';
+      }
+      if($int == 0){
+            return 'label-warning';
+      }
+      if($int == -1){
+            return 'label-important';
       }
     }
     
@@ -177,35 +313,6 @@ function code_to_answer($code){
       }
     }
     
-    function vec_mul2($a, $b){
-      if(sizeof($a) != sizeof($b)){
-            echo 'vector2 dimensions do not match|'.sizeof($a).'|'.sizeof($b).'<br />';
-      } else {
-            $sum = 0;
-            for($i = 0; $i < sizeof($a); $i = $i + 1){
-                  $sum += $a[$i] * $b[$i];
-            }
-            return $sum;
-      }
-    }
-    
-    function vec_abs($a){
-      $sum = 0;
-      for($i = 0; $i < sizeof($a); $i++){
-            $sum += ($a[$i] * $a[$i]);
-      }
-      
-      return sqrt($sum);
-    }
-    
-    function cosalpha($a, $b){
-      if(vec_abs($a) * vec_abs($b) == 0){
-            return 0;
-      } else {
-            return vec_mul2($a, $b) / (vec_abs($a) * vec_abs($b));
-      }
-    }
-    
     function pagitem($i, $curr){
       if($i == $curr){
             return '<li class="active"><a href="#">'.$i."</a></li>\n";
@@ -241,6 +348,16 @@ function code_to_answer($code){
             $arr[$len - 1 - $i] = $temp;
       }
       return $arr;
+    }
+    
+    function print_pagination($curr_id, $theses_count){
+	echo '<div class="pagination"><small>';
+	echo '<ul>';
+	for($i = 1; $i < ($theses_count+1); $i = $i + 1){
+		echo pagitem($i, $curr_id);
+	}
+	echo '</ul>';
+	echo '</small></div>';
     }
     
 

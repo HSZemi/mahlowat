@@ -5,23 +5,25 @@
     include 'includes/theses.php';
     include 'includes/file.php';
     
+    
+    
+    $theses = get_theses_array();
+    
+    $theses_count = sizeof($theses['s']);
+    
     $warning = false;
     if(!isset($_SESSION['answers'])){
       $warning = true;
-      $_SESSION['answers'] = Array('skip','skip','skip','skip','skip','skip');
+      for($i = 0; $i < $theses_count; $i++){
+          $_SESSION['answers'][$i] = 'skip';
+      }
     }
     $ans = $_SESSION['answers'];
     
     
-    $warning = false;
-    if(!isset($_SESSION['theses'])){
-      $warning = true;
-      $_SESSION['theses'] = get_theses_array();
-    } 
-    
-    if(isset($_POST['multiplier'])){
+    /*if(isset($_POST['multiplier'])){
       $_SESSION['multiplier'] = $_POST['multiplier'];
-    } 
+    } */
     
     $emph = array();
     for($i = 0; $i < sizeof($ans); $i = $i + 1){
@@ -40,7 +42,7 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>mahlowat - Ergebnis</title>
+    <title>Mahlowat - Ergebnis</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta content="">
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -52,6 +54,7 @@
   
   <script src="js/jquery-2.0.2.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="js/mahlowat-m.js"></script>
   
     <?php if($warning){ ?>
       <div id="warning" class="modal hide fade">
@@ -81,12 +84,16 @@
 		add_visit(crypt($_SERVER['REMOTE_ADDR'], get_salt('./data/salt.sav')), './data/visits.sav');
      } ?>
   
-  <div class="container mow-container top-buffer">
+  <div class="container mow-container" style="margin-top: 20px;">
+      <img src="img/mahlowat_logo.png" title="Mahlowat Logo" class="pull-right" onclick="changeText()"/>
+	<p id="spruch" class="pull-right"></p>
+	
+      <div class="bottom-buffer top-buffer">
     
     <h1>Ergebnisse</h1>
     <form action="result-bars.php" method="post">
       <table class="table table-bordered">
-            <tr><th>Deine Wahl</th><th>Doppelt gewichten</th>
+            <tr><th style="width: 320px;">Deine Wahl</th><th>Doppelt gewichten</th>
             <?php 
             
       
@@ -94,10 +101,12 @@
             for($i = 0; $i < sizeof($ans); $i = $i + 1){
                   ($emph[$i] == 2) ? $checked = "checked='checked'" : $checked = "";
                   $btnclass = code_to_btnclass($ans[$i]);
+                  $labelclass = code_to_labelclass($ans[$i]);
                   echo "<tr>";
-                  echo "<td><a id='thesis$i' class='btn $btnclass btn-block' data-toggle='popover' data-placement='left' data-original-title='These ".($i+1)."' data-content='".$_SESSION['theses']['l'][$i]."'>".$_SESSION['theses']['s'][$i]."</a></td>
+                  echo "<td><a id='thesis$i' class='btn $btnclass btn-block' onclick='toggleNext(this)'>".$theses['s'][$i]."</a></td>
                   <td><input type='checkbox' $checked name='multiplier[]' value='q$i'></td>";
                   echo "</tr>\n";
+                  echo "<tr class='multheseslong'><td class='mtl' colspan='2'><!--<span class='label $labelclass'>These ".($i+1).": ".$theses['s'][$i]."</span><br>--> ".$theses['l'][$i]."</td></tr>";
             }
             
             ?>     
@@ -121,10 +130,17 @@
   <?php 
       
       for($i = 0; $i < sizeof($ans); $i++){
-            echo "$('#thesis".$i."').popover();";
+            echo "$('#thesis".$i."').popover();\n";
       }
       
   ?>
+  
+  $('.multheseslong').hide();
+  $('.tt').tooltip();
+  
+  function toggleNext(caller){
+	$(caller).parent().parent().next().toggle();
+  }
   </script>
 
 

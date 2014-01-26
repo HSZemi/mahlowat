@@ -24,7 +24,7 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>mahlowat - Statistik</title>
+    <title>Mahlowat - Statistik</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta content="">
     <link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
