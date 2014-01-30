@@ -7,7 +7,7 @@ Implementierung
 ---------------
 
 Reines PHP, alles im Quelltext.
-Benutzt bootstrap by Twitter.
+Benutzt bootstrap by Twitter und jQuery.
 
 Funktionen
 ----------
@@ -28,3 +28,12 @@ Im Vergleich mit den Hochschulgruppen ergibt sich folgende Bepunktung:
 * Überspringen: Frage wird ignoriert
 
 Durch doppelte Gewichtung einzelner Positionen im 2. Schritt verdoppelt sich die Punktzahl für diese.
+
+Lizenz
+------
+Dieses Projekt benutzt jQuery. jQuery ist unter der MIT LICENSE lizensiert (LICENSE-jquery.txt)
+Dieses Projekt benutzt bootstrap. bootstrap ist unter der MIT LICENSE lizensiert (LICENSE-bootstrap.txt)
+
+Dieses Projekt ('mahlowat') ist unter der MIT LICENSE lizensiert (LICENSE-mahlowat.txt)
+Falls ihr euer eigenes Wahlpositionsvergleichswerkzeug auf Basis des Mahlowat bastelt, wäre ein
+Hinweis an mahlowat@hszemi.de cool, ist aber explizit kein Muss.
