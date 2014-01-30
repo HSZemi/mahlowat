@@ -32,8 +32,10 @@ Durch doppelte Gewichtung einzelner Positionen im 2. Schritt verdoppelt sich die
 Lizenz
 ------
 Dieses Projekt benutzt jQuery. jQuery ist unter der MIT LICENSE lizensiert (LICENSE-jquery.txt)
+
 Dieses Projekt benutzt bootstrap. bootstrap ist unter der MIT LICENSE lizensiert (LICENSE-bootstrap.txt)
 
 Dieses Projekt ('mahlowat') ist unter der MIT LICENSE lizensiert (LICENSE-mahlowat.txt)
+
 Falls ihr euer eigenes Wahlpositionsvergleichswerkzeug auf Basis des Mahlowat bastelt, wäre ein
 Hinweis an mahlowat@hszemi.de cool, ist aber explizit kein Muss.
