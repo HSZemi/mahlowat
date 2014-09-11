@@ -63,9 +63,14 @@ function html_hsg_bar($hsg, $votes, $emph, $class){
       
      echo "<tr class='$class'>
      <td><b>$hsg_name</b></td><td>$party_points von $ach_points</td>
-     <td><div class='progress'><div class='bar' title='$hsg_percentage %' style='width: $hsg_percentage%;'></div></div>
+     <td><div class='progress'>
+  <div class='progress-bar' role='progressbar' aria-valuenow='$party_points' aria-valuemin='0' aria-valuemax='$ach_points' style='width: $hsg_percentage%;'>
+    $hsg_percentage %
+  </div>
+</div>
      </td>
      </tr>";
+     
 }
 
 /* unused
@@ -204,18 +209,19 @@ function code_to_answer($code){
     function hsg_get_td($hsg, $i){
       $vote = $hsg['answers'][$i];
       $popover = 'data-toggle="tooltip" data-placement="top" data-original-title="'.$hsg['comments'][$i].'"';
+      $hsgclass = "hsg-".$hsg['name'];
       
       if($vote === 'skip'){
-            return "<td><a class='btn btn-block disabled hsganswer' $popover>-</a></td>\n";
+            return "<td><a class='btn btn-default btn-block disabled hsganswer $hsgclass' $popover>-</a></td>\n";
       }
       if($vote == 1){
-            return "<td><a class='btn btn-success btn-block disabled hsganswer' $popover><i class='icon-thumbs-up'></i></a></td>\n";
+            return "<td><a class='btn btn-success btn-block disabled hsganswer $hsgclass' $popover><span class='glyphicon glyphicon-thumbs-up'></span></a></td>\n";
       }
       if($vote == 0){
-            return "<td><a class='btn btn-warning btn-block disabled hsganswer' $popover><i class='bg-icon-circle'></i></a></td>\n";
+            return "<td><a class='btn btn-warning btn-block disabled hsganswer $hsgclass' $popover><span class='glyphicon glyphicon-tree-deciduous'></span></a></td>\n";
       }
       if($vote == -1){
-            return "<td><a class='btn btn-danger btn-block disabled hsganswer' $popover><i class='icon-thumbs-down'></i></a></td>\n";
+            return "<td><a class='btn btn-danger btn-block disabled hsganswer $hsgclass' $popover><span class='glyphicon glyphicon-thumbs-down'></i></a></td>\n";
       }
     }
     
@@ -226,7 +232,7 @@ function code_to_answer($code){
       $prefix = "";
       
       if($vote === 'skip'){
-            $prefix = "<span class='label'>$name</span>\n";
+            $prefix = "<span class='label label-default'>$name</span>\n";
       }
       elseif($vote == 1){
             $prefix = "<span class='label label-success'>$name</span>\n";
@@ -235,15 +241,18 @@ function code_to_answer($code){
             $prefix = "<span class='label label-warning'>$name</span>\n";
       }
       elseif($vote == -1){
-            $prefix = "<span class='label label-important'>$name</span>\n";
+            $prefix = "<span class='label label-danger'>$name</span>\n";
       }
       
-      return $prefix . "<p>$etext</p>\n\n";
+      return "<div class='hsg-$name'>
+      $prefix 
+      <p>$etext</p>
+      </div>\n\n";
     }
     
     function code_to_btnclass($int){
       if($int === 'skip'){
-            return '';
+            return 'btn-default';
       }
       if($int == 1){
             return 'btn-success';
@@ -350,14 +359,46 @@ function code_to_answer($code){
       return $arr;
     }
     
-    function print_pagination($curr_id, $theses_count){
-	echo '<div class="pagination"><small>';
-	echo '<ul>';
+    function print_pagination($theses_count){
+	echo '<ul id="navigation" class="pagination pagination-sm">';
 	for($i = 1; $i < ($theses_count+1); $i = $i + 1){
-		echo pagitem($i, $curr_id);
+		echo "<li><a href='#$i' onclick='loadThesis($i)'>$i</a></li>";
 	}
 	echo '</ul>';
-	echo '</small></div>';
+    }
+    
+    function print_thesesbox($theses, $form=false, $hsg=null){
+      echo '<div id="thesesbox">';
+      
+      for($q_id = 0; $q_id < count($theses['l']); $q_id++){
+      echo "<div id='thesis$q_id' class='singlethesis'>";
+	echo "<h1>These ".($q_id+1)."</h1>
+    
+        <div class='well well-large statement'>
+        <p style='margin-bottom: 0px;' class='lead'>";
+            
+	echo $theses['l'][$q_id];
+
+        echo "</p>";
+       if($theses['x'][$q_id] != ''){
+			echo "<button class='btn btn-link explanationbutton'>Erklärung</button>\n";
+			echo "<div class='explic'>".$theses['x'][$q_id]."</div>";
+		}
+
+        echo "</div>";
+        
+        if($form){
+		$input = $hsg['comments'][$q_id];
+		echo "<div class='row'>
+		<div class='col-xs-12 col-sm-12 col-md-8 col-md-offset-2'>
+			<textarea id='input-$q_id' name='comments[$q_id]' class='form-control' rows='3' placeholder='Hier die Begründung eingeben...'>$input</textarea>
+		</div>
+		</div>";
+        }
+        
+        echo "</div>";
+            }
+      echo '</div>';
     }
     
 

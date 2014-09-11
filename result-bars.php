@@ -1,6 +1,4 @@
-<?php
-    session_start();
-    
+<?php    
     include 'includes/funcs.php';
     include 'includes/theses.php';
     include 'includes/hsg.php';
@@ -11,39 +9,22 @@
 
     $theses_count = sizeof($theses['s']);
     
+    $ans = Array();
+    $emph = Array();
+    $answerstring = '';
     $warning = false;
-    if(!isset($_SESSION['answers'])){
+    
+    if(!isset($_GET['ans'])){
       $warning = true;
       for($i = 0; $i < $theses_count; $i++){
-          $_SESSION['answers'][$i] = 'skip';
+          $ans[$i] = 'skip';
+          $emph[$i] = 1;
       }
-    }
-    $ans = $_SESSION['answers'];
-    
-
-    
-    if(isset($_POST['multiplier'])){
-      $_SESSION['multiplier'] = $_POST['multiplier'];
-    } 
-    
-    $emph = array();
-    for($i = 0; $i < sizeof($ans); $i = $i + 1){
-                  $emph[$i]   = 1;
-    }
-    if(isset($_SESSION['multiplier'])){
-      for($i = 0; $i < sizeof($ans); $i = $i + 1){
-            if(in_array('q'.$i, $_SESSION['multiplier'])){
-                  $emph[$i]   = 2;
-            } else {
-                  $emph[$i]   = 1;
-            }
-      }
-    }
-    
-    if(isset($_GET['ans'])){
-      $retval = result_from_string($_GET['ans'], $theses_count);
-      $ans = $retval[0];
-      $emph = $retval[1];
+    } else {
+		$answerstring = $_GET['ans'];
+		$retval = result_from_string($answerstring, $theses_count);
+		$ans = $retval[0];
+		$emph = $retval[1];
     }
     
     $hsg_array = get_hsg_array();
@@ -149,12 +130,10 @@
     
     <h1>Ergebnisse</h1>
     
-    <div class="pagination">
-        <ul>
-            <li class="active"><a href="result-bars.php">Balken</a></li>
-            <li class=""><a href="result-table.php">Stellungnahmen</a></li>
+        <ul class="pagination">
+            <li class="active"><a href="result-bars.php?ans=<?php echo $answerstring; ?>">Übersicht</a></li>
+            <li class=""><a href="result-table.php?ans=<?php echo $answerstring; ?>">Detailansicht</a></li>
         </ul>
-    </div>
     
     
       <?php if($warning && !isset($_GET['ans'])){ ?>
@@ -183,10 +162,10 @@
       </script>
      <?php } ?>
      
-     <p><small>Nicht zufrieden mit dem Ergebnis? Vielleicht willst du die Thesen <a href="multiplier.php" title="Gewichtung ändern">anders gewichten</a>.</small></p>
+     <p><small>Nicht zufrieden mit dem Ergebnis? Vielleicht willst du die Thesen <a href="multiplier.php?ans=<?php echo $answerstring; ?>" title="Gewichtung ändern">anders gewichten</a>.</small></p>
      
      <table class="table table-bordered table-hover">
-     <tr><th style="width: 200px;">Liste</th><th style="width:100px">Punkte</th><th style="width:640px;"> </th></tr>
+     <tr><th style="width: 200px;">Liste</th><th style="width:100px">Punkte</th><th style="width:640px;">Punkte</th></tr>
             <?php
                   $top = calculate_points($ans, $hsg_array[0]['answers'], $emph);
                   for($i = 0; $i < sizeof($hsg_array); $i++){
@@ -201,26 +180,24 @@
     
     <hr />
     
-    <form class="form-horizontal">
-	<div class="control-group alert">
-		<label class="control-label" for="resultlink" onclick="displayshare()"><strong>Ergebnis teilen:</strong></label>
+	<div class="control-group alert alert-info">
+		<p><strong>Ergebnis teilen:</strong></p>
 		<div class="controls sharecontrols">
-			<input type="text" class="span5" id="resultlink" placeholder="" value="result-bars.php?ans=<?php echo result_to_string($ans, $emph); ?>">
+			<input type="text" class="col-md-5 form-control" id="resultlink" placeholder="" value="result-bars.php?ans=<?php echo result_to_string($ans, $emph); ?>">
 		</div>
-		<label for="resultlink" class="sharecontrols"><strong>Achtung!</strong> Aus diesem Link kann man ablesen, welche Antworten du ausgewählt und wie du die Thesen gewichtet hast!</label>
+		<p><strong>Achtung!</strong> Aus diesem Link kann man ablesen, welche Antworten du ausgewählt und wie du die Thesen gewichtet hast!</p>
 	</div>
-    </form>
     
     
     <div id="socialshareprivacy" class="social_share_privacy clearfix 1.6.2 locale-de_DE sprite-de_DE" style="width: 330px; height: 50px;"></div>
     <div class="text-right">
       <small>Du kannst die Befragung 
-      <a href="killsession.php" title="Von vorn beginnen">neu starten</a>,
+      <a href="index.php" title="Von vorn beginnen">neu starten</a>,
       deine 
-      <a href="mahlowat.php" title="Antworten ändern">Antworten ändern</a>
+      <a href="mahlowat.php?ans=<?php echo $answerstring; ?>" title="Antworten ändern">Antworten ändern</a>
       oder die 
-      <a href="multiplier.php" title="Gewichtung ändern">Gewichtung anpassen</a>.<br />
-      Außerdem haben wir auch eine <a href="faq.php?from=result-bars.php" title="FAQ">FAQ-Seite</a>.
+      <a href="multiplier.php?ans=<?php echo $answerstring; ?>" title="Gewichtung ändern">Gewichtung anpassen</a>.<br />
+      Außerdem haben wir auch eine <a href="faq.php?from=result-bars.php?ans=<?php echo $answerstring; ?>" title="FAQ">FAQ-Seite</a>.
       </small>
     </div>
     </div>
@@ -231,6 +208,8 @@
 		var $this = $(this);
 		$this.select();
 	});
+	
+	$('#resultlink').val(window.location.href);
 	/*$('.sharecontrols').hide();
 	function displayshare(){
 		$('.sharecontrols').toggle();

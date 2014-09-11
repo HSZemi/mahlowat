@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Mahlowat</title>
@@ -102,7 +102,7 @@
     
     <p>Für ihre Stellungnahmen zu den Thesen sind die Gruppen selbst verantwortlich.</p>
     
-    <p class="text-center"><a class="btn btn-large btn-primary" href="mahlowat.php?new=42" title="Mahlowat starten">Mit der Befragung beginnen!</a></p>
+    <p class="text-center"><a class="btn btn-large btn-primary" href="mahlowat.php" title="Mahlowat starten">Mit der Befragung beginnen!</a></p>
     
     <p class="text-center"><a href="faq.php" title="Fragen und Antworten"><small>FAQ</small></a></p>
     

@@ -1,45 +1,34 @@
-<?php
-    session_start();
-    
+<?php    
     include 'includes/funcs.php';
     include 'includes/theses.php';
-    include 'includes/file.php';
     
     
     
     $theses = get_theses_array();
-    
+
     $theses_count = sizeof($theses['s']);
     
+    $ans = Array();
+    $emph = Array();
+    $answerstring = '';
     $warning = false;
-    if(!isset($_SESSION['answers'])){
+    
+    if(!isset($_GET['ans'])){
       $warning = true;
       for($i = 0; $i < $theses_count; $i++){
-          $_SESSION['answers'][$i] = 'skip';
+          $ans[$i] = 'skip';
+          $emph[$i] = 1;
       }
-    }
-    $ans = $_SESSION['answers'];
-    
-    
-    /*if(isset($_POST['multiplier'])){
-      $_SESSION['multiplier'] = $_POST['multiplier'];
-    } */
-    
-    $emph = array();
-    for($i = 0; $i < sizeof($ans); $i = $i + 1){
-                  $emph[$i]   = 1;
-    }
-    if(isset($_SESSION['multiplier'])){
-      for($i = 0; $i < sizeof($ans); $i = $i + 1){
-            if(in_array('q'.$i, $_SESSION['multiplier'])){
-                  $emph[$i]   = 2;
-            }
-      }
+    } else {
+		$answerstring = $_GET['ans'];
+		$retval = result_from_string($answerstring, $theses_count);
+		$ans = $retval[0];
+		$emph = $retval[1];
     }
     
     
 ?>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Mahlowat - Ergebnis</title>
@@ -56,33 +45,35 @@
   <script src="js/bootstrap.min.js"></script>
   <script src="js/mahlowat-m.js"></script>
   
-    <?php if($warning){ ?>
-      <div id="warning" class="modal hide fade">
-            <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h3>Hoppla...</h3>
-            </div>
-            <div class="modal-body">
-                  <p><strong>Anscheinend hast du keine Fragen beantwortet.</strong><br />
-                  Entweder musst du auf dieser Seite Cookies zulassen, oder du hast die Thesen wirklich noch nicht bearbeitet.</p> 
+    <?php if($warning){ ?>      
+	<div id="warning" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title">Hoppla...</h4>
+				</div>
+				<div class="modal-body">
+					<p><strong>Anscheinend hast du keine Fragen beantwortet.</strong><br />
+                  Entweder hast du diese Seite direkt aufgerufen, oder du hast die Thesen noch nicht bearbeitet.</p> 
                   <p>Falls letzteres zutrifft, möchten wir dir empfehlen, dies nun zu tun.</p>
-            </div>
-            <div class="modal-footer">
-                  <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Schließen</button>
-                  <a href="mahlowat.php" class="btn btn-primary">Thesen bearbeiten</a>
-            </div>
-      </div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+					<a href="mahlowat.php" class="btn btn-primary">Thesen bearbeiten</a>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
       
       <script type="text/javascript">
       $(document).ready(function() {
             setTimeout(function(){
                   $('#warning').modal('show');
-            }, 1000);
+            }, 500);
       });
       </script>
-     <?php } else {
-		add_visit(crypt($_SERVER['REMOTE_ADDR'], get_salt('./data/salt.sav')), './data/visits.sav');
-     } ?>
+     <?php } ?>
   
   <div class="container mow-container" style="margin-top: 20px;">
       <img src="img/mahlowat_logo.png" title="Mahlowat Logo" class="pull-right" onclick="changeText()"/>
@@ -91,7 +82,6 @@
       <div class="bottom-buffer top-buffer">
     
     <h1>Ergebnisse</h1>
-    <form action="result-bars.php" method="post">
       <table class="table table-bordered">
             <tr><th style="width: 320px;">Deine Wahl</th><th>Doppelt gewichten</th>
             <?php 
@@ -99,25 +89,25 @@
       
             
             for($i = 0; $i < sizeof($ans); $i = $i + 1){
-                  ($emph[$i] == 2) ? $checked = "checked='checked'" : $checked = "";
+                  ($emph[$i] == 2) ? $active = "btn-info active" : $active = "btn-default";
+                  ($emph[$i] == 2) ? $multbutton = "These wird doppelt gewichtet" : $multbutton = "These doppelt gewichten";
                   $btnclass = code_to_btnclass($ans[$i]);
                   $labelclass = code_to_labelclass($ans[$i]);
                   echo "<tr>";
                   echo "<td><a id='thesis$i' class='btn $btnclass btn-block' onclick='toggleNext(this)'>".$theses['s'][$i]."</a></td>
-                  <td><input type='checkbox' $checked name='multiplier[]' value='q$i'></td>";
+                  <td><button id='thesis$i-multiply' class='btn btn-block weight $active' data-toggle='button'>$multbutton</button></td>";
                   echo "</tr>\n";
                   echo "<tr class='multheseslong'><td class='mtl' colspan='2'><!--<span class='label $labelclass'>These ".($i+1).": ".$theses['s'][$i]."</span><br>--> ".$theses['l'][$i]."</td></tr>";
             }
             
             ?>     
       </table>
-      <button class="btn btn-primary" type="submit">Zur Auswertung</button>
-    </form>
+      <button id="commit" class="btn btn-primary">Neu Auswerten</button>
     
     <div class="text-right">
     <hr />
       <small>Du kannst die Befragung 
-      <a href="killsession.php" title="Von vorn beginnen">neu starten</a>
+      <a href="index.php" title="Von vorn beginnen">neu starten</a>
       oder deine
       <a href="mahlowat.php" title="Antworten ändern">Antworten ändern</a>.<br />
       Außerdem haben wir auch eine <a href="faq.php?from=multiplier.php" title="FAQ">FAQ-Seite</a>.
@@ -127,20 +117,94 @@
   </div>
   
   <script type="text/javascript">
-  <?php 
-      
-      for($i = 0; $i < sizeof($ans); $i++){
-            echo "$('#thesis".$i."').popover();\n";
-      }
-      
-  ?>
+  var answerstr = "<?php echo $answerstring;?>";
+  var thesescount = $('.weight').length;
+  var resultArray = getResultArray(answerstr, thesescount);
   
+  $('#commit').click(function(){
+	multipliers = $('.weight');
+	for(i = 0; i < multipliers.length; i++){
+		if(multipliers.eq(i).hasClass('btn-info')){
+			resultArray[i] = result2letter(resultArray[i], true);
+		} else {
+			resultArray[i] = result2letter(resultArray[i], false);
+		}
+	}
+	gotoResultPage(resultArray);
+  });
   $('.multheseslong').hide();
   $('.tt').tooltip();
+  
+  $('.weight').click(function(){
+		$(this).toggleClass('btn-default');
+		$(this).toggleClass('btn-info');
+		if($(this).text() == 'These doppelt gewichten'){
+			$(this).text('These wird doppelt gewichtet');
+		} else {
+			$(this).text('These doppelt gewichten');
+		}
+	});
   
   function toggleNext(caller){
 	$(caller).parent().parent().next().toggle();
   }
+  
+  function gotoResultPage(result){
+		target = "result-bars.php?ans=";
+		
+		for(i = 0; i < result.length; i++){
+			target += result[i];
+		}
+		jQuery.get("count.php");
+		window.location.href = target;
+	}
+	
+	function getResultArray(answerstring, count){
+		arr = [];
+		if(answerstring.length != count){
+			for(i = 0; i < count; i++){
+				arr[i] = 'd'; //no selection
+			}
+		} else {
+			items = answerstring.split("");
+			for(i = 0; i < items.length; i++){
+				if(items[i] <= 'f' && items[i] >= 'a'){
+					arr[i] = items[i];
+				} else {
+					arr[i] = 'd';
+				}
+			}
+		}
+		return arr;
+	}
+	
+	function result2letter(letterIn, multiply){
+		if(multiply){
+			if(letterIn == 'a'){
+				return 'e'
+			} else if(letterIn == 'b'){
+				return 'f';
+			} else if(letterIn == 'c'){
+				return 'g';
+			} else if(letterIn == 'd'){
+				return 'h';
+			} else {
+				return letterIn;
+			}
+		} else {
+			if(letterIn == 'e'){
+				return 'a';
+			} else if(letterIn == 'f'){
+				return 'b';
+			} else if(letterIn == 'g'){
+				return 'c';
+			} else if(letterIn == 'h'){
+				return 'd';
+			} else {
+				return letterIn;
+			}
+		} 
+	}
   </script>
 
 

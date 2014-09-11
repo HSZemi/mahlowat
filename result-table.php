@@ -1,42 +1,31 @@
 <?php
-    session_start();
-    
     include 'includes/funcs.php';
     include 'includes/theses.php';
     include 'includes/hsg.php';
     
-    $warning = false;
     
-
     $theses = get_theses_array();
-    
+
     $theses_count = sizeof($theses['s']);
     
-    if(!isset($_SESSION['answers'])){
+    $ans = Array();
+    $emph = Array();
+    $answerstring = '';
+    $warning = false;
+    
+    if(!isset($_GET['ans'])){
       $warning = true;
       for($i = 0; $i < $theses_count; $i++){
-          $_SESSION['answers'][$i] = 'skip';
+          $ans[$i] = 'skip';
+          $emph[$i] = 1;
       }
-    }
-    $ans = $_SESSION['answers'];
-    
-    if(isset($_POST['multiplier'])){
-      $_SESSION['multiplier'] = $_POST['multiplier'];
-    } 
-    
-    $emph = array();
-    for($i = 0; $i < sizeof($ans); $i = $i + 1){
-                  $emph[$i]   = 1;
-    }
-    if(isset($_SESSION['multiplier'])){
-      for($i = 0; $i < sizeof($ans); $i = $i + 1){
-            if(in_array('q'.$i, $_SESSION['multiplier'])){
-                  $emph[$i]   = 2;
-            }
-      }
+    } else {
+		$answerstring = $_GET['ans'];
+		$retval = result_from_string($answerstring, $theses_count);
+		$ans = $retval[0];
+		$emph = $retval[1];
     }
     
-
     $hsg_array = get_hsg_array();
     $hsg_array = sort_hsgs($ans, $hsg_array, $emph);
     
@@ -154,27 +143,25 @@
     
     <h1>Ergebnisse</h1>
     
-    <div class="pagination">
-        <ul>
-            <li class=""><a href="result-bars.php">Balken</a></li>
-            <li class="active"><a href="result-table.php">Stellungnahmen</a></li>
+        <ul class="pagination">
+            <li class=""><a href="result-bars.php?ans=<?php echo $answerstring; ?>">Übersicht</a></li>
+            <li class="active"><a href="result-table.php?ans=<?php echo $answerstring; ?>">Detailansicht</a></li>
         </ul>
-    </div>
     
-    <p><small>Thesen mit <i class="icon-star" title="Sternchen"></i> fandest du besonders wichtig.<br> Wenn du auf den Button mit dem Namen der These klickst, bekommst du die Statements der Listen in einer Übersicht angezeigt.</small></p>
+    <p><small>Thesen mit <span class="glyphicon glyphicon-star" title="Sternchen"></span> fandest du besonders wichtig.<br> Wenn du auf den Button mit dem Namen der These klickst, bekommst du die Statements der Listen in einer Übersicht angezeigt.</small></p>
     
-    <table class="table table-bordered">
-      <tr><th> </th><th>Deine Wahl</th>
+    <table class="table table-bordered" id="resulttable">
+      <tr id="tableheader"><th> </th><th>Deine Wahl</th>
       <?php 
       
       
       for($i = 0; $i < sizeof($hsg_array); $i = $i + 1){
-            echo '<th>'.$hsg_array[$i]['name_x'].' ('.calculate_points($ans, $hsg_array[$i]['answers'], $emph).')</th>';   
+            echo "<th onclick='toggleColumn(\"{$hsg_array[$i]['name']}\")'>{$hsg_array[$i]['name_x']} (".calculate_points($ans, $hsg_array[$i]['answers'], $emph).")</th>";   
       }
       echo "</tr>\n";
       
       for($i = 0; $i < $theses_count; $i = $i + 1){
-            $emph[$i]==2 ? $star = '<i class="icon-star" title="Doppelte Gewichtung"></i>' : $star = '';
+            $emph[$i]==2 ? $star = '<span class="glyphicon glyphicon-star" title="Doppelte Gewichtung"></span>' : $star = '';
             $emph[$i]==2 ? $tdcl = ' class="warning"' : $tdcl = '';
             $labelclass = code_to_labelclass($ans[$i]);
             echo "<tr$tdcl>\n";
@@ -201,12 +188,12 @@
     
     <div class="text-right">
       <small>Du kannst die Befragung 
-      <a href="killsession.php" title="Von vorn beginnen">neu starten</a>,
+      <a href="index.php" title="Von vorn beginnen">neu starten</a>,
       deine 
-      <a href="mahlowat.php" title="Antworten ändern">Antworten ändern</a>
+      <a href="mahlowat.php?ans=<?php echo $answerstring; ?>" title="Antworten ändern">Antworten ändern</a>
       oder die 
-      <a href="multiplier.php" title="Gewichtung ändern">Gewichtung anpassen</a>.<br />
-      Außerdem haben wir auch eine <a href="faq.php?from=result-table.php" title="FAQ">FAQ-Seite</a>.
+      <a href="multiplier.php?ans=<?php echo $answerstring; ?>" title="Gewichtung ändern">Gewichtung anpassen</a>.<br />
+      Außerdem haben wir auch eine <a href="faq.php?from=result-table.php?ans=<?php echo $answerstring; ?>" title="FAQ">FAQ-Seite</a>.
       </small>
     </div>
     </div>
@@ -219,6 +206,10 @@
       $('.tt').tooltip();
       function toggleNext(caller){
           $(caller).parent().parent().next().toggle();
+      }
+      
+      function toggleColumn(hsgname){
+		$('.hsg-'+hsgname).toggle();
       }
   </script>
 

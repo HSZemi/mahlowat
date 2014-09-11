@@ -4,7 +4,7 @@ body {
 }
 
 .hsganswer{
-      width: 30px;
+      width: 80px;
 	padding-left: auto;
 	padding-right: auto;
 	margin-left: auto;
@@ -12,37 +12,13 @@ body {
 }
     
 .statement {
-    /*border-width: 1px;
-    border-style: solid;
-    border-color: rgb(221, 221, 221);
-    padding: 8px 35px 8px 14px;
-    -webkit-border-radius: 6px 6px 6px 6px;
-     -moz-border-radius: 6px 6px 6px 6px;
-          border-radius: 6px 6px 6px 6px;*/
     min-height: 90px;
 }
 
-.bg-icon-circle {
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      margin-top: 1px;
-      *margin-right: .3em;
-      line-height: 14px;
-      vertical-align: text-top;
-      background-image: url("../img/circle.png");
-      /*background-position: 14px 14px;*/
-      background-repeat: no-repeat;
+#thesesbox{
+	min-height: 250px;
 }
 
-.bg-icon-circle.icon-white {
-      background-image: url("../img/circle-white.png");
-      background-position: 0px 0px;
-}
-
-.progress {
-	margin-bottom: 0px;
-}
 
 .top-buffer { 
     margin-top:80px; 
@@ -52,82 +28,33 @@ body {
     margin-bottom:60px; 
 }
 
-@media (min-width: 767px) {
-    .post {
-        max-width: 570px;
-        margin-left: 1em;
-        margin-right: 1em;
-    }
+.pagination > .pagination-yes > a {
+    color: #FFF;
+    background-color: #5CB85C;
+}
+.pagination > .active.pagination-yes > a {
+    color: #FFF;
+    background-color: #428BCA;
+}
+.pagination > .pagination-neutral > a {
+    color: #FFF;
+    background-color: #F0AD4E;
+}
+.pagination > .active.pagination-neutral > a {
+    color: #FFF;
+    background-color: #428BCA;
+}
+.pagination > .pagination-no > a {
+    color: #FFF;
+    background-color: #D9534F;
+}
+.pagination > .active.pagination-no > a {
+    color: #FFF;
+    background-color: #428BCA;
 }
 
-#updates {
-    /*background-color: #00ffff;*/
-}
-
-#postingarea {
-    /*padding: 1em;*/
-}
-
-#adminpagecontent {
-    margin-top: 20px;
-}
-
-#header {
-    padding: 1em;
-}
-
-#options {
-    padding-left: 1em;
-}
-
-#formathelp {
-    background-color: #eee;
-    /*float:right;*/
-    -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
-          border-radius: 6px;
-    /*margin: 1em;*/
-    padding: 1em;
-}
-
-.b {
-    font-weight: bold;
-}
-
-.i {
-    font-style: italic;
-}
-
-.red {
-    color: #d00;
-}
-
-.blue {
-    color: #00d;
-}
-
-.green {
-    color: #0a0;
-}
-
-td.code {
-    font-family: monospace;
-}
-
-.pagination small ul > li > a{
-	padding: 2px 4px;
-}
-
-#spruch{
-	margin-top: 30px;
-}
-
-
-@media (min-width: 1200px) {
-
-.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
-    width: 940px;
-}
+.progress {
+	margin-bottom: 0px;
 }
 
 @media (min-width: 767px) {
@@ -142,27 +69,4 @@ td.code {
     margin-left: auto;
     margin-right: auto;
     display: block;
-}
-
-label {
-    display: block;
-    padding-left: 15px;
-    text-indent: -15px;
-}
-input {
-    width: 13px;
-    height: 13px;
-    padding: 0;
-    margin: 0;
-    vertical-align: bottom;
-    position: relative;
-    top: -1px;
-    *overflow: hidden;
-}
-
-.multheseslong, .mtl, .table .mtl{
-	border-top: hidden;
-}
-
-
 }

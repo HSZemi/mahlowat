@@ -1,10 +1,10 @@
 <?php 
 	isset($_GET['from']) ? $back = $_GET['from'] : $back = "index.php";
-	if($back != 'index.php' and $back != 'multiplier.php' and $back != 'result-bars.php' and $back != 'result-table.php' and substr($back, 0, 18) != 'mahlowat.php?id='){
+	if($back != 'index.php' and substr($back, 0, 14) != 'multiplier.php' and substr($back, 0, 15) != 'result-bars.php' and substr($back, 0, 16) != 'result-table.php' and substr($back, 0, 14) != 'mahlowat.php'){
 		$back = "index.php";
 	}
 ?>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Mahlowat - FAQ</title>

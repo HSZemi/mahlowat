@@ -56,7 +56,11 @@
       
 				echo "<tr class='$class'>
 				<td><b>$day</b></td><td>$dayvisitors</td>
-				<td><div class='progress'><div class='bar' title='$dayvisitors' style='width: $day_percentage%;'></div></div>
+				<td><div class='progress'>
+					<div class='progress-bar' role='progressbar' aria-valuenow='$dayvisitors' aria-valuemin='0' aria-valuemax='$max_visitors' style='width: $day_percentage%;'>
+						$dayvisitors
+					</div>
+				</div>
 				</td>
 				</tr>";
                   }
@@ -67,7 +71,7 @@
      
      <div class="well">
      <h1>Durchläufe</h1>
-	<p>Wie oft wurde die Gewichtungs-Seite aufgerufen?</p>
+	<p>Wie oft wurde eine Auswertung vorgenommen? (Letzte Frage oder Gewichtungsseite)</p>
      
      <table class="table table-bordered table-hover">
      <tr><th style="width: 200px;">Datum</th><th style="width:100px">Durchläufe</th><th style="width:640px;">&nbsp;</th></tr>
@@ -88,7 +92,11 @@
       
 				echo "<tr class='$class'>
 				<td><b>$day</b></td><td>$dayvisits</td>
-				<td><div class='progress'><div class='bar' title='$dayvisits' style='width: $day_percentage2%;'></div></div>
+				<td><div class='progress'>
+					<div class='progress-bar' role='progressbar' aria-valuenow='$dayvisits' aria-valuemin='0' aria-valuemax='$max_visits' style='width: $day_percentage2%;'>
+						$dayvisits
+					</div>
+				</div>
 				</td>
 				</tr>";
                   }

@@ -89,10 +89,42 @@ function get_salt($hashfile){
 		}
 		return $hash[1];
 	} else {
-		echo "<!-- ERROR $file kann nicht gelesen werden! -->";
+		echo "<!-- ERROR $hashfile kann nicht gelesen werden! -->";
 		return 1;
 	}
 	
+}
+
+function load_var($file){
+	if(!file_exists($file)){
+		return null;
+	}
+	if(is_readable($file)){
+	
+		$handle = fopen($file, 'r');
+		$contents = fread($handle, filesize($file));
+		fclose($handle);
+		
+		$var = unserialize($contents);
+		return $var;
+	} else {
+		echo "<!-- ERROR $file kann nicht gelesen werden! -->";
+		return null;
+	}
+}
+
+function save_var($file, $var){
+	if(is_writable($file) or (is_writable(dirname($file)) and !file_exists($file))){
+	
+		$handle = fopen($file, 'w');
+		if (!fwrite($handle, serialize($var))) {
+			echo "<!-- ERROR Kann in die Datei $file nicht schreiben -->";
+		}
+		fclose($handle);
+		
+	} else {
+		echo "<!-- ERROR $file nicht beschreibbar! -->";
+	}
 }
     
 
