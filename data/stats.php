@@ -3,6 +3,12 @@
     
     $visits = get_visits('', 'visits.sav');
     
+    $nocount = $visits['nocount'];
+    $answers = $visits['ans'];
+    
+    unset($visits['nocount']);
+    unset($visits['ans']);
+    
     $max_visitors = 0;
     foreach($visits as $value){
         if(sizeof($value) > $max_visitors){
@@ -104,6 +110,24 @@
 
      </table>
      </div>
+     
+      <div class="well">
+      <h1>Nicht gezählte Aufrufe</h1>
+      <p><span class="label label-primary"><?php echo $nocount;?></span> Aufrufe wurden nicht gespeichert.</p>
+      </div>
+     
+      <div class="well">
+      <h1>Antworten</h1>
+      <p>
+      <?php 
+		foreach($answers as $key => $value){
+			foreach($value as $k => $ans){
+				echo "$ans<br>\n";
+			}
+		}
+      ?>
+      </p>
+      </div>
      
       
   </div>

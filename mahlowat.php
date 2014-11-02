@@ -74,16 +74,16 @@
 		<p class='text-center'><button id="weight" type="button" class="btn btn-default" data-toggle="button">These doppelt gewichten</button></p>
 
 			<div class="row">
-			<div class="col-xs-12 col-sm-3 col-md-2 col-md-offset-2">
+			<div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-2">
 				<button id='yes' type='submit' class='btn btn-success btn-block' name='yes' onclick="nextThesis('a')"><span class="glyphicon glyphicon-thumbs-up"></span> Zustimmung</button>
 			</div>
-			<div class="col-xs-12 col-sm-3 col-md-2 ">
+			<div class="col-xs-12 col-sm-12 col-md-2 ">
 				<button id='neutral' type='submit' class='btn btn-warning btn-block' name='neutral' onclick="nextThesis('b')"><span class="glyphicon glyphicon-tree-deciduous"></span> Neutral</button>
 			</div>
-			<div class="col-xs-12 col-sm-3 col-md-2">
+			<div class="col-xs-12 col-sm-12 col-md-2">
 				<button id='no' type='submit' class='btn btn-danger btn-block' name='no' onclick="nextThesis('c')"><span class="glyphicon glyphicon-thumbs-down"></span> Ablehnung</button>
 			</div>
-			<div class="col-xs-12 col-sm-3 col-md-2">
+			<div class="col-xs-12 col-sm-12 col-md-2">
 				<button id='skip' type='submit' class='btn btn-default btn-block' name='skip' onclick="nextThesis('d')"><span class="glyphicon glyphicon-share-alt"></span> Überspringen</button>
 			</div>
 			</div>
@@ -118,9 +118,10 @@
 			$('#weight').text('These doppelt gewichten');
 		}
 	});
-	$('.explanationbutton').click(function(){
+	$('.explanationbutton').click(function(event){
+		event.preventDefault();
 		$('.explic').toggle();
-	})
+	});
 	
 	thesesboxes = $('.singlethesis');	
 	pagination = $('#navigation li');
@@ -142,7 +143,7 @@
 	});
 	
 	function gotoResultPage(result){
-		target = "result-bars.php?ans=";
+		target = "result.php?ans=";
 		
 		for(i = 0; i < result.length; i++){
 			target += result[i];
@@ -161,12 +162,27 @@
 	
 	function callResult(count){
 		if(count){
-			jQuery.get("count.php",function( data ) {
-				window.location.href = target;
+			url = "count.php?ans=";
+			ans = ""
+			for(i = 0; i < resultArray.length; i++){
+				ans += resultArray[i];
+			}
+			url = url + ans;
+			jQuery.get(url,function( data ) {
+				//window.location.href = target;
+				callPage(ans);
 			});
 		} else {
-			window.location.href = target;
+			jQuery.get("count.php?false",function( data ) {
+				window.location.href = target;
+			});
 		}
+	}
+	
+	function callPage(data){
+		var action = 'result.php'
+		var html = "<input name='ans' value='"+data+"'/>";
+		$('<form style="display: none;" method="post"/>').attr('action', action).html(html).appendTo('body').submit();
 	}
 	
 	function nextThesis(selection){

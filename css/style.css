@@ -3,6 +3,37 @@ body {
     /*padding: 0em 0.5em 1em 0.5em;*/
 }
 
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+@media (max-width: 992px) and (min-resolution: 100dpi) and (orientation:portrait) {
+	.btn-block{
+		font-size: 32px;
+		height: 120px;
+	}
+	.btn{
+		font-size: 32px;
+	}
+}
+
 .hsganswer{
       width: 80px;
 	padding-left: auto;

@@ -212,16 +212,16 @@ function code_to_answer($code){
       $hsgclass = "hsg-".$hsg['name'];
       
       if($vote === 'skip'){
-            return "<td><a class='btn btn-default btn-block disabled hsganswer $hsgclass' $popover>-</a></td>\n";
+            return "<td class='hidden-xs hidden-sm $hsgclass'><a class='btn btn-default btn-block disabled hsganswer' $popover>-</a></td>\n";
       }
       if($vote == 1){
-            return "<td><a class='btn btn-success btn-block disabled hsganswer $hsgclass' $popover><span class='glyphicon glyphicon-thumbs-up'></span></a></td>\n";
+            return "<td class='hidden-xs hidden-sm $hsgclass'><a class='btn btn-success btn-block disabled hsganswer' $popover><span class='glyphicon glyphicon-thumbs-up'></span></a></td>\n";
       }
       if($vote == 0){
-            return "<td><a class='btn btn-warning btn-block disabled hsganswer $hsgclass' $popover><span class='glyphicon glyphicon-tree-deciduous'></span></a></td>\n";
+            return "<td class='hidden-xs hidden-sm $hsgclass'><a class='btn btn-warning btn-block disabled hsganswer' $popover><span class='glyphicon glyphicon-tree-deciduous'></span></a></td>\n";
       }
       if($vote == -1){
-            return "<td><a class='btn btn-danger btn-block disabled hsganswer $hsgclass' $popover><span class='glyphicon glyphicon-thumbs-down'></i></a></td>\n";
+            return "<td class='hidden-xs hidden-sm $hsgclass'><a class='btn btn-danger btn-block disabled hsganswer' $popover><span class='glyphicon glyphicon-thumbs-down'></i></a></td>\n";
       }
     }
     

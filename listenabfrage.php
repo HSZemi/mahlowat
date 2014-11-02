@@ -170,10 +170,10 @@
 	});
 	
 	
-	function etoggle(){
-		$(this).prev
+	$('.explanationbutton').click(function(event){
+		event.preventDefault();
 		$('.explic').toggle();
-	}
+	});
 	
 	function setThesis(selection){
 		resultArray[activeThesis] = result2letter(selection, false);

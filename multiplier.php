@@ -150,7 +150,7 @@
   }
   
   function gotoResultPage(result){
-		target = "result-bars.php?ans=";
+		target = "result.php?ans=";
 		
 		for(i = 0; i < result.length; i++){
 			target += result[i];

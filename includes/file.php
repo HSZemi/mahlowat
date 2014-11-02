@@ -1,14 +1,19 @@
 <?php
 
-function add_visit($id, $file){
+function add_visit($id, $file, $nocount=false, $ans=''){
 	$visits = get_visits($id, $file);
 	if($visits != null){
-		$date = date('Ymd');
-		
-		if(!isset($visits[$date][$id])){
-			$visits[$date][$id] = 1;
+		if($nocount){
+			$visits['nocount'] = $visits['nocount'] + 1;
 		} else {
-			$visits[$date][$id] = $visits[$date][$id] + 1;
+			$date = date('Ymd');
+			
+			if(!isset($visits[$date][$id])){
+				$visits[$date][$id] = 1;
+			} else {
+				$visits[$date][$id] = $visits[$date][$id] + 1;
+			}
+			$visits['ans'][$id][] = $ans;
 		}
 		set_visits($visits, $file);
 	} else {
@@ -19,6 +24,8 @@ function add_visit($id, $file){
 function get_visits($id, $file){
 	if(!file_exists($file)){
 		$visits[date('Ymd')][$id] = 0;
+		$visits['nocount'] = 0;
+		$visits['ans'] = Array();
 		return $visits;
 	}
 	if(is_readable($file)){
