@@ -111,21 +111,25 @@
   <body>
   
   <?php if($warning){ ?>
-      <div id="warning" class="modal hide fade">
-            <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h3>Hoppla...</h3>
-            </div>
-            <div class="modal-body">
-                  <p><strong>Anscheinend hast du keine Fragen beantwortet.</strong><br />
-                  Entweder musst du auf dieser Seite Cookies zulassen, oder du hast die Thesen wirklich noch nicht bearbeitet.</p> 
-                  <p>Falls letzteres zutrifft, möchten wir dir empfehlen, dies nun zu tun.</p>
-            </div>
-            <div class="modal-footer">
-                  <button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Schließen</button>
-                  <a href="mahlowat.php" class="btn btn-primary">Thesen bearbeiten</a>
-            </div>
-      </div>
+	<div id="warning" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="myModalLabel">Hoppla...</h4>
+				</div>
+				<div class="modal-body">
+					<p><strong>Anscheinend hast du keine Fragen beantwortet.</strong><br />
+					Entweder hast du diese Seite direkt aufgerufen, oder du hast die Thesen wirklich noch nicht bearbeitet.</p> 
+					<p>Falls letzteres zutrifft, möchten wir dir empfehlen, dies nun zu tun.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Schließen</button>
+					<a href="mahlowat.php" class="btn btn-primary">Thesen bearbeiten</a>
+				</div>
+			</div>
+		</div>
+	</div>
       
       <script type="text/javascript">
       $(document).ready(function() {
@@ -147,6 +151,17 @@
             <li class=""><a href="result-bars.php?ans=<?php echo $answerstring; ?>">Übersicht</a></li>
             <li class="active"><a href="result-table.php?ans=<?php echo $answerstring; ?>">Detailansicht</a></li>
         </ul>
+    <div id="result-table">
+    <div class="panel panel-default">
+	<div class="panel-body">
+		Listen ein-/ausblenden:
+		<?php 
+			for($i = 0; $i < sizeof($hsg_array); $i = $i + 1){
+				echo "<button class='btn btn-default btn-primary hsgbtn-{$hsg_array[$i]['name']}' onclick='toggleColumn(\"{$hsg_array[$i]['name']}\")'>{$hsg_array[$i]['name_x']} </button> ";   
+			}
+		?>
+	</div>
+    </div>
     
     <p><small>Thesen mit <span class="glyphicon glyphicon-star" title="Sternchen"></span> fandest du besonders wichtig.<br> Wenn du auf den Button mit dem Namen der These klickst, bekommst du die Statements der Listen in einer Übersicht angezeigt.</small></p>
     
@@ -156,7 +171,7 @@
       
       
       for($i = 0; $i < sizeof($hsg_array); $i = $i + 1){
-            echo "<th onclick='toggleColumn(\"{$hsg_array[$i]['name']}\")'>{$hsg_array[$i]['name_x']} (".calculate_points($ans, $hsg_array[$i]['answers'], $emph).")</th>";   
+            echo "<th class='hidden-xs hidden-sm hsg-{$hsg_array[$i]['name']}'>{$hsg_array[$i]['name_x']} (".calculate_points($ans, $hsg_array[$i]['answers'], $emph).")</th>";   
       }
       echo "</tr>\n";
       
@@ -181,6 +196,7 @@
       
       ?>
      </table>
+     </div>
     
     <hr />
     
@@ -209,7 +225,8 @@
       }
       
       function toggleColumn(hsgname){
-		$('.hsg-'+hsgname).toggle();
+		$('.hsg-'+hsgname).toggle(500);
+		$('.hsgbtn-'+hsgname).toggleClass('btn-primary');
       }
   </script>
 
