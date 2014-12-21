@@ -3,9 +3,35 @@
     include 'includes/theses.php';
     include 'includes/file.php';
     
+     $css = Array();
+	$css[0] = "bootstrap.min.css";
+	$css[1] = "cerulean.min.css";
+	$css[2] = "cosmo.min.css";
+	$css[3] = "cyborg.min.css";
+	$css[4] = "darkly.min.css";
+	$css[5] = "flatly.min.css";
+	$css[6] = "journal.min.css";
+	$css[7] = "lumen.min.css";
+	$css[8] = "paper.min.css";
+	$css[9] = "readable.min.css";
+	$css[10] = "sandstone.min.css";
+	$css[11] = "simplex.min.css";
+	$css[12] = "slate.min.css";
+	$css[13] = "spacelab.min.css";
+	$css[14] = "superhero.min.css";
+	$css[15] = "united.min.css";
+	$css[16] = "yeti.min.css";
+	$css_id = 9;
+	if(isset($_GET['css'])){
+		$css_id = intval($_GET['css']);
+		if($css_id < 0 || $css_id > 16){
+			$css_id = 0;
+		}
+	}
+    
     $theses = get_theses_array();
 
-    $theses_count = sizeof($theses['s']);
+    $theses_count = sizeof($theses);
 
     $listid = '0';
     $ans = Array();
@@ -15,18 +41,18 @@
     
     $hsg_array = load_var('data/lists.sav');
     if($hsg_array == null){
-	$hsg_array['897316929176464ebc9ad085f31e7284']['name'] = 'GHG';
-      $hsg_array['897316929176464ebc9ad085f31e7284']['name_x'] = '<abbr title="Grüne Hochschulgruppe - campus:grün">GHG</abbr>';
-      $hsg_array['b026324c6904b2a9cb4b88d6d61c81d1']['name'] = 'RCDS';
-      $hsg_array['b026324c6904b2a9cb4b88d6d61c81d1']['name_x'] = '<abbr title="Ring Christlich-Demokratischer Studenten (RCDS) &amp; Unabhängige">RCDS</abbr>';
-      $hsg_array['6d7fce9fee471194aa8b5b6e47267f03']['name'] = 'Juso-HSG';
-      $hsg_array['6d7fce9fee471194aa8b5b6e47267f03']['name_x'] = '<abbr title="Juso-Hochschulgruppe">Juso-HSG</abbr>';
-      $hsg_array['48a24b70a0b376535542b996af517398']['name'] = 'LHG';
-      $hsg_array['48a24b70a0b376535542b996af517398']['name_x'] = '<abbr title="Liberale Hochschulgruppe an der Uni Bonn (LHG)">LHG</abbr>';
-      $hsg_array['1dcca23355272056f04fe8bf20edfce0']['name'] = 'LUST';
-      $hsg_array['1dcca23355272056f04fe8bf20edfce0']['name_x'] = '<abbr title="Liste Undogmatischer StudentInnen (LUST)">LUST</abbr>';
-      $hsg_array['9ae0ea9e3c9c6e1b9b6252c8395efdc1']['name'] = 'Piraten';
-      $hsg_array['9ae0ea9e3c9c6e1b9b6252c8395efdc1']['name_x'] = '<abbr title="Piraten-Hochschulgruppe Bonn">Piraten</abbr>';
+	$hsg_array['1ad4840c16828271436c6636054da62d']['name'] = 'Liste X';
+      $hsg_array['1ad4840c16828271436c6636054da62d']['name_x'] = '<abbr title="Liste X">Liste X</abbr>';
+      $hsg_array['ae93aa78de04952d385e541a15275081']['name'] = 'STIFT';
+      $hsg_array['ae93aa78de04952d385e541a15275081']['name_x'] = '<abbr title="Kugelschreibär">STIFT</abbr>';
+      $hsg_array['4fe2cc303fb2017b111361eebc386b84']['name'] = 'Liste Oben';
+      $hsg_array['4fe2cc303fb2017b111361eebc386b84']['name_x'] = '<abbr title="Liste Oben">Liste Oben</abbr>';
+      $hsg_array['b5caa1eb73da98608289d88ed26bd872']['name'] = 'TACKER';
+      $hsg_array['b5caa1eb73da98608289d88ed26bd872']['name_x'] = '<abbr title="The ACKERdemikerliste">TACKER</abbr>';
+      $hsg_array['21240209d7f115b04c84c55302df3234']['name'] = 'Vitamin B';
+      $hsg_array['21240209d7f115b04c84c55302df3234']['name_x'] = '<abbr title="Vitamin B">Vitamin B</abbr>';
+      $hsg_array['463e03d2ad30715b15015d7ca5151e31']['name'] = 'NEIN';
+      $hsg_array['463e03d2ad30715b15015d7ca5151e31']['name_x'] = '<abbr title="Niemals nicht">NEIN</abbr>';
     }
     
     if(isset($_GET['listid']) and array_key_exists($_GET['listid'], $hsg_array)){
@@ -48,6 +74,7 @@
 		$hsg_array[$listid]['comments'] = $comments;
 		for($i=0; $i<sizeof($hsg_array[$listid]['comments']); $i++){
 			$hsg_array[$listid]['comments'][$i] = htmlspecialchars($hsg_array[$listid]['comments'][$i]);
+			$hsg_array[$listid]['comments'][$i] = substr($hsg_array[$listid]['comments'][$i], 0, 400);
 		}
 	}
 	if(isset($_GET['ans'])){
@@ -77,8 +104,8 @@
     <title>Mahlowat: Listenabfrage</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta content="">
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">-->
+    <link href="css/<?php echo $css[$css_id];?>" rel="stylesheet" media="screen">
     
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
@@ -94,9 +121,17 @@
 	
 	<h4>Herzlich willkommen zur Listenabfrage!</h4>
 	<p><b>Hallo <?php echo $hsg_array[$listid]['name'];?>!</b></p>
+	
+	<p class="pull-right"><button id='save' class="btn btn-primary">Alle Antworten Speichern</button></p>
+	
 	<p>Bitte wählt eure Antworten aus und tragt eure Begründungen in das vorgesehene Feld ein.<br>
+	Begründungen werden bei 400 Zeichen abgeschnitten. Ja, das ist Absicht.<br>
 	Mit den Pfeiltasten könnt ihr zwischen den einzelnen Thesen wechseln.<br>
 	<b>Vergesst nicht, zwischendurch und am Ende zu speichern!</b></p>
+	<p>Ihr habt bereits <span class="label label-primary" id="answered_questions_count">4</span> 
+	von <span class="label label-primary" id="overall_questions_count">4</span> 
+	Fragen beantwortet. <span class="label label-warning" id="unsaved_changes">Es gibt ungesicherte Änderungen. Bitte vor Verlassen speichern.</span></p>
+	
   
 		<?php print_pagination($theses_count); ?>
 		
@@ -105,6 +140,8 @@
 		<?php print_thesesbox($theses, true, $hsg_array[$listid]); ?>
 		
 		</form>
+		
+		<hr/>
 
 			<div class="row">
 			<div class="col-xs-6 col-xs-offset-3 col-sm-2 col-md-1 col-md-offset-1">
@@ -127,7 +164,7 @@
 			</div>
 			</div>
 			<hr>
-		<p class="text-center"><button id='save' class="btn btn-primary">Antworten Speichern</button></p>
+		
 	</div>
   </div>
   <script type="text/javascript">
@@ -138,6 +175,7 @@
   $(function(){
 	$('.tt').tooltip();
 	$('.explic').hide();
+	$('#unsaved_changes').hide();
 	
 	thesesboxes = $('.singlethesis');	
 	pagination = $('#navigation li');
@@ -145,6 +183,7 @@
 	resultArray = getResultArray(answerstring, thesesboxes.length);
 	
 	setPaginationColors(resultArray);
+	thesesboxes.hide();
 	
 	// Remove the # from the hash, as different browsers may or may not include it
 	var hash = location.hash.replace('#','');
@@ -167,6 +206,10 @@
 		$("#thesesform").submit();
 	});
 	
+	$('[id^=input-]').change(function(){$('#unsaved_changes').show();})
+	
+	updateStatistics();
+	
 	});
 	
 	
@@ -175,12 +218,43 @@
 		$('.explic').toggle();
 	});
 	
+	// left and right keys
+	$(window).keypress(function(e){
+		var code = e.which || e.keyCode;
+		switch ( code )
+		{
+		case 37: //left
+			prevThesis();
+			break;
+		case 39: //right
+			nextThesis();
+			break;
+		default:
+			break;
+		}
+	});
+	
 	function setThesis(selection){
 		resultArray[activeThesis] = result2letter(selection, false);
 		pagination.eq(activeThesis).removeClass('pagination-yes pagination-neutral pagination-no');
 		pagination.eq(activeThesis).addClass(letter2paginationclass(selection));
 		setClasses(resultArray[activeThesis]);
+		updateStatistics();
+		$('#unsaved_changes').show();
 	}
+	
+	function updateStatistics(){
+		answeredcount = 0;
+		for(i = 0; i < resultArray.length; i++){
+			if(resultArray[i] != 'd'){
+				answeredcount++;
+			}
+		}
+		$('#answered_questions_count').text(answeredcount);
+		$('#overall_questions_count').text(resultArray.length);
+	}
+	
+	function countChanges(){}
 	
 	function nextThesis(){
 		loadThesis(activeThesis+2);
@@ -190,7 +264,7 @@
 		loadThesis(activeThesis);
 	}
 	
-	function loadThesis(number){
+	function loadThesis(number){		
 		if(number > thesesboxes.length){
 			number = 1;
 		}
@@ -198,12 +272,12 @@
 			number = thesesboxes.length;
 		}
 		activeThesis = number-1;
-		thesesboxes.hide();
+		thesesboxes.slideUp();
 		pagination.removeClass('active');
 		
 		setClasses(resultArray[activeThesis]);
 		
-		thesesboxes.eq(number-1).show();
+		thesesboxes.eq(number-1).slideDown();
 		pagination.eq(number-1).addClass('active');
 		location.hash = number;
 

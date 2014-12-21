@@ -2,6 +2,14 @@
 
 include '../includes/file.php';
 
+function r($item){
+	if($item === 'skip'){
+		return "'skip'";
+	} else {
+		return $item;
+	}
+}
+
 $hsg_array_s = load_var('lists.sav');
 $hsg_array = Array();
 if($hsg_array_s != null){
@@ -28,9 +36,9 @@ function get_hsg_array(){
 ";
 		if(isset($hsg_array[$i]['answers'])){
 			echo "	\$hsg_array[$i]['answers'] = Array(";
-			echo "{$hsg_array[$i]['answers'][0]}";
+			echo r($hsg_array[$i]['answers'][0]);
 			for($a=1;$a<sizeof($hsg_array[$i]['answers']);$a++){
-				echo ','.$hsg_array[$i]['answers'][$a];
+				echo ','.r($hsg_array[$i]['answers'][$a]);
 			}
 			echo ");
 	";

@@ -208,20 +208,19 @@ function code_to_answer($code){
 
     function hsg_get_td($hsg, $i){
       $vote = $hsg['answers'][$i];
-      $popover = 'data-toggle="tooltip" data-placement="top" data-original-title="'.$hsg['comments'][$i].'"';
       $hsgclass = "hsg-".$hsg['name'];
       
       if($vote === 'skip'){
-            return "<td class='hidden-xs hidden-sm $hsgclass'><a class='btn btn-default btn-block disabled hsganswer' $popover>-</a></td>\n";
+            return "<td class='hidden-xs hidden-sm $hsgclass'><a class='btn btn-default btn-block disabled hsganswer' >-</a></td>\n";
       }
       if($vote == 1){
-            return "<td class='hidden-xs hidden-sm $hsgclass'><a class='btn btn-success btn-block disabled hsganswer' $popover><span class='glyphicon glyphicon-thumbs-up'></span></a></td>\n";
+            return "<td class='hidden-xs hidden-sm $hsgclass'><a class='btn btn-success btn-block disabled hsganswer' ><span class='glyphicon glyphicon-thumbs-up'></span></a></td>\n";
       }
       if($vote == 0){
-            return "<td class='hidden-xs hidden-sm $hsgclass'><a class='btn btn-warning btn-block disabled hsganswer' $popover><span class='glyphicon glyphicon-tree-deciduous'></span></a></td>\n";
+            return "<td class='hidden-xs hidden-sm $hsgclass'><a class='btn btn-warning btn-block disabled hsganswer' ><span class='glyphicon glyphicon-tree-deciduous'></span></a></td>\n";
       }
       if($vote == -1){
-            return "<td class='hidden-xs hidden-sm $hsgclass'><a class='btn btn-danger btn-block disabled hsganswer' $popover><span class='glyphicon glyphicon-thumbs-down'></i></a></td>\n";
+            return "<td class='hidden-xs hidden-sm $hsgclass'><a class='btn btn-danger btn-block disabled hsganswer' ><span class='glyphicon glyphicon-thumbs-down'></i></a></td>\n";
       }
     }
     
@@ -370,19 +369,19 @@ function code_to_answer($code){
     function print_thesesbox($theses, $form=false, $hsg=null){
       echo '<div id="thesesbox">';
       
-      for($q_id = 0; $q_id < count($theses['l']); $q_id++){
+      for($q_id = 0; $q_id < count($theses); $q_id++){
       echo "<div id='thesis$q_id' class='singlethesis'>";
 	echo "<h1>These ".($q_id+1)."</h1>
     
         <div class='well well-large statement'>
         <p style='margin-bottom: 0px;' class='lead'>";
             
-	echo $theses['l'][$q_id];
+	echo $theses[$q_id]['l'];
 
         echo "</p>";
-       if($theses['x'][$q_id] != ''){
+       if($theses[$q_id]['x'] != ''){
 			echo "<button class='btn btn-link explanationbutton'>Erklärung</button>\n";
-			echo "<div class='explic'>".$theses['x'][$q_id]."</div>";
+			echo "<div class='explic'>".$theses[$q_id]['x']."</div>";
 		}
 
         echo "</div>";

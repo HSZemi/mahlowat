@@ -1,4 +1,0 @@
-  * Es ist nicht klar, dass der "Antworten speichern"-Knopf ALLE Antworten speichert und 
-    theoretisch nicht zwischendurch noch gespeichert werden muss.
-  * Eine Rückmeldung, dass das Speichern geklappt hat, wäre hilfreich.
-  * Wörter bei Eingabe zählen.

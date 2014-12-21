@@ -1,28 +1,64 @@
 <?php    
     include 'includes/funcs.php';
     include 'includes/theses.php';
+	$css = Array();
+	$css[0] = "bootstrap.min.css";
+	$css[1] = "cerulean.min.css";
+	$css[2] = "cosmo.min.css";
+	$css[3] = "cyborg.min.css";
+	$css[4] = "darkly.min.css";
+	$css[5] = "flatly.min.css";
+	$css[6] = "journal.min.css";
+	$css[7] = "lumen.min.css";
+	$css[8] = "paper.min.css";
+	$css[9] = "readable.min.css";
+	$css[10] = "sandstone.min.css";
+	$css[11] = "simplex.min.css";
+	$css[12] = "slate.min.css";
+	$css[13] = "spacelab.min.css";
+	$css[14] = "superhero.min.css";
+	$css[15] = "united.min.css";
+	$css[16] = "yeti.min.css";
+	$css_id = 9;
+	if(isset($_GET['css'])){
+		$css_id = intval($_GET['css']);
+		if($css_id < 0 || $css_id > 16){
+			$css_id = 0;
+		}
+	}
     
     $theses = get_theses_array();
 
-    $theses_count = sizeof($theses['s']);
+    $theses_count = sizeof($theses);
     
     $ans = Array();
     $emph = Array();
     $answerstring = '';
     $warning = false;
+    $count = 'undefined';
     
-    if(!isset($_GET['ans'])){
-      $warning = true;
-      for($i = 0; $i < $theses_count; $i++){
-          $ans[$i] = 'skip';
-          $emph[$i] = 1;
-      }
-    } else {
+    if(isset($_POST['count'])){
+		$count = $_POST['count'];
+    }
+    
+    if(isset($_POST['ans'])){
+		$answerstring = $_POST['ans'];
+		$retval = result_from_string($answerstring, $theses_count);
+		$ans = $retval[0];
+		$emph = $retval[1];
+    } elseif(isset($_GET['ans'])){
 		$answerstring = $_GET['ans'];
 		$retval = result_from_string($answerstring, $theses_count);
 		$ans = $retval[0];
 		$emph = $retval[1];
+    } else {
+	$warning = true;
+      for($i = 0; $i < $theses_count; $i++){
+          $ans[$i] = 'skip';
+          $emph[$i] = 1;
+      }
     }
+    
 
     
 
@@ -33,8 +69,8 @@
     <title>Mahlowat</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta content="">
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">-->
+    <link href="css/<?php echo $css[$css_id];?>" rel="stylesheet" media="screen">
     
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
@@ -52,7 +88,8 @@
 				</div>
 				<div class="modal-body">
 					Erlaubst du, dass dein Aufruf für die Statistik gezählt wird?<br>
-					<small>Falls du Nein auswählst, bist du lediglich als Logeintrag auf dem Server verewigt.</small>
+					Falls du Nein auswählst, bist du lediglich als Logeintrag auf dem Server verewigt.<br>
+					<small><a href="faq.php#log" target="_blank">Ich will aber gar keinen Logeintrag!</a></small>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" onclick="callResult(false)" style="width: 100px;"><span class="glyphicon glyphicon-remove"></span> Nein</button>
@@ -74,16 +111,16 @@
 		<p class='text-center'><button id="weight" type="button" class="btn btn-default" data-toggle="button">These doppelt gewichten</button></p>
 
 			<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-2">
+			<div class="col-xs-12 col-sm-2 col-md-2 col-md-offset-2 col-sm-offset-2 option">
 				<button id='yes' type='submit' class='btn btn-success btn-block' name='yes' onclick="nextThesis('a')"><span class="glyphicon glyphicon-thumbs-up"></span> Zustimmung</button>
 			</div>
-			<div class="col-xs-12 col-sm-12 col-md-2 ">
+			<div class="col-xs-12 col-sm-2 col-md-2 option">
 				<button id='neutral' type='submit' class='btn btn-warning btn-block' name='neutral' onclick="nextThesis('b')"><span class="glyphicon glyphicon-tree-deciduous"></span> Neutral</button>
 			</div>
-			<div class="col-xs-12 col-sm-12 col-md-2">
+			<div class="col-xs-12 col-sm-2 col-md-2 option">
 				<button id='no' type='submit' class='btn btn-danger btn-block' name='no' onclick="nextThesis('c')"><span class="glyphicon glyphicon-thumbs-down"></span> Ablehnung</button>
 			</div>
-			<div class="col-xs-12 col-sm-12 col-md-2">
+			<div class="col-xs-12 col-sm-2 col-md-2 option">
 				<button id='skip' type='submit' class='btn btn-default btn-block' name='skip' onclick="nextThesis('d')"><span class="glyphicon glyphicon-share-alt"></span> Überspringen</button>
 			</div>
 			</div>
@@ -95,94 +132,80 @@
 			<a href="index.php" title="Von vorn beginnen">neu starten</a>
 			oder den Rest der Thesen 
 			<a href="#" title="Auswertung anzeigen" onclick="gotoResultPage(resultArray)">überspringen</a>.<br />
-			Außerdem haben wir auch eine <a href="#" onclick="gotoFAQPage(resultArray)" title="FAQ">FAQ-Seite</a>.
+			Außerdem haben wir auch eine <a href="faq.php?from=mahlowat.php" onclick="gotoFAQPage(event, resultArray)" title="FAQ">FAQ-Seite</a>.
 			</small>
 		
 		</div>
 	</div>
   </div>
   <script type="text/javascript">
-  var resultArray;
-  var activeThesis = 0;
-  var answerstring = '<?php echo $answerstring; ?>';
-  
-  $(function(){
-	$('.tt').tooltip();
-	$('.explic').hide();
-	$('#weight').click(function(){
-		$('#weight').toggleClass('btn-default');
-		$('#weight').toggleClass('btn-info');
-		if($('#weight').text() == 'These doppelt gewichten'){
-			$('#weight').text('These wird doppelt gewichtet');
+	var resultArray;
+	var activeThesis = 0;
+	var answerstring = '<?php echo $answerstring; ?>';
+	
+	$(function(){
+		$('.tt').tooltip();
+		$('.explic').hide();
+		$('#weight').click(function(){
+			$('#weight').toggleClass('btn-default');
+			$('#weight').toggleClass('btn-info');
+			if($('#weight').text() == 'These doppelt gewichten'){
+				$('#weight').text('These wird doppelt gewichtet');
+			} else {
+				$('#weight').text('These doppelt gewichten');
+			}
+		});
+		$('.explanationbutton').click(function(event){
+			event.preventDefault();
+			$('.explic').toggle(200);
+		});
+		
+		thesesboxes = $('.singlethesis');	
+		pagination = $('#navigation li');
+		
+		resultArray = resultStringToArray(answerstring, thesesboxes.length);
+		
+		setPaginationColors(resultArray);
+		
+		// Remove the # from the hash, as different browsers may or may not include it
+		var hash = location.hash.replace('#','');
+		
+		if(hash != '' && jQuery.isNumeric(hash)){
+			// Show the hash if it's set
+			loadThesis(hash);
 		} else {
-			$('#weight').text('These doppelt gewichten');
+			loadThesis(activeThesis+1);
 		}
-	});
-	$('.explanationbutton').click(function(event){
-		event.preventDefault();
-		$('.explic').toggle();
-	});
-	
-	thesesboxes = $('.singlethesis');	
-	pagination = $('#navigation li');
-	
-	resultArray = getResultArray(answerstring, thesesboxes.length);
-	
-	setPaginationColors(resultArray);
-	
-	// Remove the # from the hash, as different browsers may or may not include it
-	var hash = location.hash.replace('#','');
-	
-	if(hash != '' && jQuery.isNumeric(hash)){
-		// Show the hash if it's set
-		loadThesis(hash);
-	} else {
-		loadThesis(activeThesis+1);
-	}
-	
+		
 	});
 	
 	function gotoResultPage(result){
-		target = "result.php?ans=";
-		
-		for(i = 0; i < result.length; i++){
-			target += result[i];
+		count = '<?php echo $count; ?>';
+		if(count != 'true' && count != 'false'){
+			$('#savemodal').modal('show');
+		} else if(count == 'true') {
+			callResult(true);
+		} else {
+			callResult(false);
 		}
-		$('#savemodal').modal('show');
-		
 	}
-	function gotoFAQPage(result){
-		target = "faq.php?from=mahlowat.php?ans=";
-		
-		for(i = 0; i < result.length; i++){
-			target += result[i];
-		}
-		window.location.href = target;
+	
+	function gotoFAQPage(evt, result){
+		callPage(evt, 'faq.php?from=mahlowat.php'+window.location.hash, array2str(result), '<?php echo $count; ?>');
 	}
 	
 	function callResult(count){
+		ans = array2str(resultArray);
 		if(count){
-			url = "count.php?ans=";
-			ans = ""
-			for(i = 0; i < resultArray.length; i++){
-				ans += resultArray[i];
-			}
-			url = url + ans;
+			url = "count.php?ans=" + ans;
 			jQuery.get(url,function( data ) {
-				//window.location.href = target;
-				callPage(ans);
+				callPage(null, 'result.php', ans, 'true');
 			});
 		} else {
 			jQuery.get("count.php?false",function( data ) {
-				window.location.href = target;
+				callPage(null, 'result.php', ans, 'false');
 			});
 		}
-	}
-	
-	function callPage(data){
-		var action = 'result.php'
-		var html = "<input name='ans' value='"+data+"'/>";
-		$('<form style="display: none;" method="post"/>').attr('action', action).html(html).appendTo('body').submit();
 	}
 	
 	function nextThesis(selection){
@@ -220,18 +243,21 @@
 	function letter2paginationclass(letter){
 		switch(letter){
 			case 'a':
+			case 'e':
 				return 'pagination-yes';
 				break;
 			case 'b':
+			case 'f':
 				return 'pagination-neutral';
 				break;
 			case 'c':
+			case 'g':
 				return 'pagination-no';
 				break;
 			case 'd':
+			case 'h':
 				return '';
 				break;
-			
 		}
 	}
 	
@@ -276,38 +302,6 @@
 		}
 	}
 	
-	function result2letter(selection, multiply){
-		if(multiply == false){
-			return selection;
-		} else if(selection == 'a'){
-			return 'e';
-		} else if(selection == 'b'){
-			return 'f';
-		} else if(selection == 'c'){
-			return 'g';
-		} else if(selection == 'd'){
-			return 'h';
-		}
-	}
-	
-	function getResultArray(answerstr, count){
-		arr = [];
-		if(answerstr.length != count){
-			for(i = 0; i < count; i++){
-				arr[i] = 'd'; //no selection
-			}
-		} else {
-			items = answerstr.split("");
-			for(i = 0; i < items.length; i++){
-				if(items[i] <= 'f' && items[i] >= 'a'){
-					arr[i] = items[i];
-				} else {
-					arr[i] = 'd';
-				}
-			}
-		}
-		return arr;
-	}
 	
 	function setPaginationColors(array){
 		for(i = 0; i < array.length; i++){

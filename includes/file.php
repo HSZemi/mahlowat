@@ -1,5 +1,25 @@
 <?php
 
+function get_share_id($ip, $saltfile, $visitfile){
+	$index = crypt($ip, get_salt($saltfile));
+	$visits = get_visits($index, $visitfile);
+	if($visits != null and isset($visits['ans'][$index])){
+		return $index.'-'.sizeof($visits['ans'][$index]);
+	} else {
+		return 0;
+	}
+}
+
+function get_answer_string($visitfile, $index, $subindex){
+	$visits = load_var($visitfile);
+	if($visits != null){
+		if(isset($visits['ans']) and isset($visits['ans'][$index]) and isset($visits['ans'][$index][$subindex-1])){
+			return $visits['ans'][$index][$subindex-1];
+		}		
+	}
+	return 0;
+}
+
 function add_visit($id, $file, $nocount=false, $ans=''){
 	$visits = get_visits($id, $file);
 	if($visits != null){

@@ -20,69 +20,10 @@
     
     <link rel="stylesheet" type="text/css" href="css/style.css">
     
-    <link href="css/socialshareprivacy-min.css" rel="stylesheet">
+    <link href="shariff/shariff.min.css" rel="stylesheet">
     
     <script src="js/jquery-2.0.2.min.js"></script>
     
-    <script type="text/javascript" src="js/social_bookmarks-min.js"></script>
-    <script type="text/javascript">
-    jQuery(document).ready(function($){
-        if($('#socialshareprivacy').length > 0){
-          $('#socialshareprivacy').socialSharePrivacy({
-        "services":{"facebook":{
-		"status":"on",
-		"txt_info":"2 Klicks f\u00fcr mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k\u00f6nnen Ihre Empfehlung an Facebook senden. Schon beim Aktivieren werden Daten an Dritte \u00fcbertragen.",
-		"perma_option":"off",
-		"action":"recommend",
-		"language":"de_DE"
-        },
-        "twitter":{
-		"tweet_text":"Mal sehen, was der Mahlowat mir so vorschlägt.",
-		"status":"on",
-		"txt_info":"2 Klicks f\u00fcr mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k\u00f6nnen Ihre Empfehlung an Twitter senden. Schon beim Aktivieren werden Daten an Dritte \u00fcbertragen.",
-		"perma_option":"off",
-		"language":"de",
-		'referrer_track' : ''
-	  },
-	  "gplus":{
-		"status":"off",
-		"txt_info":"2 Klicks f\u00fcr mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k\u00f6nnen Ihre Empfehlung an Google+ senden. Schon beim Aktivieren werden Daten an Dritte \u00fcbertragen.",
-		"perma_option":"off"
-	  },
-	  "flattr":{
-		"status":"off",
-		"txt_info":"2 Klicks f\u00fcr mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k\u00f6nnen Ihre Empfehlung an Flattr senden. Schon beim Aktivieren werden Daten an Dritte \u00fcbertragen.",
-		"perma_option":"off"
-	  },
-	  "xing":{
-		"status":"off","txt_info":"2 Klicks f\u00fcr mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k\u00f6nnen Ihre Empfehlung an Xing senden. Schon beim Aktivieren werden Daten an Dritte \u00fcbertragen.",
-		"perma_option":"off",
-		"language":"de"
-	  },
-	  "pinterest":{
-		"status":"off",
-		"txt_info":"2 Klicks f\u00fcr mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k\u00f6nnen Ihre Empfehlung an Pinterest senden. Schon beim Aktivieren werden Daten an Dritte \u00fcbertragen.",
-		"perma_option":"off"
-	  },
-	  "t3n":{
-		"status":"off",
-		"txt_info":"2 Klicks f\u00fcr mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k\u00f6nnen Ihre Empfehlung an t3n senden. Schon beim Aktivieren werden Daten an Dritte \u00fcbertragen.",
-		"perma_option":"off"
-	  },
-	  "linkedin":{
-		"status":"off",
-		"txt_info":"2 Klicks f\u00fcr mehr Datenschutz: Erst wenn Sie hier klicken, wird der Button aktiv und Sie k\u00f6nnen Ihre Empfehlung an LinkedIn senden. Schon beim Aktivieren werden Daten an Dritte \u00fcbertragen.",
-		"perma_option":"off"
-	  }
-	  },
-	  "info_link":"http://www.heise.de/ct/artikel/2-Klicks-fuer-mehr-Datenschutz-1333879.html",
-	  "display_infobox":"off",
-	  'cookie_domain' : 'akut-bonn.de',
-        'uri' : ''
-	  
-	  });}
-      });
-    </script>
   </head>
   <body>
   
@@ -108,7 +49,8 @@
     
     
     
-    <div id="socialshareprivacy" class="social_share_privacy clearfix 1.6.2 locale-de_DE sprite-de_DE" style="width: 330px;"></div>
+    <div class="shariff" data-url="http://www.akut-bonn.de/wahl-o-man/" data-referrer-track=null></div>
+    <script src="shariff/shariff.min.js"></script>
   </div>
   
   </body>
