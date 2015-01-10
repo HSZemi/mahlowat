@@ -10,7 +10,7 @@ function r($item){
 	}
 }
 
-$hsg_array_s = load_var('lists.sav');
+$hsg_array_s = load_var('../lists.sav');
 $hsg_array = Array();
 if($hsg_array_s != null){
 	header("Content-Type: text/plain");

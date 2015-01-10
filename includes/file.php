@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * These functions handle file access.
+ */
+
 function get_share_id($ip, $saltfile, $visitfile){
 	$index = crypt($ip, get_salt($saltfile));
 	$visits = get_visits($index, $visitfile);

@@ -208,7 +208,7 @@ function code_to_answer($code){
 
     function hsg_get_td($hsg, $i){
       $vote = $hsg['answers'][$i];
-      $hsgclass = "hsg-".$hsg['name'];
+      $hsgclass = "hsg-".str_replace(' ','',$hsg['name']);
       
       if($vote === 'skip'){
             return "<td class='hidden-xs hidden-sm $hsgclass'><a class='btn btn-default btn-block disabled hsganswer' >-</a></td>\n";
@@ -228,6 +228,7 @@ function code_to_answer($code){
       $vote  = $hsg['answers'][$i];
       $etext = $hsg['comments'][$i];
       $name  = $hsg['name'];
+      $hsgclass = "hsg-".str_replace(' ','',$hsg['name']);
       $prefix = "";
       
       if($vote === 'skip'){
@@ -243,7 +244,7 @@ function code_to_answer($code){
             $prefix = "<span class='label label-danger'>$name</span>\n";
       }
       
-      return "<div class='hsg-$name'>
+      return "<div class='$hsgclass'>
       $prefix 
       <p>$etext</p>
       </div>\n\n";

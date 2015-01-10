@@ -1,7 +1,7 @@
 <?php
     include '../includes/file.php';
     
-    $visits = get_visits('', 'visits.sav');
+    $visits = get_visits('', '../data/visits.sav');
     
     $nocount = $visits['nocount'];
     $answers = $visits['ans'];

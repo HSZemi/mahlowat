@@ -211,7 +211,8 @@
 		Listen ein-/ausblenden:
 		<?php 
 			for($i = 0; $i < sizeof($hsg_array); $i = $i + 1){
-				echo "<button class='btn btn-default btn-primary hsgbtn-{$hsg_array[$i]['name']}' onclick='toggleColumn(\"{$hsg_array[$i]['name']}\")'>{$hsg_array[$i]['name_x']} </button> ";   
+				$classname = str_replace(' ','',$hsg_array[$i]['name']);
+				echo "<button class='btn btn-default btn-primary hsgbtn-$classname' onclick='toggleColumn(\"$classname\")'>{$hsg_array[$i]['name_x']} </button> ";   
 			}
 		?>
 	</div>
@@ -225,7 +226,8 @@
       
       
       for($i = 0; $i < sizeof($hsg_array); $i = $i + 1){
-            echo "<th class='hidden-xs hidden-sm hsg-{$hsg_array[$i]['name']}'>{$hsg_array[$i]['name_x']} (".calculate_points($ans, $hsg_array[$i]['answers'], $emph).")</th>";   
+		$classname = str_replace(' ','',$hsg_array[$i]['name']);
+            echo "<th class='hidden-xs hidden-sm hsg-$classname'>{$hsg_array[$i]['name_x']} (".calculate_points($ans, $hsg_array[$i]['answers'], $emph).")</th>";   
       }
       echo "</tr>\n";
       
