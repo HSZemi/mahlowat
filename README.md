@@ -33,6 +33,9 @@ Durch doppelte Gewichtung einzelner Positionen im 2. Schritt verdoppelt sich die
 Installation und Einrichtung
 ----------------------------
 
+Für die Einrichtung des Mahlowat müssen zwei Dateien angepasst werden: Die, in der die Thesen gespeichert sind, und die, in der die Positionen der Listen hinterlegt werden.
+Da es sich dabei um PHP-Dateien handelt, muss darauf geachtet werden, dass hierbei keine Syntaxfehler eingebaut werden (fehlende Kommata, fehlende Klammern etc.).
+
 ### Thesen
 
 Die Thesen werden in der Datei 'includes/theses.php' gespeichert. 
@@ -100,6 +103,9 @@ Dabei werden die Antworten im entsprechenden Array wie folgt durch Kommas getren
 * "Ablehnung" entspricht einer -1,
 * "Neutral" entspricht einer 0.
 * Falls die Liste keine Antwort abgegeben hat, wird 'skip' notiert.
+
+Das Feature, dass die Listen ihre Antworten selbst eintragen können, ist noch experimentell. 
+Die hierfür benutzten Dateien listenabfrage.php und admin/export_hsg.php sollten vor Inbetriebnahme gelöscht werden.
 
 ### Installation
 
