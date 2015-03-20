@@ -1,6 +1,14 @@
 <?php    
-    include 'includes/funcs.php';
-    include 'includes/theses.php';
+    include 'includes/functions.php';
+    include 'includes/elements.php';
+    //include 'includes/theses.php';
+    
+    $data_content = file_get_contents("config/data.json");
+    if(!$data_content){
+	echo "ERROR READING CONFIG";
+    } else {
+    $data = json_decode($data_content, true);
+    
 	$css = Array();
 	$css[0] = "bootstrap.min.css";
 	$css[1] = "cerulean.min.css";
@@ -27,7 +35,8 @@
 		}
 	}
     
-    $theses = get_theses_array();
+    //$theses = get_theses_array();
+    $theses = $data['theses'];
 
     $theses_count = sizeof($theses);
     
@@ -58,7 +67,7 @@
           $emph[$i] = 1;
       }
     }
-    
+    }
 
     
 

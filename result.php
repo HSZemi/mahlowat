@@ -1,8 +1,13 @@
 <?php    
-    include 'includes/funcs.php';
-    include 'includes/theses.php';
-    include 'includes/hsg.php';
+    include 'includes/functions.php';
+    include 'includes/elements.php';
     include 'includes/file.php';
+    
+    $data_content = file_get_contents("config/data.json");
+    if(!$data_content){
+	echo "ERROR READING CONFIG";
+    } else {
+    $data = json_decode($data_content, true);
     
 	$css = Array();
 	$css[0] = "bootstrap.min.css";
@@ -30,16 +35,17 @@
 		}
 	}
 
-    $theses = get_theses_array();
+    $theses = $data['theses'];
 
     $theses_count = sizeof($theses);
     
-    $ans = Array();
-    $emph = Array();
+    $answers = Array();
     $answerstring = '';
     $warning = true;
     $count = 'undefined';
     $sharelink = '';
+    $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
+    $baseurl = "http://" . $_SERVER['SERVER_NAME'] . $uri_parts[0];
     $share_via_id = false;
     $bars_only = false;
     
@@ -58,31 +64,24 @@
 		$index = $items[0];
 		$subindex = intval($items[1]);
 		$answerstring = get_answer_string('./data/visits.sav', $index, $subindex);
-		$retval = result_from_string($answerstring, $theses_count);
-		$ans = $retval[0];
-		$emph = $retval[1];
+		$answers = str_split($answerstring);
 	}
     } 
     if(isset($_POST['ans']) and $_POST['ans'] != ''){
 		$warning = false;
 		$answerstring = $_POST['ans'];
-		$retval = result_from_string($answerstring, $theses_count);
-		$ans = $retval[0];
-		$emph = $retval[1];
+		$answers = str_split($answerstring);
 		$bars_only = false;
     } elseif(isset($_GET['ans']) and $_GET['ans'] != ''){
 		$warning = false;
 		$answerstring = $_GET['ans'];
-		$retval = result_from_string($answerstring, $theses_count);
-		$ans = $retval[0];
-		$emph = $retval[1];
+		$answers = str_split($answerstring);
 		$bars_only = false;
     } 
     
     if($warning) {
       for($i = 0; $i < $theses_count; $i++){
-          $ans[$i] = 'skip';
-          $emph[$i] = 1;
+          $answers[$i] = 'd';
       }
     }
     
@@ -95,12 +94,12 @@
     if($count === 'false' and $sharelink === ''){
 		$sharelink = '?ans='.$answerstring;
 	}
-    
-    $hsg_array = get_hsg_array();
-    $hsg_array = sort_hsgs($ans, $hsg_array, $emph);
+// 	
+    $data = sort_lists_by_points($data, $answers);
     
     if($bars_only){
 	$answerstring = '';
+    }
     }
 ?>
 <!DOCTYPE html>
@@ -193,10 +192,10 @@
      <table class="table table-bordered table-hover">
      <tr><th style="width: 200px;">Liste</th><th style="width:100px">Punkte</th><th style="width:640px;">Punkte</th></tr>
             <?php
-                  $top = calculate_points($ans, $hsg_array[0]['answers'], $emph);
-                  for($i = 0; $i < sizeof($hsg_array); $i++){
-                        (calculate_points($ans, $hsg_array[$i]['answers'], $emph) == $top) ? $class = "success" : $class = "";
-                        html_hsg_bar($hsg_array[$i], $ans, $emph, $class);
+                  $top = calculate_points($data['answers'][0], $answers);
+                  for($i = 0; $i < sizeof($data['answers']); $i++){
+                        (calculate_points($data['answers'][$i], $answers) == $top) ? $class = "success" : $class = "";
+                        print_list_result_bar($data, $i, $answers, $class);
                         echo "\n";
                   }
             ?>
@@ -210,9 +209,9 @@
 	<div class="panel-body">
 		Listen ein-/ausblenden:
 		<?php 
-			for($i = 0; $i < sizeof($hsg_array); $i = $i + 1){
-				$classname = str_replace(' ','',$hsg_array[$i]['name']);
-				echo "<button class='btn btn-default btn-primary hsgbtn-$classname' onclick='toggleColumn(\"$classname\")'>{$hsg_array[$i]['name_x']} </button> ";   
+			for($i = 0; $i < sizeof($data['lists']); $i = $i + 1){
+				$classname = str_replace(' ','',$data['lists'][$i]['name']);
+				echo "<button class='btn btn-default btn-primary listbtn-$classname' onclick='toggleColumn(\"$classname\")'>{$data['lists'][$i]['name_x']} </button> ";   
 			}
 		?>
 	</div>
@@ -224,31 +223,7 @@
       <tr id="tableheader"><th> </th><th>Deine Wahl</th>
       <?php 
       
-      
-      for($i = 0; $i < sizeof($hsg_array); $i = $i + 1){
-		$classname = str_replace(' ','',$hsg_array[$i]['name']);
-            echo "<th class='hidden-xs hidden-sm hsg-$classname'>{$hsg_array[$i]['name_x']} (".calculate_points($ans, $hsg_array[$i]['answers'], $emph).")</th>";   
-      }
-      echo "</tr>\n";
-      
-      for($i = 0; $i < $theses_count; $i = $i + 1){
-            $emph[$i]==2 ? $star = '<span class="glyphicon glyphicon-star" title="Doppelte Gewichtung"></span>' : $star = '';
-            $emph[$i]==2 ? $tdcl = ' class="warning"' : $tdcl = '';
-            $labelclass = code_to_labelclass($ans[$i]);
-            echo "<tr$tdcl>\n";
-            echo '<td><p class="text-center">'.$star.'</p></td>';
-            echo '<td><a id="thesis'.$i.'" class="btn '.code_to_btnclass($ans[$i]).' btn-block" onclick="toggleNext(this)">'.$theses[$i]['s'].'</a></td>';
-            for($hsg = 0; $hsg < sizeof($hsg_array); $hsg = $hsg + 1){
-                  echo hsg_get_td($hsg_array[$hsg], $i);
-            }
-            echo "</tr>\n";
-            // Erläuterungen
-            echo "<tr class='multheseslong'><td class='mtl'></td><td class='mtl' colspan='".(sizeof($hsg_array)+1)."'><!--<span class='label $labelclass'>These ".($i+1).": ".$theses[$i]['s']."</span><br>--> <p class='well'>".$theses[$i]['l']."</p>";
-            for($hsg = 0; $hsg < sizeof($hsg_array); $hsg = $hsg + 1){
-                  echo hsg_get_explanation($hsg_array[$hsg], $i);
-            }
-            echo "</td></tr>\n";
-      }
+		print_result_detail_table($answers, $data);
       
       ?>
      </table>
@@ -268,7 +243,7 @@
 	</div>
     
     
-    <div class="shariff" data-url="http://www.akut-bonn.de/wahl-o-man/" data-referrer-track="<?php echo $sharelink; ?>"></div>
+    <div class="shariff" data-url="<?php echo $baseurl; ?>" data-referrer-track="<?php echo $sharelink; ?>"></div>
     <div class="text-right">
       <small>Du kannst die Befragung 
       <a href="index.php" title="Von vorn beginnen">neu starten</a><?php if($bars_only){echo '.';} else {?>,
@@ -294,7 +269,7 @@
 	<?php if(!$bars_only){?>
 	$('#result-table').hide();
 	
-      $('.hsganswer').tooltip();
+      $('.listanswer').tooltip();
       $('.multheseslong').hide();
       $('.tt').tooltip();
       
@@ -308,9 +283,9 @@
           $(caller).parent().parent().next().toggle();
       }
       
-      function toggleColumn(hsgname){
-		$('.hsg-'+hsgname).toggle(200);
-		$('.hsgbtn-'+hsgname).toggleClass('btn-primary');
+      function toggleColumn(listname){
+		$('.list-'+listname).toggle(200);
+		$('.listbtn-'+listname).toggleClass('btn-primary');
       }
       
       function showOverview(){
