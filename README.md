@@ -38,7 +38,7 @@ Vor dem Start müssen eingetragen werden:
 * die Thesen,
 * die Bewertung und Statements der Listen zu den Thesen.
 
-Für die Einrichtung des Mahlowat steht die Datei generator.html zur Verfügung. Sie wird einfach mit einem Webbrowser aufgerufen. Dort lässt sich die gesamte Konfiguration erstellen, die dann in einer .json-Datei (config/data.json) gespeichert wird. Wichtig: Die Datei muss UTF-8-kodiert sein.
+Für die Einrichtung des Mahlowat steht die Datei `generator.html` zur Verfügung. Sie wird einfach mit einem Webbrowser aufgerufen. Dort lässt sich die gesamte Konfiguration erstellen, die dann in einer .json-Datei (`config/data.json`) gespeichert wird. Wichtig: Die Datei muss UTF-8-kodiert sein.
 
 Existiert diese .json-Datei bereits, werden ihre Inhalte beim Start in den Konfigurator geladen.
 
