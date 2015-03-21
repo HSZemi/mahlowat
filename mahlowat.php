@@ -77,7 +77,7 @@
   <head>
     <title>Mahlowat</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta content="">
+    <meta content="Mahlowat">
     <!--<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">-->
     <link href="css/<?php echo $css[$css_id];?>" rel="stylesheet" media="screen">
     
