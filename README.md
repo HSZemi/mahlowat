@@ -6,7 +6,7 @@ mahlowat ist die Implementierung eines Wahlpositionsvergleichswerkzeugs.
 Implementierung
 ---------------
 
-Reines PHP, alles im Quelltext.
+PHP und JavaScript, alles im Quelltext.
 Benutzt bootstrap by Twitter und jQuery.
 
 Funktionen
