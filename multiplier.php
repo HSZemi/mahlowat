@@ -68,6 +68,7 @@
 			$emph[$i] = 1;
 		}
     }
+    
     }
     
     
@@ -136,7 +137,7 @@
             for($i = 0; $i < sizeof($ans); $i = $i + 1){
                   ($emph[$i] == 2) ? $active = "btn-info active" : $active = "btn-default";
                   ($emph[$i] == 2) ? $multbutton = "These wird doppelt gewichtet" : $multbutton = "These doppelt gewichten";
-                  $btnclass = code_to_btnclass($ans[$i]);
+                  $btnclass = code_to_btnclass(char_to_value($ans[$i]));
                   $labelclass = code_to_labelclass($ans[$i]);
                   echo "<tr>";
                   echo "<td><a id='thesis$i' class='btn $btnclass btn-block' onclick='toggleNext(this)'>".$theses[$i]['s']."</a></td>

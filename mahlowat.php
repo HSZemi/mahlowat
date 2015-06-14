@@ -9,6 +9,10 @@
     } else {
     $data = json_decode($data_content, true);
     
+    if($data == NULL){
+	echo "ERROR PARSING CONFIG";
+    }
+
 	$css = Array();
 	$css[0] = "bootstrap.min.css";
 	$css[1] = "cerulean.min.css";
