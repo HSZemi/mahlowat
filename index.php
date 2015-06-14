@@ -21,6 +21,7 @@ $baseurl = "http://" . $_SERVER['SERVER_NAME'] . $uri_parts[0];
     
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     
     <link rel="stylesheet" type="text/css" href="css/style.css">
     

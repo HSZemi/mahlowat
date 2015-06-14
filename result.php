@@ -122,6 +122,7 @@
     
     <!--<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">-->
     <link href="css/<?php echo $css[$css_id];?>" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     
     <link rel="stylesheet" type="text/css" href="css/style.css">
     
