@@ -3,7 +3,7 @@
 function print_result_detail_table($answers, $data){
 	$theses_count = sizeof($data['theses']);
 	for($i = 0; $i < sizeof($data['lists']); $i = $i + 1){
-		$classname = str_replace(' ','',$data['lists'][$i]['name']);
+		$classname = string_to_css_classname($data['lists'][$i]['name']);
 		echo "<th class='hidden-xs hidden-sm list-$classname'>{$data['lists'][$i]['name_x']} (".calculate_points($data['answers'][$i], $answers).")</th>";   
 	}
 	echo "</tr>\n";
@@ -70,7 +70,7 @@ function print_list_result_bar_tricolore($list, $votes, $emph, $class){
 
 function get_list_result_td($data, $listid, $thesisid){
 	$vote = char_to_value($data['answers'][$listid][$thesisid]['selection']);
-	$listclass = "list-".str_replace(' ','',$data['lists'][$listid]['name']);
+	$listclass = "list-".string_to_css_classname($data['lists'][$listid]['name']);
 	
 	if($vote === 'skip'){
 		return "<td class='hidden-xs hidden-sm $listclass'><a class='btn btn-default btn-block disabled listanswer' >-</a></td>\n";

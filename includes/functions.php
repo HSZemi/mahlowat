@@ -217,4 +217,18 @@ function rev_arr($arr){
 	return $arr;
 }
 
+function string_to_css_classname($str){
+	$items = str_split($str);
+	$items = array_unique($items);
+	// Check for each character whether it is in the string of allowed characters
+	foreach($items as $c){
+		$pos = strpos('aabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_0123456789', $c);
+		// if not: replace with _
+		if(!$pos){
+			$str = str_replace($c, '_', $str);
+		}
+	}
+	return $str;
+}
+
 ?>

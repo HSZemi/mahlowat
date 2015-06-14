@@ -211,7 +211,7 @@
 		Listen ein-/ausblenden:
 		<?php 
 			for($i = 0; $i < sizeof($data['lists']); $i = $i + 1){
-				$classname = str_replace(' ','',$data['lists'][$i]['name']);
+				$classname = string_to_css_classname($data['lists'][$i]['name']);
 				echo "<button class='btn btn-default btn-primary listbtn-$classname' onclick='toggleColumn(\"$classname\")'>{$data['lists'][$i]['name_x']} </button> ";   
 			}
 		?>
