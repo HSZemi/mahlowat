@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<title id="page-title">Mahlowat</title>
+	<script defer src="/js/fontawesome-all.min.js"></script>
+	<style>
+		html {
+			height: 100%;
+		}
+
+		body {
+			margin-top: 1rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100%;
+		}
+
+		.container {
+			padding-bottom: 5rem;
+		}
+
+		#pagination {
+			display: flex;
+			flex-flow: row wrap;
+		}
+
+		.result-detail-header,
+		.result-detail-footer {
+			cursor: pointer;
+		}
+
+		.progress-bar {
+			text-align: left;
+			padding-left: 0.5rem;
+			font-weight: bold;
+		}
+
+		.result-summary-row {
+			margin-bottom: 0.2rem;
+		}
+
+		.card {
+			margin-bottom: 0.5rem;
+		}
+
+		.btn,
+		.badge {
+			white-space: normal;
+		}
+
+		.btn-select {
+			margin-bottom: 0.5rem;
+		}
+
+		#thesis-card {
+			min-height: 14rem;
+			margin-bottom: 2rem;
+		}
+
+		#thesis-more {
+			margin-top: 0.5rem;
+		}
+
+		@media (max-width: 767px) {
+			.left-answer-row {
+				margin-right: -25px;
+			}
+
+			.right-answer-row {
+				margin-left: -25px;
+			}
+		}
+
+		.remaining-progress-bar {
+			background-color: rgba(255, 255, 255, 0);
+		}
+
+		#mahlowat,
+		#result {
+			display: none;
+		}
+
+		#swype-info {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 500;
+			width: 100%;
+			height: 100%;
+			display: none;
+		}
+
+		#swype-info-content {
+			width: 80%;
+			height: 50%;
+			padding: 1rem;
+			position: relative;
+			float: left;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		#swype-info-message {
+			width: 80%;
+			padding: 1rem;
+			position: relative;
+			float: left;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="modal fade" id="QAModal" tabindex="-1" role="dialog" aria-labelledby="QAModalTitle" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="qa-modal-title">qa-modal-title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="qa-modal-body">
+					qa-modal-body
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-qa-modal-close">btn-qa-modal-close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="swype-info" class="d-md-none">
+		<div id="swype-info-content" class="bg-light text-light">
+			<div id="swype-info-message" class="text-center text-info">
+				<i class="fas fa-arrow-left"></i>
+				<i class="fas fa-hand-point-up"></i>
+				<i class="fas fa-arrow-right"></i>
+				<p id="swype-info-message-text">swype-info-message-text</p>
+
+				<button class="btn btn-info" id="btn-swype-info-ok">btn-swype-info-ok</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="start" class="container">
+		<div class="jumbotron">
+			<h1 class="display-4 text-center">
+				<img src="img/mahlowat_logo.png" />
+			</h1>
+			<p class="lead text-center" id="start-subtitle">start-subtitle</p>
+			<hr class="my-4">
+			<div id="start-explanatory-text">
+				start-explanatory-text
+			</div>
+			<p class="lead text-center">
+				<button class="btn btn-primary btn-lg" id="btn-start">btn-start</button>
+			</p>
+			<p class="lead text-center">
+				<button class="btn btn-secondary" id="btn-start-show-qa">btn-start-show-qa</button>
+			</p>
+			<div id="error-msg" class="text-center"></div>
+		</div>
+	</div>
+
+	<div id="mahlowat" class="container">
+		<div class="row">
+			<div class="col">
+				<nav aria-label="pagination" class="d-none d-sm-block">
+					<ul class="pagination pagination-sm" id="pagination"></ul>
+				</nav>
+			</div>
+			<div class="col-auto">
+				<img src="img/mahlowat_logo.png" />
+			</div>
+		</div>
+
+		<div class="progress" style="height: 0.2rem;">
+			<div id="overall-progress-bar" class="progress-bar" role="progressbar" style="width:0%"></div>
+		</div>
+
+		<div class="card" id="thesis-card">
+			<div class="card-body">
+				<h5 class="card-title" id="thesis-number">thesis-number</h5>
+				<p class="card-text lead" id="thesis-text">thesis-text</p>
+
+				<button class="btn btn-info" id="btn-toggle-thesis-more">
+					<i class="fas fa-info-circle"></i>
+					<span id="btn-toggle-thesis-more-text">btn-toggle-thesis-more-text</span>
+				</button>
+
+				<div class="font-italic" id="thesis-more">
+					thesis-more
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12 text-center">
+				<button class="btn btn-light btn-select" id="btn-important">
+					btn-important
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">
+				<div class="row left-answer-row">
+					<div class="col-12 col-md-6">
+						<button class="btn btn-success btn-block btn-select" id="btn-yes">
+							<span class="d-md-none d-block">
+								<i class="fas fa-check fa-2x"></i>
+							</span>
+							<span class="d-none d-md-inline">
+								<i class="fas fa-check"></i>
+							</span>
+							<span id="btn-yes-text">btn-yes-text</span>
+						</button>
+					</div>
+					<div class="col-12 col-md-6">
+						<button class="btn btn-warning btn-block btn-select" id="btn-neutral">
+							<span class="d-md-none d-block">
+								<i class="far fa-circle fa-2x"></i>
+							</span>
+							<span class="d-none d-md-inline">
+								<i class="far fa-circle"></i>
+							</span>
+							<span id="btn-neutral-text">btn-neutral-text</span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="row right-answer-row">
+					<div class="col-12 col-md-6">
+						<button class="btn btn-danger btn-block btn-select" id="btn-no">
+							<span class="d-md-none d-block">
+								<i class="fas fa-ban fa-2x"></i>
+							</span>
+							<span class="d-none d-md-inline">
+								<i class="fas fa-ban"></i>
+							</span>
+							<span id="btn-no-text">btn-no-text</span>
+						</button>
+					</div>
+					<div class="col-12 col-md-6">
+						<button class="btn btn-secondary btn-block btn-select" id="btn-skip">
+							<span class="d-md-none d-block">
+								<i class="fas fa-minus fa-2x"></i>
+							</span>
+							<span class="d-none d-md-inline">
+								<i class="fas fa-minus"></i>
+							</span>
+							<span id="btn-skip-text">btn-skip-text</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="row">
+			<div class="text-left col-6">
+				<button class="btn btn-sm btn-light" id="btn-mahlowat-show-start">btn-mahlowat-show-start</button>
+				<button class="btn btn-sm btn-light" id="btn-mahlowat-show-qa">btn-mahlowat-show-qa</button>
+			</div>
+			<div class="text-right col-6">
+				<button class="btn btn-sm btn-light" id="btn-mahlowat-skip-remaining-theses">
+					btn-mahlowat-skip-remainng-theses</button>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="result" class="container">
+
+		<h4 id="title-results">title-results</h4>
+
+		<div class="row" id="result-summary-row">
+			<div class="card col-sm-8 offset-sm-2">
+				<div class="card-body">
+					<h5 class="card-title" id="title-results-summary">title-results-summary</h5>
+					<div id="result-summary">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<p class="text-center" id="text-result-below-summary">
+			text-result-below-summary
+		</p>
+
+		<h5 id="title-results-details">title-results-details</h5>
+
+		<div id="result-detail">
+		</div>
+
+		<p class="text-center">
+			<small>
+				<button class="btn btn-sm btn-light" id="btn-results-show-start">btn-results-show-start</button>
+				<button class="btn btn-sm btn-light" id="btn-results-show-qa">btn-results-show-qa</button>
+			</small>
+		</p>
+	</div>
+
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/hammer.min.js"></script>
+	<!-- Select (uncomment) exactly one of the following languages-->
+	<script src="lang/de_de.js"></script>
+	<!-- <script src="lang/en_gb.js"></script> -->
+	<!-- <script src="lang/fr_fr.js"></script> -->
+	<!-- end languages-->
+	<script src="js/mahlowat.js"></script>
+</body>
+
+</html>

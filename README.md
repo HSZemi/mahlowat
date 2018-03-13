@@ -1,67 +1,121 @@
-mahlowat
-========
+![Mahlowat](img/mahlowat_logo.png)
 
-mahlowat ist die Implementierung eines Wahlpositionsvergleichswerkzeugs.
+[Deutsche Version](README-DE.md)
 
-Implementierung
+Mahlowat is an implementation of a voting advice application (VAA). It allows users to compare their opinion on selected theses
+to the opinions of groups or individuals competing in an election.
+
+
+General Approach
+----------------
+
+There will be an election at some point in the future. A team of highly skilled individuals devises a list of simple theses which 
+can be answered with Yes or No.
+
+Once the groups or candidates participating in the election are set, they are being sent the theses and asked to provide a positioning 
+(Yes/No/Neutral) and a short statement for each thesis.
+
+One poor soul will then compile all responses into a configuration file (see below).
+
+A Mahlowat instance is consequently configured, published and advertised. 
+
+Enjoy!
+
+
+Setup
+-----
+
+In order to get Mahlowat up and running, you have to do three things:
+
+ - Create a configuration file which contains all the theses and responses of the participating groups
+ - Select a language and adapt the application texts
+ - Upload the files to a web server where everyone can see them :see_no_evil:
+
+### Configuration
+
+Mahlowat uses a single file, `config/data.json`, which contains the theses, information about the groups, and the groups' 
+responses and statements.
+
+You should probably use `generator.html` to generate this configuration file. It will load the data from an existing 
+`config/data.json`, so you won't have to start all over again if you want to correct or add something.
+
+At the end of a three step process, the generator yields the contents to the `config/data.json` file, which you will
+have to enter there manually (please copy-paste). Make sure the file is saved with the `UTF-8` encoding.
+
+### Language
+
+Mahlowat comes with three languages: German (de\_de, default), English (en\_gb) and French (fr\_fr).
+
+If you want to change the display language, you have to do a tiny edit in `index.html`.
+Go to the very bottom, where you will find this section:
+
+```
+<!-- Select (uncomment) exactly one of the following languages-->
+<script src="lang/de_de.js"></script>
+<!-- <script src="lang/en_gb.js"></script> -->
+<!-- <script src="lang/fr_fr.js"></script> -->
+<!-- end languages-->
+```
+
+To change the active language, comment out the currently active language (comment out = enclose the whole line in `<!--` and `-->`)
+and uncomment the language of your choice (removing the `<!--` and `-->`). Example: If you want to run Mahlowat in french, it should
+look like this:
+
+```
+<!-- Select (uncomment) exactly one of the following languages-->
+<!-- <script src="lang/de_de.js"></script> -->
+<!-- <script src="lang/en_gb.js"></script> -->
+<script src="lang/fr_fr.js"></script>
+<!-- end languages-->
+```
+
+You may also want to change some of the text, especially the Q&A part. In order to do that, directly edit the language `*.js` files
+which you can find in the `lang` subfolder. 
+
+You can use html tags inside of the strings. Just make sure to not introduce errors in the JavaScript, because that will unfortunately
+break the whole application. If you are unsure, maybe ask a friend for help.
+
+#### Multiple languages
+
+You might want to offer the Mahlowat in multiple languages at once, for example in French and German.
+
+We recommend creating multiple instances, which means you would send the groups or candidates the theses in French and in German and ask for 
+positioning and statements in both languages. You would then create two separate Mahlowat instances, one in French with the french content (available under https://example.com/fr), one in German with the german content (available under https://example.com/de). You could add a landing page which links
+to the two versions.
+
+### Publish
+
+Upload the `config`, `css`, `img`, `js`, and `lang` folders with their contents as well as the `index.html` file to a directory on 
+the web server of your choice.
+
+Done!
+
+
+Calculations
+------------
+
+The points for the groups in the results at the end are calculated as follows: 
+
+ - The user's answers are compared to each group's answers.
+ - The group gains 2 points for each thesis where their answer matches the user's.
+ - A slight deviation (yes/neutral or neutral/no) gains the group still 1 point.
+ - If the answers are contrary or if a group has no position on a thesis, the group gains no point.
+ - A thesis that the user skipped gains no one any point. The maximum number of points possible decreases.
+ - A thesis that the user counts double gets groups twice the points (0/2/4). This increases the maximum number of points possible.
+
+
+Troubleshooting
 ---------------
 
-PHP und JavaScript, alles im Quelltext.
-Benutzt bootstrap by Twitter und jQuery.
+#### I keep klicking on the Start! button, but nothing happens
 
-Funktionen
-----------
+Mahlowat could not load the config file. Make sure it exists, is readable by the web server (you could try to access it directly 
+with your browser at https://example.com/config/data.json) and syntactically correct.
 
-Auswahlmöglichkeiten:
-* Zustimmung
-* Ablehnung
-* Neutral
-* Überspringen
+#### Everything says weird stuff like btn-start or start-explanatory-text. Also, nothing works.
 
-Bewertung:
-Im Vergleich mit den Listen ergibt sich folgende Bepunktung:
-* Gleiche Haltung: +2 Punkte
-* Zustimmung vs. Neutral: +1 Punkt
-* Ablehnung vs. Neutral: +1 Punkt
-* Zustimmung vs. Ablehnung: 0 Punkte
-* eigene Meinung, aber keine Angabe bei Liste: 0 Punkte
-* Überspringen: Frage wird ignoriert
+Looks like the JavaScript part is broken. Did you include exactly one language file (see above)? It might also contain a syntax error.
 
-Durch doppelte Gewichtung einzelner Positionen im 2. Schritt verdoppelt sich die Punktzahl für diese.
+#### The results are empty
 
-
-Installation und Einrichtung
-----------------------------
-
-Vor dem Start müssen eingetragen werden:
-* Die zur Wahl antretenden Listen,
-* die Thesen,
-* die Bewertung und Statements der Listen zu den Thesen.
-
-Für die Einrichtung des Mahlowat steht die Datei `generator.html` zur Verfügung. Sie wird einfach mit einem Webbrowser aufgerufen. Dort lässt sich die gesamte Konfiguration erstellen, die dann in einer .json-Datei (`config/data.json`) gespeichert wird. Wichtig: Die Datei muss UTF-8-kodiert sein.
-
-Existiert diese .json-Datei bereits, werden ihre Inhalte beim Start in den Konfigurator geladen.
-
-
-
-### Installation
-
-
-Zur Installation wird einfach der Ordner mit allen Dateien auf den Webspace hochgeladen.
-
-Ganz recht, das Ganze funktioniert ohne Datenbankanbindung. Dafür müssen für die Statistik Dateien verändert werden.
-Hierzu muss der Prozess des Webservers Schreibrechte für den 'data'-Ordner bekommen. 
-Bei Problemen sollte es funktionieren, über den FTP-Client die Ordnerrechte auf '777' zu ändern. 
-Hinweis: Dies kann ein Sicherheitsrisiko darstellen, sollte aber nicht.
-
-
-Lizenz
-------
-Dieses Projekt benutzt jQuery. jQuery ist unter der MIT LICENSE lizensiert (LICENSE-jquery.txt)
-
-Dieses Projekt benutzt bootstrap. bootstrap ist unter der MIT LICENSE lizensiert (LICENSE-bootstrap.txt)
-
-Dieses Projekt ('mahlowat') ist unter der MIT LICENSE lizensiert (LICENSE-mahlowat.txt)
-
-Falls ihr euer eigenes Wahlpositionsvergleichswerkzeug auf Basis des Mahlowat bastelt, wäre ein
-Hinweis an mahlowat@hszemi.de cool. Dies ist aber explizit keine Vorschrift.
+You should give your opinion on at least one thesis.
