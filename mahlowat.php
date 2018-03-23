@@ -210,12 +210,12 @@
 	function callResult(count){
 		ans = array2str(resultArray);
 		if(count){
-			url = "count.php?ans=" + ans;
+			url = "ctr.php?ans=" + ans;
 			jQuery.get(url,function( data ) {
 				callPage(null, 'result.php', ans, 'true');
 			});
 		} else {
-			jQuery.get("count.php?false",function( data ) {
+			jQuery.get("ctr.php?false",function( data ) {
 				callPage(null, 'result.php', ans, 'false');
 			});
 		}
