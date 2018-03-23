@@ -119,3 +119,19 @@ Looks like the JavaScript part is broken. Did you include exactly one language f
 #### The results are empty
 
 You should give your opinion on at least one thesis.
+
+
+Weal and Woe
+------------
+
+#### I want to report a bug
+
+Great! [Open an issue](https://github.com/HSZemi/mahlowat/issues) (and hope it gets noticed).
+
+#### I wang to fix a bug
+
+Great! [Issue a pull request](https://github.com/HSZemi/mahlowat/pulls) (and hope it gets noticed).
+
+#### I want to complain / say thanks
+
+I am always happy to receive success stories (or stories of failure for that matter) at mahlowat@hszemi.de

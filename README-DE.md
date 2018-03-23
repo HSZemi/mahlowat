@@ -128,3 +128,20 @@ Sieht so aus als ob der JavaScript-Teil defekt ist. Ist genau eine Sprachdatei (
 #### Das Ergebnis ist leer
 
 Man sollte schon mindestens eine These beantworten.
+
+
+Freud und Leid
+------------
+
+#### Ich möchte einen Fehler melden
+
+Klasse!  [Erstelle ein Issue](https://github.com/HSZemi/mahlowat/issues) (und hoffe, dass es bemerkt wird).
+
+
+#### Ich möchte einen Fehler beheben
+
+Knorke!  [Stelle einen Pull Request](https://github.com/HSZemi/mahlowat/pulls) (und hoffe, dass er bemerkt wird).
+
+#### Ich möchte mich beschweren/bedanken
+
+Ich freue mich stets über eine E-Mail an mahlowat@hszemi.de!
