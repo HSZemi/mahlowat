@@ -104,6 +104,12 @@ The points for the groups in the results at the end are calculated as follows:
  - A thesis that the user counts double gets groups twice the points (0/2/4). This increases the maximum number of points possible.
 
 
+Demo
+----
+
+[Deutsch :de:](https://hscmi.de/mahlowat/de/) [English :uk:](https://hscmi.de/mahlowat/en/) [Français :fr:](https://hscmi.de/mahlowat/fr/)
+
+
 Troubleshooting
 ---------------
 
