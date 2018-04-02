@@ -44,7 +44,7 @@ class T {
 		this.btn_swype_info_ok = "OK";
 
 		this.start_subtitle = "Le Mahlowat est une application qui vous aide a décider pour qui voter.<br>\
-		Pourtant, c'est pas votre mêre, alors faites ce que voulez.";
+		Pourtant, c'est pas votre mêre, alors faites ce que vous voulez.";
 		this.start_explanatory_text = "<p>Le Mahlowat vous permet de comparer ton opinion sur des théses selectionnées avec les \
 		opinions des goupes qui participent à l'élection.\
 					</p>\
