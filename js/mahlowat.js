@@ -9,10 +9,11 @@ $(function () {
 	$('#btn-start').prop('disabled', true);
 
 	init();
+    initHammer();
 });
 
 function translate() {
-	for (prop in t) {
+	for (let prop in t) {
 		let id = prop.replace(/_/g, '-');
 		$('#' + id).html(t[prop]);
 	}
@@ -27,7 +28,6 @@ function init() {
 			initAnswers();
 			initResultDetails();
 			recreatePagination();
-			initHammer();
 			loadThesis();
 			$('#btn-start').prop('disabled', false);
 		})
@@ -37,31 +37,27 @@ function init() {
 }
 
 function initOnclickCallbacks() {
-	$('#swype-info').click(function () { hideSwypeInfo(); });
-	$('#btn-start').click(function () { showMahlowat(); });
-	$('#btn-start-show-qa').click(function () { showQA(); });
-	$('#btn-toggle-thesis-more').click(function () { toggleThesisMore(); });
-	$('#btn-important').click(function () { toggleImportant(); });
-	$('#btn-yes').click(function () { doYes(); });
-	$('#btn-neutral').click(function () { doNeutral(); });
-	$('#btn-no').click(function () { doNo(); });
-	$('#btn-skip').click(function () { doSkip(); });
-	$('#btn-mahlowat-show-start').click(function () { showStart(); });
-	$('#btn-mahlowat-show-qa').click(function () { showQA(); });
-	$('#btn-mahlowat-skip-remaining-theses').click(function () { showResults(); });
-	$('#btn-results-show-start').click(function () { showStart(); });
-	$('#btn-results-show-qa').click(function () { showQA(); });
+	$('#swype-info').off('click').click(function () { hideSwypeInfo(); });
+	$('#btn-start').off('click').click(function () { showMahlowat(); });
+	$('#btn-start-show-qa').off('click').click(function () { showQA(); });
+	$('#btn-toggle-thesis-more').off('click').click(function () { toggleThesisMore(); });
+	$('#btn-important').off('click').click(function () { toggleImportant(); });
+	$('#btn-yes').off('click').click(function () { doYes(); });
+	$('#btn-neutral').off('click').click(function () { doNeutral(); });
+	$('#btn-no').off('click').click(function () { doNo(); });
+	$('#btn-skip').off('click').click(function () { doSkip(); });
+	$('#btn-mahlowat-show-start').off('click').click(function () { showStart(); });
+	$('#btn-mahlowat-show-qa').off('click').click(function () { showQA(); });
+	$('#btn-mahlowat-skip-remaining-theses').off('click').click(function () { showResults(); });
+	$('#btn-results-show-start').off('click').click(function () { showStart(); });
+	$('#btn-results-show-qa').off('click').click(function () { showQA(); });
 }
 
 function initHammer() {
 	var thesisHammer = new Hammer(document.getElementById("thesis-card"));
 	thesisHammer.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
-	thesisHammer.on('swipeleft', function (ev) {
-		nextThesis();
-	});
-	thesisHammer.on('swiperight', function (ev) {
-		prevThesis();
-	});
+	thesisHammer.on('swipeleft', nextThesis);
+	thesisHammer.on('swiperight', prevThesis);
 
 	var resultHammer = new Hammer(document.getElementById("result-summary-row"));
 	resultHammer.on('swiperight', function (ev) {
