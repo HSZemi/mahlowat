@@ -75,6 +75,17 @@ which you can find in the `lang` subfolder.
 You can use html tags inside of the strings. Just make sure to not introduce errors in the JavaScript, because that will unfortunately
 break the whole application. If you are unsure, maybe ask a friend for help.
 
+**Attention!** In order to support Internet Explorer 11 (lol), [babel](https://babeljs.io) has been used to transpile the 
+language files from a raw version (e.g. `en_gb.raw.js`) into the production version (e.g. `en_gb.js`).
+You can edit the "raw" files and then do that yourself – or edit the transpiled versions directly.
+
+```
+npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/node
+babel --presets @babel/preset-env lang/de_de.raw.js > lang/de_de.js
+babel --presets @babel/preset-env lang/en_gb.raw.js > lang/en_gb.js
+babel --presets @babel/preset-env lang/fr_fr.raw.js > lang/fr_fr.js
+```
+
 #### Multiple languages
 
 You might want to offer the Mahlowat in multiple languages at once, for example in French and German.

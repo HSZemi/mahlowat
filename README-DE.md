@@ -79,6 +79,18 @@ Texte werden direkt in den `*.js`-Dateien angepasst. Diese befinden sich im `lan
 In den Strings können HTML-Tags verwendet werden. Es sollte darauf geachtet werden, keine Syntaxfehler im JavaScript-Code einzubauen, 
 da diese leider die gesamte Anwendung dysfunktional machen. Frag bei Problemen einen Erwachsenen oder eine Freundin um Hilfe.
 
+**Obacht!** Um Internet Explorer 11 zu unterstützen (hihi), wurden die Sprachdateien mit [babel](https://babeljs.io)
+nachbehandelt. Für jede Sprache existiert eine Ausgangsversion (z. B. `de_de.raw.js`) und die mit Babel behandelte Version
+(z. B. `de_de.js`). Um Texte zu ändern, können die Ausgangsversionen modifiziert und hernach erneut babel ausgeführt werden. 
+Alternativ können die übersetzten Dateien auch direkt modifiziert werden.
+
+```
+npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/node
+babel --presets @babel/preset-env lang/de_de.raw.js > lang/de_de.js
+babel --presets @babel/preset-env lang/en_gb.raw.js > lang/en_gb.js
+babel --presets @babel/preset-env lang/fr_fr.raw.js > lang/fr_fr.js
+```
+
 #### Mehrsprachigkeit
 
 Gegebenenfalls soll der Mahlowat in mehreren Sprachen angeboten werden, zum Beispiel auf Französisch und Deutsch.

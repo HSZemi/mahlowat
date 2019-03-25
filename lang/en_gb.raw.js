@@ -1,17 +1,5 @@
-"use strict";
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var T =
-/*#__PURE__*/
-function () {
-  function T() {
-    _classCallCheck(this, T);
-
+class T {
+  constructor() {
     this.page_title = "Mahlowat";
     this.qa_modal_title = "Questions &amp; Answers";
     this.qa_modal_body = '<h4>Who is behind the Mahlowat?</h4>\
@@ -79,44 +67,33 @@ function () {
     this.btn_results_show_qa = "Questions &amp; Answers";
   }
 
-  _createClass(T, [{
-    key: "thesis_number",
-    value: function thesis_number(number) {
-      return "Thesis " + number;
-    }
-  }, {
-    key: "achieved_points_text",
-    value: function achieved_points_text(pointsForList, maxAchievablePoints) {
-      return '' + pointsForList + '/' + maxAchievablePoints + ' Points';
-    }
-  }, {
-    key: "btn_make_thesis_double_weight",
-    get: function get() {
-      return "Count double";
-    }
-  }, {
-    key: "btn_thesis_has_double_weight",
-    get: function get() {
-      return "Counting double";
-    }
-  }, {
-    key: "label_your_choice",
-    get: function get() {
-      return "Your choice";
-    }
-  }, {
-    key: "default_text_no_statement",
-    get: function get() {
-      return "<small class='text-muted'>No statement.</small>";
-    }
-  }, {
-    key: "error_loading_config_file",
-    get: function get() {
-      return '<b>Error</b> Could not load the configuration file \
+  thesis_number(number) {
+    return "Thesis " + number;
+  }
+
+  get btn_make_thesis_double_weight() {
+    return "Count double";
+  }
+
+  get btn_thesis_has_double_weight() {
+    return "Counting double";
+  }
+
+  get label_your_choice() {
+    return "Your choice";
+  }
+
+  achieved_points_text(pointsForList, maxAchievablePoints) {
+    return '' + pointsForList + '/' + maxAchievablePoints + ' Points';
+  }
+
+  get default_text_no_statement() {
+    return "<small class='text-muted'>No statement.</small>";
+  }
+
+  get error_loading_config_file() {
+    return '<b>Error</b> Could not load the configuration file \
 		<a href="config/data.json"><tt>config/data.json</tt></a>. Does it exist? Does it not contain syntax errors?';
-    }
-  }]);
+  }
 
-  return T;
-}();
-
+}

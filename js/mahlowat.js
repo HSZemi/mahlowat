@@ -310,7 +310,8 @@ function showResults() {
 	}
 	results.sort(function (a, b) { if (a[1] == b[1]) { return 0; } else if (a[1] > b[1]) return -1; return 1; })
 	$('#result-summary').empty();
-	for (result of results) {
+	for (let i=0; i < results.length; i++) {
+		let result = results[i];
 		let list = result[0];
 		let pointsForList = result[1];
 		addResultSummary(list, pointsForList, maxAchievablePoints);
