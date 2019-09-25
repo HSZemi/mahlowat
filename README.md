@@ -129,13 +129,24 @@ Troubleshooting
 Mahlowat could not load the config file. Make sure it exists, is readable by the web server (you could try to access it directly 
 with your browser at https://example.com/config/data.json) and syntactically correct.
 
+
 #### Everything says weird stuff like btn-start or start-explanatory-text. Also, nothing works.
 
 Looks like the JavaScript part is broken. Did you include exactly one language file (see above)? It might also contain a syntax error.
 
+
 #### The results are empty
 
 You should give your opinion on at least one thesis.
+
+
+#### I open mahlowat and I only get a red warning box, but it does not work!
+
+Did you open the `index.html` file directly in your web browser? That unfortunately does not work in most browsers. Try uploading everything
+to a web server and opening it from there instead. Or run a web server locally for development.
+
+If you did in fact access it from a web server, do as the error message says: Does the file exist? Can you access it with your web browser
+directly or do you get an error message? And lastly, does it not contain syntax errors?
 
 
 Weal and Woe

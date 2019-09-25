@@ -143,9 +143,20 @@ syntaktisch korrekt ist.
 
 Sieht so aus als ob der JavaScript-Teil defekt ist. Ist genau eine Sprachdatei (siehe oben) eingebunden? Sie könnte auch einen Syntaxfehler enthalten.
 
+
 #### Das Ergebnis ist leer
 
 Man sollte schon mindestens eine These beantworten.
+
+
+#### Ich öffne den mahlowat aber nichts funktioniert, da ist nur eine rote Warnung!
+
+Die häufigste Ursache hierfür ist, dass die `index.html`-Datei direkt mit den Webbrowser geöffnet wurde. Leider funktioniert dies in den
+meisten Browsern nicht. Alle Dateien müssen auf einen Webserver geladen und von dort angezeigt werden. Du kannst auch lokal einen Webserver
+zum Testen starten.
+
+Wenn die Dateien hingegen bereits auf einem Webserver liegen und dennoch die Fehlermeldung auftaucht, dann lies sie: Existiert die Datei?
+Lässt sich sich mit dem Webbrowser direkt aufrufen oder kommt eine Fehlermeldung? Und nicht zuletzt, enthält sie keine Syntaxfehler?
 
 
 Freud und Leid
