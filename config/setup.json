@@ -1,0 +1,19 @@
+{
+	"languages": [
+		{
+			"name": "Deutsch",
+			"flag": "de.svg",
+			"url": ""
+		},
+		{
+			"name": "English",
+			"flag": "en.svg",
+			"url": ""
+		}
+	],
+	"branding": {
+		"logo": "mahlowat_logo.svg",
+		"appendix": "powered by",
+		"url": "https://github.com/HSZemi/mahlowat"
+	}
+}

@@ -1,0 +1,8 @@
+img/de.svg - Flag of Germany
+By User:SKopp, User:Madden, and other users - Own work, Public Domain, https://commons.wikimedia.org/w/index.php?curid=343071
+
+img/en.svg - Flag of the United Kingdom
+By Original code by Stefan-Xp with modifications to ratio by Yaddah. - Design data from http://fotw.vexillum.com/flags/gb.html; original code is from Image:Flag of the United Kingdom.svg, Public Domain, https://commons.wikimedia.org/w/index.php?curid=895166
+
+img/fr.svg - Flag of France
+By This graphic was drawn by SKopp. - https://web.archive.org/web/*/http://www.diplomatie.gouv.fr/de/frankreich_3/frankreich-entdecken_244/portrat-frankreichs_247/die-symbole-der-franzosischen-republik_260/trikolore-die-nationalfahne_114.html, Public Domain, https://commons.wikimedia.org/w/index.php?curid=343059

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Vote-O-Mat - Setup</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta content="">
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/setup.css" rel="stylesheet" media="screen">
+
+	<style>
+		.singlethesis {
+			margin: 1em 0em 1em 0em;
+			padding: 1em;
+			background-color: #ccc;
+		}
+
+		.singlelist {
+			margin: 1em 0em 1em 0em;
+			padding: 1em;
+			background-color: #ccc;
+		}
+
+		#config {
+			width: 100%;
+		}
+
+		#pagination {
+			margin-top: 0.5rem;
+		}
+	</style>
+	<script defer src="js/fontawesome-all.min.js"></script>
+</head>
+
+<body>
+	<div class="container" style="margin: 2em auto;">
+		<div class="bottom-buffer top-buffer">
+
+			<h1>Vote-O-Mat - Setup</h1>
+
+			<div id="start">
+				<p class="lead">Moin!</p>
+				<p>Mit diesem hoffentlich praktischen Tool kannst du den Vote-O-Maten allgemein einrichten. Die Thesen und Antworten der Listen kannst du mit <code>generator.html</code> im Verzeichnis <code>vote-o-mat-instance</code> erstellen.</p>
+				<p>Am Ende dieses Setups kommt dann ein kryptischer Text heraus, der im
+					<code>config</code>-Verzeichnis des Vote-O-Mats als
+					<code>setup.json</code> gespeichert werden muss. Keine Angst, am Ende wird das nochmal detailliert erklärt.</p>
+				<p class="text-center">
+					<button type="button" id="btn_start_next" class="btn btn-primary">Vote-O-Mat konfigurieren!</button>
+				</p>
+			</div>
+
+
+			<div id="language_input">
+				<h2>Schritt 1: Sprachen listen</h2>
+
+				<p>Der Vote-O-Mat bietet im Gegensatz zum <a href="https://github.com/HSZemi/mahlowat" target="_blank">mahlowat</a> eine Startseite, auf der Vote-O-Maten in verschiedenen Sprachen gelistet werden. Hier kannst du angeben, welche Sprachen auf der Startseite angezeigt werden sollen.</p>
+				<div class="alert alert-primary" role="alert"">
+					Diese Einstellungen betreffen ausschließlich die Angaben auf der Startseite. Die eigentlichen Vote-O-Maten in den unterschiedlichen Sprachen musst du händisch erzeugen. In der <code>README</code> erfährst du, wie das geht.
+				  </div>
+				<img src="img/internal/landing-page-example.png" title="Beispielbild für Startseite mit verschiedenen Sprachen" alt="Beispielbild für Startseite mit verschiedenen Sprachen" style="max-width: 1000px" width="100%"/>
+				<p>Jede Sprache wird zusätzlich zum Namen durch eine Flagge symbolisiert. Die Flaggen für Deutsch, Englisch und Französisch sind bereits verfügbar via <code>de.svg</code>, <code>en.svg</code> und <code>fr.svg</code>. Wenn du eine neue Flagge hinzufügen möchtest, platziere die entsprechende Datei im Verzeichnis <code>img</code>. Am besten nutzt du SVG-Grafiken von Wikipedia.</p>
+				<p>Wenn alle Sprachen angelegt sind, geht es mit einem Klick auf "Weiter" weiter.</p>
+
+				<div id="language_list" class="col-md-12">
+					
+				</div>
+
+				<div id="language_topbuttonrow" class="col-md-12">
+					<button type="button" id="btn_add_language" class="btn btn-primary">Sprache hinzufügen</button>
+					<button type="button" id="btn_step_1_next" class="btn btn-success">Weiter</button>
+				</div>
+
+			</div>
+
+			<div id="branding_input">
+				<h2>Schritt 2: Branding</h2>
+
+				<p>Der Vote-O-Mat kann mit einem Logo von z.B. der verantwortlichen Organisation versehen werden, um ihm einen offiziellen Charakter zu geben. Dieses Logo wird sowohl im eigentlichen Vote-O-Maten als auch auf der Startseite gemeinsam mit einem textuellen Zusatz angezeigt.</p>
+				
+				<img src="img/internal/branding-example.png" alt="Beispielbild für Startseite mit verschiedenen Sprachen" style="max-width: 1000px" width="100%"/>
+				
+				<div class="alert alert-primary" role="alert" style="margin-top: 1em;">
+					Möchtest du eine Funktion nicht nutzen, lasse das entsprechende Feld frei.
+				  </div>
+
+				<div class="card" style="margin-bottom: 1em">
+					<div class="card-body">
+						<div class="form-row">
+							<div class="col">
+								<div class="form-group">
+									<label>Logo</label>
+									<input type="text" class="form-control input_branding_logo" placeholder="unserlogo.svg">
+									<small id="logoHelp" class="form-text text-muted">Name der Logo-Datei. Platziere das Logo im <code>img</code>-Verzeichnis.</small>
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label>Zusatz auf Startseite</label>
+									<input type="text" class="form-control input_branding_appendix" placeholder="powered by">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>URL zur Website der Organisation</label>
+							<input type="text" class="form-control input_branding_url" placeholder="https://tolleorganisation.de">
+							<small id="logoUrlHelp" class="form-text text-muted">Beim Klick auf das Logo auf der Startseite wird diese URL aufgerufen.</small>
+						</div>
+					</div>
+				</div>
+
+				<div id="logo_topbuttonrow" class="col-md-12">
+					<button type="button" id="btn_step_2_prev" class="btn btn-default">Zurück</button>
+					<button type="button" id="btn_generate" class="btn btn-success">Weiter</button>
+				</div>
+
+				<div id="lists_list" class="col-md-12">
+
+				</div>
+
+			</div>
+
+			<!--<div id="creator_input">
+				<h2>Schritt 3: Statistiken</h2>
+
+				<p>Der Vote-O-Mat kann mit einem Logo von z.B. der verantwortlichen Organisation versehen werden, um ihm einen offiziellen Charakter zu geben. Dieses Logo wird sowohl im eigentlichen Vote-O-Maten als auch auf der Startseite gemeinsam mit einem textuellen Zusatz angezeigt.</p>
+				<img src="img/internal/branding-example.png" alt="Beispielbild für Startseite mit verschiedenen Sprachen" height="500px"/>
+				<p>Möchtest du eine Funktion nicht nutzen, lasse das entsprechende Feld frei.</p>
+
+				<div class="card" style="margin-bottom: 1em">
+					<div class="card-body">
+						<div class="form-row">
+							<div class="col">
+								<div class="form-group">
+									<label>Logos</label>
+									<input type="text" class="form-control input_branding" placeholder="unserlogo.svg">
+									<small id="logoHelp" class="form-text text-muted">Name der Logo-Datei. Platziere das Logo im <code>img</code>-Verzeichnis.</small>
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label>Zusatz auf Startseite</label>
+									<input type="text" class="form-control input_branding_appendix" placeholder="powered by">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>URL zur Website der Organisation</label>
+							<input type="text" class="form-control input_language_url" placeholder="https://tolleorganisation.de">
+							<small id="logoUrlHelp" class="form-text text-muted">Beim Klick auf das Logo auf der Startseite wird diese URL aufgerufen.</small>
+						</div>
+					</div>
+				</div>
+
+				<div id="logo_topbuttonrow" class="col-md-12">
+					<button type="button" id="btn_step_2_prev" class="btn btn-default">Zurück</button>
+					<button type="button" id="btn_step_2_next" class="btn btn-success">Weiter</button>
+				</div>
+
+				<div id="lists_list" class="col-md-12">
+
+				</div>
+
+			</div>-->
+		</div>
+
+		<div id="encodeddata">
+			<p class="lead">Geschafft! Also fast.</p>
+			<p>Im untenstehenden Textfeld findest du deine Vote-O-Mat-Konfiguration.</p>
+			<p>Dieser Text muss jetzt genau so in die Datei
+				<code>setup.json</code> im Verzeichnis
+				<code>config</code> des Vote-O-Maten kopiert werden. Falls diese Datei nicht existiert, erstelle sie einfach. Achte darauf, dass die Datei im
+				UTF-8-Format gespeichert wird!</p>
+			<button type="button" id="btn_generate_prev" class="btn btn-default">Zurück</button>
+			<a id="btn_copy_encodeddata" tabindex="0" role="button" class="btn btn-success" data-toggle="popover" data-content="Konfiguration kopiert! Du kannst sie nun in die Konfigurationsdatei einfügen." data-template='<div class="popover bg-success" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body border-success bg-success text-white"></div></div>'>Konfiguration in Zwischenablage kopieren</a>
+			<textarea class="form-control" rows="20" id="output_encodeddata" style="margin-top: 1em;"></textarea>
+		</div>
+
+	</div>
+
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/setup.js"></script>
+</body>
+
+</html>
