@@ -158,7 +158,7 @@ function generateList(name, shortname) {
 $(function () {
 	var singleton = new Singleton();
 
-	$.getJSON("config/data.json", function (data) {
+	$.getJSON("../config/data.json", function (data) {
 		data.activeThesis = 0;
 		data.activeList = 0;
 		Singleton.instance = data;

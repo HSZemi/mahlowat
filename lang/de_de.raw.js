@@ -1,8 +1,9 @@
 class T {
   constructor() {
-    this.page_title = "Mahlowat";
+    this.page_title = "Vote-O-Mat";
+    this.year = "2021";
     this.qa_modal_title = "Fragen &amp; Antworten";
-    this.qa_modal_body = '<h4>Wer steht hinter dem Mahlowat?</h4>\
+    this.qa_modal_body = '<h4>Wer steht hinter dem Vote-O-Mat?</h4>\
 					<p>Lorem Ipsum.</p>\
 \
 					<h4>Wer hat die Thesen erarbeitet?</h4>\
@@ -37,22 +38,22 @@ class T {
 					<h4>Ich habe einen inhaltlichen Fehler gefunden!</h4>\
 					<p>Gib uns gern Bescheid, wir sehen uns das an. Wer „wir“ sind, steht oben auf dieser Seite.</p>\
 \
-					<h4>Wer hat den Mahlowat programmiert?</h4>\
+					<h4>Wer hat den Vote-O-Mat programmiert?</h4>\
 					<p>Das steht\
-						<a href="https://github.com/hszemi/mahlowat">hier</a>. Der Mahlowat ist übrigens freie Software!</p>\
+						<a href="https://github.com/SilvanVerhoeven/vote-o-mat">hier</a>. Der Vote-O-Mat ist übrigens freie Software!</p>\
 \
 					<h4>Ich habe einen Programmierfehler gefunden!</h4>\
 					<p>Oh nein! Wenn du den Fehler\
-						<a href="https://github.com/hszemi/mahlowat">meldest</a>, wird er vielleicht behoben.</p>';
+						<a href="https://github.com/SilvanVerhoeven/vote-o-mat">meldest</a>, wird er vielleicht behoben.</p>';
     this.btn_qa_modal_close = "Schließen";
     this.swype_info_message_text = "Wische, um manuell zwischen Thesen zu wechseln";
     this.btn_swype_info_ok = "OK";
-    this.start_subtitle = "Der Mahlowat ist ein Wahlpositions&shy;vergleichswerkzeug.";
-    this.start_explanatory_text = "<p>Der Mahlowat ermöglicht es dir, deine Meinung zu ausgewählten Thesen mit denen der Gruppen zu vergleichen, die zur $WAHL\
+    this.start_subtitle = "Der Vote-O-Mat ist ein Wahlpositions&shy;vergleichswerkzeug.";
+    this.start_explanatory_text = "<p>Der Vote-O-Mat ermöglicht es dir, deine Meinung zu ausgewählten Thesen mit denen der Gruppen zu vergleichen, die zur $WAHL\
 						antreten.\
 					</p>\
 					<p>Für ihre Stellungnahmen zu den Thesen sind die Gruppen selbst verantwortlich.</p>";
-    this.btn_start = "Mahlowat starten!";
+    this.btn_start = "Vote-O-Mat starten!";
     this.btn_start_show_qa = "Fragen &amp; Antworten";
     this.btn_toggle_thesis_more_text = "Erläuterung";
     this.btn_important = "These doppelt gewichten";
