@@ -1,7 +1,7 @@
 class T {
   constructor() {
     this.page_title = "Vote-O-Mat";
-    this.year = "2021";
+    this.vote_o_mat_title = "Vote-O-Mat 2021";
     this.qa_modal_title = "Fragen &amp; Antworten";
     this.qa_modal_body = '<h4>Wer steht hinter dem Vote-O-Mat?</h4>\
 					<p>Lorem Ipsum.</p>\
