@@ -30,7 +30,7 @@ function init() {
 			setBranding(jsondata.branding);
 		})
 		.fail(function () {
-			$('#error-msg').html(`<div class="alert alert-danger" role="alert"><b>Fehler</b> Die Konfigurationsdatei <a href="${CONFIG_FILE}"><tt>config/data.json</tt></a> konnte nicht geladen werden. Existiert sie und enthält keine Syntaxfehler?</div>`);
+			$('#error-msg').html(`<div class="alert alert-danger" role="alert"><b>Fehler</b> Die Konfigurationsdatei <a href="${CONFIG_FILE}"><tt>config/data.json</tt></a> konnte nicht geladen werden. Existiert sie und enthält keine Syntaxfehler? <br>Sie kann außerdem nicht lokal geladen werden, platziere die Dateien auf einem Server.</div>`);
 		});
 }
 

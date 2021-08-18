@@ -1,3 +1,5 @@
+const CONFIG_FILE = 'config/data.json';
+
 function Singleton() {
 	if (typeof Singleton.instance === 'object') {
 		return Singleton.instance;
@@ -158,7 +160,7 @@ function generateList(name, shortname) {
 $(function () {
 	var singleton = new Singleton();
 
-	$.getJSON("../config/data.json", function (data) {
+	$.getJSON(CONFIG_FILE, function (data) {
 		data.activeThesis = 0;
 		data.activeList = 0;
 		Singleton.instance = data;

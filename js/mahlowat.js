@@ -1,3 +1,5 @@
+const CONFIG_FILE = 'config/data.json';
+
 var data = null;
 var answers = null;
 var currentThesis = 0;
@@ -20,7 +22,7 @@ function translate() {
 }
 
 function init() {
-	$.getJSON("config/data.json")
+	$.getJSON(CONFIG_FILE)
 		.done(function (jsondata) {
 			data = jsondata;
 			currentThesis = 0;

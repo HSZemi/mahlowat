@@ -1,3 +1,5 @@
+const CONFIG_FILE = 'config/setup.json';
+
 function Singleton() {
 	if (typeof Singleton.instance === 'object') {
 		return Singleton.instance;
@@ -68,7 +70,7 @@ function generateEmptyLanguage() {
 }
 
 function generateLanguage(name, flag_file, url) {
-	var languagediv = `<div class="singlelanguage card" style="margin-bottom: 1em">
+	var languagediv = `<div class="singlelanguage card bg-light">
 		<div class="card-body">
 			<div class="form-row">
 				<div class="col">
@@ -128,7 +130,7 @@ function initializeConfig() {
 $(function () {
 	var singleton = new Singleton();
 
-	$.getJSON('config/setup.json', function (data) {
+	$.getJSON(CONFIG_FILE, function (data) {
 		Singleton.instance = data;
 		initializeConfig();
 	}).fail(() => showConfigAlternative());

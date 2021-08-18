@@ -9,31 +9,18 @@
 	<link href="css/setup.css" rel="stylesheet" media="screen">
 
 	<style>
-		.singlethesis {
+	    .container {
+			margin: 2em auto;
+		}
+		.singlelanguage {
 			margin: 1em 0em 1em 0em;
-			padding: 1em;
-			background-color: #ccc;
-		}
-
-		.singlelist {
-			margin: 1em 0em 1em 0em;
-			padding: 1em;
-			background-color: #ccc;
-		}
-
-		#config {
-			width: 100%;
-		}
-
-		#pagination {
-			margin-top: 0.5rem;
 		}
 	</style>
 	<script defer src="js/fontawesome-all.min.js"></script>
 </head>
 
 <body>
-	<div class="container" style="margin: 2em auto;">
+	<div class="container">
 		<div class="bottom-buffer top-buffer">
 
 			<h1>Vote-O-Mat - Setup</h1>
@@ -83,7 +70,7 @@
 					Möchtest du eine Funktion nicht nutzen, lasse das entsprechende Feld frei.
 				  </div>
 
-				<div class="card" style="margin-bottom: 1em">
+				<div class="card bg-light" style="margin-bottom: 1em">
 					<div class="card-body">
 						<div class="form-row">
 							<div class="col">
@@ -118,49 +105,6 @@
 				</div>
 
 			</div>
-
-			<!--<div id="creator_input">
-				<h2>Schritt 3: Statistiken</h2>
-
-				<p>Der Vote-O-Mat kann mit einem Logo von z.B. der verantwortlichen Organisation versehen werden, um ihm einen offiziellen Charakter zu geben. Dieses Logo wird sowohl im eigentlichen Vote-O-Maten als auch auf der Startseite gemeinsam mit einem textuellen Zusatz angezeigt.</p>
-				<img src="img/internal/branding-example.png" alt="Beispielbild für Startseite mit verschiedenen Sprachen" height="500px"/>
-				<p>Möchtest du eine Funktion nicht nutzen, lasse das entsprechende Feld frei.</p>
-
-				<div class="card" style="margin-bottom: 1em">
-					<div class="card-body">
-						<div class="form-row">
-							<div class="col">
-								<div class="form-group">
-									<label>Logos</label>
-									<input type="text" class="form-control input_branding" placeholder="unserlogo.svg">
-									<small id="logoHelp" class="form-text text-muted">Name der Logo-Datei. Platziere das Logo im <code>img</code>-Verzeichnis.</small>
-								</div>
-							</div>
-							<div class="col">
-								<div class="form-group">
-									<label>Zusatz auf Startseite</label>
-									<input type="text" class="form-control input_branding_appendix" placeholder="powered by">
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label>URL zur Website der Organisation</label>
-							<input type="text" class="form-control input_language_url" placeholder="https://tolleorganisation.de">
-							<small id="logoUrlHelp" class="form-text text-muted">Beim Klick auf das Logo auf der Startseite wird diese URL aufgerufen.</small>
-						</div>
-					</div>
-				</div>
-
-				<div id="logo_topbuttonrow" class="col-md-12">
-					<button type="button" id="btn_step_2_prev" class="btn btn-default">Zurück</button>
-					<button type="button" id="btn_step_2_next" class="btn btn-success">Weiter</button>
-				</div>
-
-				<div id="lists_list" class="col-md-12">
-
-				</div>
-
-			</div>-->
 		</div>
 
 		<div id="encodeddata">
