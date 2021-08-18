@@ -1,11 +1,18 @@
 const CONFIG_FILE = 'config/data.json';
+const SETUP_FILE = '../config/setup.json';
 
+var setup = null;
 var data = null;
 var answers = null;
 var currentThesis = 0;
 var timeout = null;
 var showSwypeInfo = true;
+
+var alreadyHit = {};  // for statistics: storage for remembering already hit points of the application
+
+// translation instance, see lang/*.js files
 var t = new T();
+
 $(function () {
 	translate();
 	$('#btn-start').prop('disabled', true);
@@ -21,9 +28,57 @@ function translate() {
 	}
 }
 
+function formatURL(url) {
+	return (url.substr(-1) != '/') ? url + '/' : url;
+}
+
+/**
+ * Send notification about hitting this point in the application
+ * @param {string} id - Identifier for the point in the application
+ * @return 0 if successful, 1 if an error occured
+ */
+function hit(id) {
+	if (alreadyHit[id] 					// don't count already entered points twice
+		|| !setup.statistics 			// make sure statistics are enabled
+		|| !setup.statistics.hitIds[id] // make sure currently entered point should be tracked in statistics
+		) return;
+	alreadyHit[id] = true;
+
+	id = setup.statistics.hitIds[id];
+	prefix = config.statistics.hitPrefix+'-';
+	const hitUrl = `${formatURL(setup.statistics.hitUrl)}hit/?cp=${prefix}${id}`;
+	$.ajax({
+		url: hitUrl,
+		type: "GET",
+		success: () => {
+			return 0;
+		},
+		error: (request, error, exception) => {
+			console.error(error);
+			return 1;
+		}
+	});
+}
+
+/**
+ * Resets hits when vote-o-mat is restarted without reloading
+ */
+function initializeHitsOnRestart() {
+	alreadyHit.start = false;
+	alreadyHit.result = false;
+}
+
 function init() {
+	$.getJSON(SETUP_FILE)
+		.done(function (jsondata) {
+			setup = jsondata;
+		})
+		.fail(function () {
+			$('#error-msg').html('<div class="alert alert-danger" role="alert">' + t.error_loading_setup_file + '</div>');
+		});
 	$.getJSON(CONFIG_FILE)
 		.done(function (jsondata) {
+			hit('enter');
 			data = jsondata;
 			currentThesis = 0;
 			initOnclickCallbacks();
@@ -480,6 +535,7 @@ function showStart() {
 	init();
 	$("#mahlowat,#result").hide();
 	$("#start").show();
+	initializeHitsOnRestart();
 }
 
 function showMahlowatFirstThesis() {
@@ -495,12 +551,14 @@ function showMahlowat() {
 		showSwypeInfo = false;
 		$("#swype-info").show();
 	}
+	hit('start');
 }
 
 function showResult() {
 	$("#start,#mahlowat").hide();
 	$("#result").fadeIn();
 	animateBars();
+	hit('result');
 }
 
 function animateBars() {

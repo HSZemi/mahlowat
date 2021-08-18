@@ -7,6 +7,9 @@ function Singleton() {
 
 	this.languages = [];
 	this.branding = {};
+	this.statistics = {
+		checkpoints: {}
+	};
 
 	Singleton.instance = this;
 }
@@ -53,9 +56,20 @@ function readData() {
 
 	/* branding */
 	Singleton.instance.branding = {}
-	Singleton.instance.branding.logo = $('.input_branding_logo').val() || '';
-	Singleton.instance.branding.appendix = $('.input_branding_appendix').val() || '';
-	Singleton.instance.branding.url = $('.input_branding_url').val() || '';
+	Singleton.instance.branding.logo = $('#input_branding_logo').val() || '';
+	Singleton.instance.branding.appendix = $('#input_branding_appendix').val() || '';
+	Singleton.instance.branding.url = $('#input_branding_url').val() || '';
+
+	/* statistics */
+	Singleton.instance.statistics = {
+		checkpoints: {}
+	}
+	const checkpoints = ['enter', 'start', 'result'];
+	checkpoints.forEach(id => {
+		if ($(`#input_statistics_${id}_enable`).is(":checked"))
+			Singleton.instance.statistics.checkpoints[id] = $(`#input_statistics_${id}_name`).val();
+	});
+	Singleton.instance.statistics.url = $(`#input_statistics_url`).val();
 }
 
 function generateLanguages() {
@@ -103,9 +117,19 @@ function generateLanguage(name, flag_file, url) {
 
 function initializeBrandingInputs() {
 	if (!Singleton.instance.branding) return;
-	$('.input_branding_logo').val(Singleton.instance.branding.logo || '');
-	$('.input_branding_appendix').val(Singleton.instance.branding.appendix || '');
-	$('.input_branding_url').val(Singleton.instance.branding.url || '');
+	$('#input_branding_logo').val(Singleton.instance.branding.logo || '');
+	$('#input_branding_appendix').val(Singleton.instance.branding.appendix || '');
+	$('#input_branding_url').val(Singleton.instance.branding.url || '');
+}
+
+function initializeStatisticsInputs() {
+	if (!Singleton.instance.statistics) return;
+	Object.keys(Singleton.instance.statistics.checkpoints).forEach(checkpointId => {
+		$(`#input_statistics_${checkpointId}_enable`).prop('checked', true);
+		$(`#input_statistics_${checkpointId}_name`).val(
+			Singleton.instance.statistics.checkpoints[checkpointId]);
+	});
+	$(`#input_statistics_url`).val(Singleton.instance.statistics.url);
 }
 
 function showConfigAlternative () {
@@ -125,6 +149,7 @@ function showConfigAlternative () {
 function initializeConfig() {
 	generateLanguages();
 	initializeBrandingInputs();
+	initializeStatisticsInputs();
 }
 
 $(function () {
@@ -141,7 +166,7 @@ $(function () {
 
 	$('#language_input').hide();
 	$('#branding_input').hide();
-	$('#data_input').hide();
+	$('#statistics_input').hide();
 	$('#encodeddata').hide();
 
 
@@ -162,9 +187,8 @@ $(function () {
 	});
 
 	$('#btn_step_2_next').click(function () {
-		createStep3();
 		$('#branding_input').hide(500);
-		$('#data_input').show(500);
+		$('#statistics_input').show(500);
 	});
 
 	$('#btn_step_2_prev').click(function () {
@@ -172,18 +196,21 @@ $(function () {
 		$('#branding_input').hide(500);
 	});
 
-	$('#btn_generate_prev').click(function () {
+	$('#btn_step_3_prev').click(function () {
 		$('#branding_input').show(500);
+		$('#statistics_input').hide(500);
+	});
+
+	$('#btn_generate_prev').click(function () {
+		$('#statistics_input').show(500);
 		$('#encodeddata').hide(500);
 	});
 
 	$('#btn_generate').click(function () {
 		readData();
-		var copy = JSON.parse(JSON.stringify(Singleton.instance))
-		delete copy.activeList;
-		var jsonstring = JSON.stringify(copy, null, '\t');
+		var jsonstring = JSON.stringify(Singleton.instance, null, '\t');
 		$('#output_encodeddata').val(jsonstring);
-		$('#branding_input').hide(500);
+		$('#statistics_input').hide(500);
 		$('#encodeddata').show(500);
 	});
 

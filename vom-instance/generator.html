@@ -77,9 +77,9 @@
 					Antworten der Listen zu den Thesen eintragen kannst.</p>
 
 				<div id="lists_topbuttonrow" class="col-md-12">
+					<button type="button" id="btn_step_2_prev" class="btn btn-default">Zurück</button>
 					<button type="button" id="btn_add_list" class="btn btn-primary">Liste hinzufügen</button>
 					<button type="button" id="btn_step_2_next" class="btn btn-success">Weiter</button>
-					<button type="button" id="btn_step_2_prev" class="btn btn-default">Zurück</button>
 				</div>
 
 				<div id="lists_list" class="col-md-12">
@@ -91,10 +91,6 @@
 			<div id="data_input">
 				<h2>Schritt 3: Listen-Antworten und Erläuterungen</h2>
 
-				<p class="text-right">
-					<button id='generate' class="btn btn-primary">Erstellen</button>
-				</p>
-
 				<p class="lead">Jetzt wird es lustig.</p>
 				<p>Mit den Tabs wählst du die Liste aus, deren Antworten du eintragen willst. Darunter wählst du dann die Thesen aus, wählst
 					bei den Knöpfen die Antwort der Liste aus und trägst in das Textfeld die Begründung der Liste ein, falls sie eine geliefert
@@ -103,6 +99,12 @@
 					<kbd>→</kbd> umschalten.
 					<br> Wenn du alles eingetragen hast, kannst du als letzten Schritt mit einem Klick auf den "Erstellen"-Knopf oben rechts
 					die Konfiguration erstellen. Einfach, oder?</p>
+
+				<div id="data_topbuttonrow" class="col-md-12" style="margin-bottom: 1em;">
+					<button type="button" id="btn_step_3_prev" class="btn btn-default">Zurück</button>
+					<button type="button" id="btn_step_3_next" class="btn btn-success">Weiter</button>
+				</div>
+
 				<p>Für die aktuelle Liste wurden
 					<span class="label label-primary" id="answered_questions_count">4</span>
 					von
@@ -150,6 +152,35 @@
 					</div>
 				</div>
 				<hr>
+
+			</div>
+
+			<div id="statistics_input">
+				<h2>Schritt 4: Statistiken</h2>
+
+				<p>Der Vote-O-Mat kann anonyme Statistiken zur Nutzung erstellen. Damit sind grobe Aussagen zum allgemeinen Nutzungsverhalten im zeitlichen Verlauf möglich.</p>
+
+				<div class="alert alert-primary" role="alert" style="margin: 1em auto;">
+					Die Statistiken müssen in der <a href="../setup.html" target="_blank"><tt>../setup.html</tt></a>-Konfiguration aktiviert werden. Wurde das nicht getan, kannst du diesen Schritt direkt überspringen. Es werden dann keine Daten erhoben.
+				</div>
+
+				<p>Die Statistiken können nach Sprachen getrennt erfasst werden. Dies geschieht, indem jede gespeicherte Checkpoint-ID ein Präfix erhält, das für jede Vote-O-Mat-Instanz anders ist. Das Statistik-Modul speichert also Informationen nach dem folgenden Schema: <tt>{Präfix}{Checkpoint ID};{Zeitstempel}</tt>, z.B. <tt>de-start;1623247907907</tt> (hierbei ist "de-" das Präfix).</p>
+				<p>Im Folgenden kannst du einstellen, welches Präfix diese Vote-O-Mat-Instanz bekommen soll. Wenn die Statistiken nicht nach Sprachen getrennt erstellt werden sollen, lasse das Feld frei. Empfohlene Präfixe: "de-" für Deutsch, "en-" für Englisch und "fr-" für Französisch.</p>
+
+				<div class="card bg-light" style="margin-bottom: 1em">
+					<div class="card-body">
+						<div class="form-group">
+							<label>Sprachspezifischer Präfix</label>
+							<input type="text" class="form-control" id="input_statistics_prefix" placeholder="de-">
+							<small id="customPrefixHelp" class="form-text text-muted">Hier kannst du ein Präfix für diese Vote-O-Mat-Instanz vergeben. Mit diesem können Statistiken nach Sprachen getrennt ausgewertet werden. Standardmäßig wird kein Präfix vergeben, eine Auswertung nach Sprachen ist dann nicht möglich. Ein Präfix muss über alle betriebenen Instanzen hinweg einmalig sein.</small>
+						</div>
+					</div>
+				</div>
+
+				<div id="statistics_topbuttonrow" class="col-md-12">
+					<button type="button" id="btn_step_4_prev" class="btn btn-default">Zurück</button>
+					<button type="button" id='btn_generate' class="btn btn-primary">Konfiguration erstellen</button>
+				</div>
 
 			</div>
 		</div>

@@ -15,5 +15,9 @@
 		"logo": "mahlowat_logo.svg",
 		"appendix": "powered by",
 		"url": "https://github.com/HSZemi/mahlowat"
+	},
+	"statistics": {
+		"checkpoints": {},
+		"url": ""
 	}
 }

@@ -8,6 +8,7 @@ function Singleton() {
 	this.theses = null;
 	this.lists = null;
 	this.answers = null;
+	this.statistics = null;
 	this.activeThesis = 0;
 	this.activeList = 0;
 
@@ -34,6 +35,12 @@ function movedown(self) {
 		$(self).parent().parent().insertAfter($(self).parent().parent().next(".singlethesis"));
 		$(self).parent().parent().show(400);
 	}, 400);
+}
+
+// needs to be exluded from readData() as it is called later in the configuration process
+function readStatisticsData() {
+	Singleton.instance.statistics = {};
+	Singleton.instance.statistics.prefix = $('#input_statistics_prefix').val();
 }
 
 function readData() {
@@ -157,6 +164,11 @@ function generateList(name, shortname) {
 	$('#lists_list').append(listdiv);
 }
 
+function initializeStatisticsInputs () {
+	if (!Singleton.instance.statistics) return;
+	$('#input_statistics_prefix').val(Singleton.instance.statistics.prefix || '');
+}
+
 $(function () {
 	var singleton = new Singleton();
 
@@ -165,9 +177,9 @@ $(function () {
 		data.activeList = 0;
 		Singleton.instance = data;
 
-
 		generateTheses();
 		generateLists();
+		initializeStatisticsInputs();
 	});
 
 
@@ -182,6 +194,7 @@ $(function () {
 	$('#theses_input').hide();
 	$('#lists_input').hide();
 	$('#data_input').hide();
+	$('#statistics_input').hide();
 	$('#encodeddata').hide();
 
 
@@ -201,6 +214,11 @@ $(function () {
 		$('#data_input').show(500);
 	});
 
+	$('#btn_step_3_next').click(function () {
+		$('#statistics_input').show(500);
+		$('#data_input').hide(500);
+	});
+
 	$('#btn_step_2_prev').click(function () {
 		$('#theses_input').show(500);
 		$('#lists_input').hide(500);
@@ -211,13 +229,19 @@ $(function () {
 		$('#data_input').hide(500);
 	});
 
-	$('#generate').click(function () {
+	$('#btn_step_4_prev').click(function () {
+		$('#data_input').show(500);
+		$('#statistics_input').hide(500);
+	});
+
+	$('#btn_generate').click(function () {
+		readStatisticsData();
 		var copy = JSON.parse(JSON.stringify(Singleton.instance))
 		delete copy.activeThesis;
 		delete copy.activeList;
 		var jsonstring = JSON.stringify(copy, null, '\t');
 		$('#output_encodeddata').val(jsonstring);
-		$('#data_input').hide(500);
+		$('#statistics_input').hide(500);
 		$('#encodeddata').show(500);
 	});
 

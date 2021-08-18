@@ -76,20 +76,20 @@
 							<div class="col">
 								<div class="form-group">
 									<label>Logo</label>
-									<input type="text" class="form-control input_branding_logo" placeholder="unserlogo.svg">
+									<input type="text" class="form-control" id="input_branding_logo" placeholder="unserlogo.svg">
 									<small id="logoHelp" class="form-text text-muted">Name der Logo-Datei. Platziere das Logo im <code>img</code>-Verzeichnis.</small>
 								</div>
 							</div>
 							<div class="col">
 								<div class="form-group">
 									<label>Zusatz auf Startseite</label>
-									<input type="text" class="form-control input_branding_appendix" placeholder="powered by">
+									<input type="text" class="form-control" id="input_branding_appendix" placeholder="powered by">
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
 							<label>URL zur Website der Organisation</label>
-							<input type="text" class="form-control input_branding_url" placeholder="https://tolleorganisation.de">
+							<input type="text" class="form-control" id="input_branding_url" placeholder="https://tolleorganisation.de">
 							<small id="logoUrlHelp" class="form-text text-muted">Beim Klick auf das Logo auf der Startseite wird diese URL aufgerufen.</small>
 						</div>
 					</div>
@@ -97,11 +97,112 @@
 
 				<div id="logo_topbuttonrow" class="col-md-12">
 					<button type="button" id="btn_step_2_prev" class="btn btn-default">Zurück</button>
-					<button type="button" id="btn_generate" class="btn btn-success">Weiter</button>
+					<button type="button" id="btn_step_2_next" class="btn btn-success">Weiter</button>
 				</div>
 
-				<div id="lists_list" class="col-md-12">
+			</div>
 
+			<div id="statistics_input">
+				<h2>Schritt 3: Statistiken</h2>
+
+				<p>Der Vote-O-Mat kann anonyme Statistiken zur Nutzung erstellen. Damit sind grobe Aussagen zum allgemeinen Nutzungsverhalten im zeitlichen Verlauf möglich.</p>
+				<p>Möchtest du die Statistiken nicht aktivieren, stelle sicher, dass unten alle Haken abgewählt sind und gehe direkt weiter.</p>
+				<div class="alert alert-primary" role="alert" style="margin: 1em auto;">
+					Die Nutzung von Statistiken setzt die Einrichtung des Statistik-Moduls voraus. <a href="README-DE.md" target="_blank">Mehr zur Einrichtung erfahren</a>
+				</div>
+				<p><strong>Die Datensammlung funktioniert so:</strong> Im Vote-O-Maten gibt es verschiedene "Checkpoints". Wird ein solcher Checkpoint, z.B. die Anzeige der Ergebnisse, erreicht, sendet der Vote-O-Mat diese Information an das Statistik-Modul. Dieses speichert den Checkpoint zusammen mit dem Zeitpunkt in einer <a href="https://de.wikipedia.org/wiki/CSV_(Dateiformat)" target="_blank"><code>CSV</code>-Datei</a> ab. Zu keinem Zeitpunkt werden durch den Vote-O-Maten nutzerbezogene Daten oder Daten zu den eingegebenen Meinungen erhoben.
+					<br>Das Statistik-Modul bereitet die gesammelten Daten visuell auf. Außerdem können sie zur weiteren Analyse heruntergeladen werden.</p>
+				
+				<div class="card bg-light" style="margin-bottom: 1em">
+					<div class="card-body">
+						<div class="form-group">
+							<label>URL zum Statistik-Modul</label>
+							<input type="text" class="form-control" id="input_statistics_url" placeholder="https://meintollerserver.de/vom-statistics">
+							<small id="customCheckpointHelp" class="form-text text-muted">Unter welcher URL ist das Statistik-Modul <code>vom-statistics</code> erreichbar? <a href="README-DE.md" target="_blank">Erfahre mehr</a></small>
+						</div>
+					</div>
+				</div>
+				
+				<p>Im Folgenden kannst du einstellen, welche Checkpoints aktiviert werden sollen.</p>
+
+				<div class="card bg-light" style="margin-bottom: 1em">
+					<div class="card-header">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="input_statistics_enter_enable">
+							<label class="form-check-label" for="input_statistics_enter_enable">
+								Aufruf
+							</label>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="col">
+								Erheben, dass die Website des Vote-O-Maten aufgerufen wurde.
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label>Benutzerdefinierte Checkpoint-ID</label>
+									<input type="text" class="form-control" id="input_statistics_enter_name" placeholder="enter">
+									<small id="customCheckpointHelp" class="form-text text-muted">Hier kannst du einen eigenen Namen für den Checkpoint vergeben. Standardmäßig <tt>enter</tt>. Der Checkpoint-Name muss einzigartig sein.</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card bg-light" style="margin-bottom: 1em">
+					<div class="card-header">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="input_statistics_start_enable">
+							<label class="form-check-label" for="input_statistics_start_enable">
+								Start
+							</label>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="col">
+								Erheben, dass der Button "Vote-O-Mat starten" gedrückt wurde.
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label>Benutzerdefinierte Checkpoint-ID</label>
+									<input type="text" class="form-control" id="input_statistics_start_name" placeholder="start">
+									<small id="customCheckpointHelp" class="form-text text-muted">Hier kannst du einen eigenen Namen für den Checkpoint vergeben. Standardmäßig <tt>start</tt>. Der Checkpoint-Name muss einzigartig sein.</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card bg-light" style="margin-bottom: 1em">
+					<div class="card-header">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="input_statistics_result_enable">
+							<label class="form-check-label" for="input_statistics_result_enable">
+								Abschluss
+							</label>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="col">
+								Erheben, dass die Ergebnisse angezeigt wurden.
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label>Benutzerdefinierte Checkpoint-ID</label>
+									<input type="text" class="form-control" id="input_statistics_result_name" placeholder="result">
+									<small id="customCheckpointHelp" class="form-text text-muted">Hier kannst du einen eigenen Namen für den Checkpoint vergeben. Standardmäßig <tt>result</tt>. Der Checkpoint-Name muss einzigartig sein.</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="logo_topbuttonrow" class="col-md-12">
+					<button type="button" id="btn_step_3_prev" class="btn btn-default">Zurück</button>
+					<button type="button" id="btn_generate" class="btn btn-primary">Konfiguration erstellen</button>
 				</div>
 
 			</div>
