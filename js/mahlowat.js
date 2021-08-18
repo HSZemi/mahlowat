@@ -46,7 +46,7 @@ function hit(id) {
 
 	id = setup.statistics.hitIds[id];
 	prefix = config.statistics.hitPrefix+'-';
-	const hitUrl = `${formatURL(setup.statistics.hitUrl)}hit/?cp=${prefix}${id}`;
+	const hitUrl = `${formatURL(setup.statistics.hitUrl)}hit/?cp=${encodeURIComponent(prefix+id)}`;
 	$.ajax({
 		url: hitUrl,
 		type: "GET",
