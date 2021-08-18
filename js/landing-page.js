@@ -1,7 +1,7 @@
-const CONFIG_FILE = '../config/setup.json'; 
+const CONFIG_FILE = 'config/setup.json'; 
 
 function img(file_name) {
-	return '../img/'+file_name;
+	return 'img/'+file_name;
 }
 
 // translation instance, see lang/*.js files
@@ -20,7 +20,7 @@ function translate() {
 }
 
 function missing(dataItem) {
-	$('#error-msg').append(`<div class="alert alert-danger" role="alert"><b>Fehlende Daten:</b> In der Konfigurationsdatei <a href="${CONFIG_FILE}"><tt>${CONFIG_FILE}</tt></a> wurde folgendes Datum nicht spezifiziert: ${dataItem}. Nutze <a href="../setup.html"><tt>setup.html</tt></a> um es nachzutragen.</div>`);
+	$('#error-msg').append(`<div class="alert alert-danger" role="alert"><b>Fehlende Daten:</b> In der Konfigurationsdatei <a href="${CONFIG_FILE}"><tt>${CONFIG_FILE}</tt></a> wurde folgendes Datum nicht spezifiziert: ${dataItem}. Nutze <a href="setup.html"><tt>setup.html</tt></a> um es nachzutragen.</div>`);
 }
 
 function init() {
@@ -30,7 +30,7 @@ function init() {
 			setBranding(jsondata.branding);
 		})
 		.fail(function () {
-			$('#error-msg').html(`<div class="alert alert-danger" role="alert"><b>Fehler</b> Die Konfigurationsdatei <a href="${CONFIG_FILE}"><tt>config/data.json</tt></a> konnte nicht geladen werden. Existiert sie und enthält keine Syntaxfehler? <br>Sie kann außerdem nicht lokal geladen werden, platziere die Dateien auf einem Server.</div>`);
+			$('#error-msg').html(`<div class="alert alert-danger" role="alert"><b>Fehler:</b> Die Konfigurationsdatei <a href="${CONFIG_FILE}"><tt>config/data.json</tt></a> konnte nicht geladen werden. Existiert sie und enthält keine Syntaxfehler? <br>Sie kann außerdem nicht lokal geladen werden, platziere die Dateien auf einem Server.</div>`);
 		});
 }
 
