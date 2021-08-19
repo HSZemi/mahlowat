@@ -1,1 +1,3 @@
+./config/setup.json
 config/data.json
+*.log
