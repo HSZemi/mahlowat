@@ -113,16 +113,6 @@
 				<p><strong>Die Datensammlung funktioniert so:</strong> Im Vote-O-Maten gibt es verschiedene "Checkpoints". Wird ein solcher Checkpoint, z.B. die Anzeige der Ergebnisse, erreicht, sendet der Vote-O-Mat diese Information an das Statistik-Modul. Dieses speichert den Checkpoint zusammen mit dem Zeitpunkt in einer <a href="https://de.wikipedia.org/wiki/CSV_(Dateiformat)" target="_blank"><code>CSV</code>-Datei</a> ab. Zu keinem Zeitpunkt werden durch den Vote-O-Maten nutzerbezogene Daten oder Daten zu den eingegebenen Meinungen erhoben.
 					<br>Das Statistik-Modul bereitet die gesammelten Daten visuell auf. Außerdem können sie zur weiteren Analyse heruntergeladen werden.</p>
 				
-				<div class="card bg-light" style="margin-bottom: 1em">
-					<div class="card-body">
-						<div class="form-group">
-							<label>URL zum Statistik-Modul</label>
-							<input type="text" class="form-control" id="input_statistics_url" placeholder="https://meintollerserver.de/vom-statistics">
-							<small id="customCheckpointHelp" class="form-text text-muted">Unter welcher URL ist das Statistik-Modul <code>vom-statistics</code> erreichbar? <a href="README-DE.md" target="_blank">Erfahre mehr</a></small>
-						</div>
-					</div>
-				</div>
-				
 				<p>Im Folgenden kannst du einstellen, welche Checkpoints aktiviert werden sollen.</p>
 
 				<div class="card bg-light" style="margin-bottom: 1em">
@@ -195,6 +185,33 @@
 									<input type="text" class="form-control" id="input_statistics_result_name" placeholder="result">
 									<small id="customCheckpointHelp" class="form-text text-muted">Hier kannst du einen eigenen Namen für den Checkpoint vergeben. Standardmäßig <tt>result</tt>. Der Checkpoint-Name muss einzigartig sein.</small>
 								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card bg-light" style="margin-bottom: 1em">
+					<div class="card-header" id="advancedOptionsHeader">
+					  	<h5 class="mb-0">
+							<button class="btn btn-link" data-toggle="collapse" data-target="#advancedOptionsBody" aria-expanded="true" aria-controls="collapseOne">
+								Fortgeschrittene Einstellungen
+							</button>
+						</h5>
+					</div>
+					<div id="advancedOptionsBody" class="collapse" aria-labelledby="advancedOptionsBody">
+						<div class="card-body">
+							<div class="alert alert-warning" role="alert" style="margin: 1em auto;">
+								Ändere diese Einstellungen nur, wenn du weißt, was du tust.
+							</div>
+							<div class="form-group">
+								<label>Pfad zur Log-Datei</label>
+								<input type="text" class="form-control" id="input_statistics_log" placeholder="../hits.log">
+								<small id="customLogHelp" class="form-text text-muted">Pfad zur Log-Datei, relativ zum Arbeitsverzeichnis des Statistik-Moduls. Standardmäßig <tt>hits.log</tt> im Arbeitsverzeichnis des Statistik-Moduls.</small>
+							</div>
+							<div class="form-group">
+								<label>URL zum Statistik-Modul</label>
+								<input type="text" class="form-control" id="input_statistics_url" placeholder="https://meintollerserver.de/vom-statistics">
+								<small id="customStatisticsHelp" class="form-text text-muted">Unter welcher URL ist das Statistik-Modul <code>vom-statistics</code> erreichbar? <a href="README-DE.md" target="_blank">Erfahre mehr</a></small>
 							</div>
 						</div>
 					</div>

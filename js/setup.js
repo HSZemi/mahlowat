@@ -69,6 +69,7 @@ function readData() {
 		if ($(`#input_statistics_${id}_enable`).is(":checked"))
 			Singleton.instance.statistics.checkpoints[id] = $(`#input_statistics_${id}_name`).val();
 	});
+	Singleton.instance.statistics.log = $(`#input_statistics_log`).val();
 	Singleton.instance.statistics.url = $(`#input_statistics_url`).val();
 }
 
@@ -129,6 +130,7 @@ function initializeStatisticsInputs() {
 		$(`#input_statistics_${checkpointId}_name`).val(
 			Singleton.instance.statistics.checkpoints[checkpointId]);
 	});
+	$(`#input_statistics_log`).val(Singleton.instance.statistics.log);
 	$(`#input_statistics_url`).val(Singleton.instance.statistics.url);
 }
 

@@ -84,6 +84,7 @@ function () {
     this.title_results_details = "";
     this.btn_results_show_start = "Zurück zur Startseite";
     this.btn_results_show_qa = "Fragen &amp; Antworten";
+    this.no_log_data = "Der Vote-O-Mat wurde bisher nicht genutzt.";
   }
 
   _createClass(T, [{
@@ -119,8 +120,29 @@ function () {
   }, {
     key: "error_loading_config_file",
     get: function get() {
-      return '<b>Fehler</b> Die Konfigurationsdatei <a href="config/data.json"><tt>config/data.json</tt></a> konnte nicht geladen\
+      return '<b>Fehler:</b> Die Konfigurationsdatei <a href="config/data.json"><tt>config/data.json</tt></a> konnte nicht geladen\
 		werden. Existiert sie und enthält keine Syntaxfehler?';
+    }
+  }, {
+    key: "error_loading_setup_file",
+    get: function get() {
+      return '<b>Fehler:</b> Die Konfigurationsdatei <a href="../config/setup.json"><tt>../config/setup.json</tt></a> konnte nicht geladen\
+		werden. Existiert sie und enthält keine Syntaxfehler?';
+    }
+  }, {
+    key: "error_loading_log_file",
+    get: function get() {
+      return '<b>Fehler:</b> Die Log-Datei konnte nicht geladen	werden. Wurde der Pfad in <a href="../config/setup.json"><tt>../config/setup.json</tt></a> korrekt gesetzt? Existiert sie und enthält keine Syntaxfehler?';
+    }
+  }, {
+    key: "error_statistics_module_not_found",
+    get: function get() {
+      return '<b>Fehler:</b> Das Statistik-Modul konnte nicht erreicht werden. Wurde die URL zum Statistik-Modul in <a href="../config/setup.json"><tt>../config/setup.json</tt></a> richtig konfiguriert?';
+    }
+  }, {
+    key: "error_statistics_general",
+    get: function get() {
+      return '<b>Fehler:</b> Das Statistik-Modul arbeitet nicht korrekt. Prüfe die Browser-Konsole für weitere Fehlerinformationen.';
     }
   }]);
 

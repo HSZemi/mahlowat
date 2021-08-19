@@ -18,6 +18,7 @@
 	},
 	"statistics": {
 		"checkpoints": {},
-		"url": ""
+		"url": "",
+		"log": "hits.log"
 	}
 }

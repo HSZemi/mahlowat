@@ -1,8 +1,9 @@
 const CONFIG_FILE = 'config/data.json';
 const SETUP_FILE = '../config/setup.json';
+const DEFAULT_STATISTICS_PATH = '../vom-statistics/'
 
 var setup = null;
-var data = null;
+var config = null;
 var answers = null;
 var currentThesis = 0;
 var timeout = null;
@@ -38,23 +39,34 @@ function formatURL(url) {
  * @return 0 if successful, 1 if an error occured
  */
 function hit(id) {
-	if (alreadyHit[id] 					// don't count already entered points twice
-		|| !setup.statistics 			// make sure statistics are enabled
-		|| !setup.statistics.hitIds[id] // make sure currently entered point should be tracked in statistics
+	if (alreadyHit[id] 						 // don't count already entered points twice
+		|| !setup.statistics 				 // make sure statistics are enabled
+		|| setup.statistics.checkpoints[id] === undefined // make sure currently entered point should be tracked in statistics
 		) return;
 	alreadyHit[id] = true;
 
-	id = setup.statistics.hitIds[id];
-	prefix = config.statistics.hitPrefix+'-';
-	const hitUrl = `${formatURL(setup.statistics.hitUrl)}hit/?cp=${encodeURIComponent(prefix+id)}`;
+	id = setup.statistics.checkpoints[id] || id;
+	prefix = config.statistics ? config.statistics.prefix || '' : '';
+	checkpointId = prefix+id;
+	const hitUrl = `${formatURL(setup.statistics.url || DEFAULT_STATISTICS_PATH)}hit.php?cp=${encodeURIComponent(checkpointId)}`;
 	$.ajax({
 		url: hitUrl,
 		type: "GET",
-		success: () => {
+		success: (answer) => {
+			if (answer !== 'Log successful') {
+				$('#global-error-msg').html('<div class="alert alert-danger" role="alert">' + t.error_statistics_general + '</div>');
+				console.log(`Statistics Module answers: ${answer}`);
+				return 1;
+			}
+
 			return 0;
 		},
 		error: (request, error, exception) => {
-			console.error(error);
+			if (request.status === 404) {
+				$('#global-error-msg').html('<div class="alert alert-danger" role="alert">' + t.error_statistics_module_not_found + '</div>');
+			} else {
+				$('#global-error-msg').html('<div class="alert alert-danger" role="alert">' + t.error_statistics_general + '</div>');
+			}
 			return 1;
 		}
 	});
@@ -75,21 +87,23 @@ function init() {
 		})
 		.fail(function () {
 			$('#error-msg').html('<div class="alert alert-danger" role="alert">' + t.error_loading_setup_file + '</div>');
-		});
-	$.getJSON(CONFIG_FILE)
-		.done(function (jsondata) {
-			hit('enter');
-			data = jsondata;
-			currentThesis = 0;
-			initOnclickCallbacks();
-			initAnswers();
-			initResultDetails();
-			recreatePagination();
-			loadThesis();
-			$('#btn-start').prop('disabled', false);
 		})
-		.fail(function () {
-			$('#error-msg').html('<div class="alert alert-danger" role="alert">' + t.error_loading_config_file + '</div>');
+		.then(function () {
+			$.getJSON(CONFIG_FILE)
+				.done(function (jsondata) {
+					config = jsondata;
+					currentThesis = 0;
+					hit('enter');
+					initOnclickCallbacks();
+					initAnswers();
+					initResultDetails();
+					recreatePagination();
+					loadThesis();
+					$('#btn-start').prop('disabled', false);
+				})
+				.fail(function () {
+					$('#error-msg').html('<div class="alert alert-danger" role="alert">' + t.error_loading_config_file + '</div>');
+				});
 		});
 }
 
@@ -128,13 +142,13 @@ function showQA() {
 
 function recreatePagination() {
 	$('#pagination').empty();
-	for (let i = 0; i < Object.keys(data.theses).length; i++) {
+	for (let i = 0; i < Object.keys(config.theses).length; i++) {
 		$('#pagination').append('<li class="page-item"><button class="page-link' + getPaginationClasses(i) + '" onclick="loadThesisNumber(' + i + ')">' + (i + 1) + '</button></li>')
 	}
 }
 
 function updateProgressBar() {
-	let percentage = Math.round(100 * (currentThesis + 1) / Object.keys(data.theses).length);
+	let percentage = Math.round(100 * (currentThesis + 1) / Object.keys(config.theses).length);
 	$('#overall-progress-bar').css('width', "" + percentage + "%");
 }
 
@@ -296,7 +310,7 @@ function styleAnswerButtons() {
 
 function initAnswers() {
 	answers = [];
-	for (let i = 0; i < Object.keys(data.theses).length; i++) {
+	for (let i = 0; i < Object.keys(config.theses).length; i++) {
 		answers.push('d');
 	}
 }
@@ -308,21 +322,21 @@ function loadThesisNumber(number) {
 
 function loadThesis() {
 	if (currentThesis < 0) { currentThesis = 0; }
-	if (currentThesis >= Object.keys(data.theses).length) { currentThesis = Object.keys(data.theses).length - 1; }
+	if (currentThesis >= Object.keys(config.theses).length) { currentThesis = Object.keys(config.theses).length - 1; }
 
 	let thesis_id = "" + currentThesis;
 	$('#btn-toggle-thesis-more').fadeOut(200);
 	$('#thesis-text').fadeOut(200, function () {
-		$('#thesis-text').text(data.theses[thesis_id].l);
+		$('#thesis-text').text(config.theses[thesis_id].l);
 		$('#thesis-text').fadeIn(200);
-		if (data.theses[thesis_id].x !== "") {
+		if (config.theses[thesis_id].x !== "") {
 			$('#btn-toggle-thesis-more').fadeIn(200);
 		}
 	});
 	$('#thesis-number').text(t.thesis_number(currentThesis + 1));
-	//			$('#thesis-text').text(data.theses[thesis_id].l);
+	//			$('#thesis-text').text(config.theses[thesis_id].l);
 	$('#thesis-more').hide();
-	$('#thesis-more').text(data.theses[thesis_id].x);
+	$('#thesis-more').text(config.theses[thesis_id].x);
 
 	styleAnswerButtons();
 	updateProgressBar();
@@ -338,7 +352,7 @@ function nextThesisAfterSelection() {
 
 function nextThesis() {
 	currentThesis++;
-	if (currentThesis == Object.keys(data.theses).length) {
+	if (currentThesis == Object.keys(config.theses).length) {
 		showResults();
 	} else {
 		loadThesis();
@@ -356,13 +370,13 @@ function showResults() {
 	for (let i = 0; i < answers.length; i++) {
 		maxAchievablePoints += calculatePairPoints(answers[i], answers[i]);
 	}
-	for (list_id in data.lists) {
+	for (list_id in config.lists) {
 		let pointsForList = 0;
 		for (let i = 0; i < answers.length; i++) {
 			let thesis_id = "" + i;
-			pointsForList += calculatePairPoints(answers[i], data.answers[list_id][thesis_id].selection);
+			pointsForList += calculatePairPoints(answers[i], config.answers[list_id][thesis_id].selection);
 		}
-		let list = data.lists[list_id].name_x;
+		let list = config.lists[list_id].name_x;
 		results.push([list, pointsForList]);
 	}
 	results.sort(function (a, b) { if (a[1] == b[1]) { return 0; } else if (a[1] > b[1]) return -1; return 1; })
@@ -470,30 +484,30 @@ function toggleThesisMore() {
 
 function initResultDetails() {
 	$('#result-detail').empty();
-	for (thesis_id in data.theses) {
+	for (thesis_id in config.theses) {
 		let thesisNumber = parseInt(thesis_id) + 1;
 		let text = '<div class="card result-detail-card">\
 				<div class="card-header result-detail-header">\
-					'+ data.theses[thesis_id].s + '\
+					'+ config.theses[thesis_id].s + '\
 					<small>'+ t.thesis_number(thesisNumber) + '</small>\
 					<span class="float-right"><i class="far fa-hand-point-up"></i></span>\
 				</div>\
 				<div class="result-details">\
 					<div class="card-body">\
-						<p class="card-text lead">'+ data.theses[thesis_id].l + '</p>\
+						<p class="card-text lead">'+ config.theses[thesis_id].l + '</p>\
 					</div>\
 					<ul class="list-group list-group-flush">';
-		for (list_id in data.lists) {
+		for (list_id in config.lists) {
 			text += '<li class="list-group-item">\
-							'+ getSelectionMarker(data.lists[list_id].name, data.answers[list_id][thesis_id].selection) + '\
-							'+ statementOrDefault(data.answers[list_id][thesis_id].statement) + '</li>';
+							'+ getSelectionMarker(config.lists[list_id].name, config.answers[list_id][thesis_id].selection) + '\
+							'+ statementOrDefault(config.answers[list_id][thesis_id].statement) + '</li>';
 		}
 		text += '</ul>\
 				</div>\
 				<div class="card-footer result-detail-footer">\
 					<span class="badge badge-secondary" id="placeholder-your-choice-'+ thesis_id + '">PLACEHOLDER</span> | ';
-		for (list_id in data.lists) {
-			text += getSelectionMarker(data.lists[list_id].name_x, data.answers[list_id][thesis_id].selection);
+		for (list_id in config.lists) {
+			text += getSelectionMarker(config.lists[list_id].name_x, config.answers[list_id][thesis_id].selection);
 		}
 		text += '</div>\
 				</div>'

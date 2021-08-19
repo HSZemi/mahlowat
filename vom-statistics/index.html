@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="de">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+        <title>Vote-O-Mat Statistiken</title>
+
+        <style>
+            html {
+                height: 100%;
+            }
+    
+            body {
+                margin: 1rem 1.5rem;
+            }
+
+            body>* {
+                margin-top: 0.5em;
+                margin-bottom: 0.5em;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <h1>Statistiken Vote-O-Mat 2021</h1>
+
+        <table class="table table-sm table-responsive table-striped">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td>Deutsch</td>
+                    <td>Englisch</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Website-Aufrufe:</td>
+                    <td id="de-enter"></td>
+                    <td id="en-enter"></td>
+                </tr>
+                <tr>
+                    <td>Vote-O-Mat begonnen:</td>
+                    <td id="de-start"></td>
+                    <td id="en-start"></td>
+                </tr>
+                <tr>
+                    <td>Vote-O-Mat beendet:</td>
+                    <td id="de-result"></td>
+                    <td id="en-result"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="chartContainer" style="width: 800px; width: 800px">
+            <canvas id="chart"></canvas>
+        </div>
+
+        <em>Stand: <span id="stamp"></span></em>
+
+        <div id="error-msg" class="text-center"></div>
+
+        <script src="../js/jquery-3.3.1.min.js"></script>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script src="../js/jquery.csv.min.js"></script>
+        <script src="../js/chart.min.js"></script>
+        <script src="../lang/de_de.js"></script>
+        <script src="../js/statistics.js"></script>
+
+    </body>
+</html>

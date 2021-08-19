@@ -9,7 +9,7 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="../css/bootstrap.min.css">
 
-	<title id="page-title">Mahlowat</title>
+	<title id="page-title">page-title</title>
 	<script defer src="../js/fontawesome-all.min.js"></script>
 	<style>
 		html {
@@ -19,6 +19,7 @@
 		body {
 			margin-top: 1rem;
 			display: flex;
+			flex-direction: column;
 			align-items: center;
 			justify-content: center;
 			min-height: 100%;
@@ -125,6 +126,8 @@
 </head>
 
 <body>
+	<div id="global-error-msg" class="text-center"></div>
+
 	<div class="modal fade" id="QAModal" tabindex="-1" role="dialog" aria-labelledby="QAModalTitle" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
