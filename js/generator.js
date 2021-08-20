@@ -46,7 +46,7 @@ function movedown(self) {
 // needs to be exluded from readData() as it is called later in the configuration process
 function readStatisticsData() {
 	Singleton.instance.statistics = {};
-	const selectedGroup = setup.statistics.groups[$('#input_group_select').val()] || {};
+	const selectedGroup = !setup ? {} : setup.statistics.groups[$('#input_group_select').val()] || {};
 	Singleton.instance.statistics.group = selectedGroup;
 }
 
@@ -181,7 +181,7 @@ function generateGroup(index, name) {
 }
 
 function initializeStatisticsInputs () {
-	if (!setup.statistics || !setup.statistics.groups) return;
+	if (!setup || !setup.statistics || !setup.statistics.groups) return;
 	const groups = setup.statistics.groups;
 	if (groups.length > 0) {
 		$('#input_group_select').prop('disabled', false);
@@ -198,21 +198,26 @@ function initializeStatisticsInputs () {
 	if (indexOfSelectedGroup >= 0) $('#input_group_select').val(indexOfSelectedGroup);
 }
 
+function initializeConfig() {
+	Singleton.instance.activeThesis = 0;
+	Singleton.instance.activeList = 0;
+
+	generateTheses();
+	generateLists();
+	initializeStatisticsInputs();
+}
+
 $(function () {
 	var singleton = new Singleton();
 
 	$.getJSON(SETUP_FILE, function (setupJSON) {
 		setup = setupJSON;
 	})
+	.fail(() => showConfigAlternative())
 	.then(() => {
-			$.getJSON(CONFIG_FILE, function (data) {
-			data.activeThesis = 0;
-			data.activeList = 0;
+		$.getJSON(CONFIG_FILE, function (data) {
 			Singleton.instance = data;
-
-			generateTheses();
-			generateLists();
-			initializeStatisticsInputs();
+			initializeConfig();
 		});
 	});
 
@@ -233,6 +238,13 @@ $(function () {
 
 
 	$('.btn_start_next').click(function () {
+		var setupJSONText = $('#alternativeSetupInput').val() || '';
+		var configJSONText = $('#alternativeConfigInput').val() || '';
+		if (setupJSONText) setup = JSON.parse(setupJSONText);
+		if (configJSONText) Singleton.instance = JSON.parse(configJSONText);
+		if (setupJSONText || configJSONText) {
+			initializeConfig();
+		}
 		$('#start').hide(500);
 		$('#theses_input').show(500);
 	});
@@ -296,6 +308,35 @@ $(function () {
 	});	
 
 });
+
+function showConfigAlternative () {
+	var alternativeConfigInput =
+	`<div class="alert alert-primary alert-dismissible fade show" role="alert">
+		<p>Dein Browser scheint das Laden von Konfigurationsdateien nicht zu erlauben. Solltest du bereits eine <code>setup.json</code>- und/oder eine <code>data.json</code>-Konfigurationsdatei angelegt haben und diese nun anpassen wollen, kopiere den Inhalt der Datei(en) in das jeweilige Textfeld und fahre mit dem untenstehenden Button fort.</p>
+		<p>Wenn du gerade zum ersten Mal eine Konfiguration erstellen willst, fahre direkt mit dem Button unten fort.</p>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<div class="form-row">
+			<div class="col">
+				<div class="form-group">
+					<label>Inhalt der <code>setup.json</code> (optional):</label>
+					<textarea class="form-control" id="alternativeSetupInput" rows="5"></textarea>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<div class="form-group">
+						<label>Inhalt der <code>data.json</code> (optional):</label>
+						<textarea class="form-control" id="alternativeConfigInput" rows="5"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>`;
+
+	$('.btn_start_next').parent().before(alternativeConfigInput);
+}
 
 function createStep3() {
 	readData();

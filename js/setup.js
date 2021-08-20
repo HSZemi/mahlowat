@@ -1,4 +1,4 @@
-const CONFIG_FILE = 'config/setup.json';
+const SETUP_FILE = 'config/setup.json';
 
 function Singleton() {
 	if (typeof Singleton.instance === 'object') {
@@ -183,21 +183,21 @@ function initializeStatisticsInputs() {
 	$(`#input_statistics_url`).val(Singleton.instance.statistics.url);
 }
 
-function showConfigAlternative () {
-	var alternativeConfigInput =
+function showSetupAlternative () {
+	var alternativeSetupInput =
 	`<div class="alert alert-primary alert-dismissible fade show" role="alert">
 		<p>Dein Browser scheint das Laden von Konfigurationsdateien nicht zu erlauben. Solltest du bereits eine <code>setup.json</code>-Konfigurationsdatei angelegt haben und diese nun anpassen wollen, kopiere den Inhalt der Datei in das Textfeld und fahre mit dem untenstehenden Button fort.</p>
 		<p>Wenn du gerade zum ersten Mal eine Konfiguration erstellen willst, fahre direkt mit dem Button fort.</p>
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		</button>
-		<textarea class="form-control" id="alternativeConfigInput" rows="5"></textarea>
+		<textarea class="form-control" id="alternativeSetupInput" rows="5"></textarea>
 	</div>`
 
-	$('#btn_start_next').parent().before(alternativeConfigInput);
+	$('#btn_start_next').parent().before(alternativeSetupInput);
 }
 
-function initializeConfig() {
+function initializeSetup() {
 	generateLanguages();
 	generateGroups();
 	initializeBrandingInputs();
@@ -207,10 +207,10 @@ function initializeConfig() {
 $(function () {
 	var singleton = new Singleton();
 
-	$.getJSON(CONFIG_FILE, function (data) {
+	$.getJSON(SETUP_FILE, function (data) {
 		Singleton.instance = data;
-		initializeConfig();
-	}).fail(() => showConfigAlternative());
+		initializeSetup();
+	}).fail(() => showSetupAlternative());
 
 	$('#btn_add_language').click(function () {
 		generateEmptyLanguage();
@@ -227,11 +227,10 @@ $(function () {
 
 
 	$('#btn_start_next').click(function () {
-		var configJSONText = $('#alternativeConfigInput').val() || '';
-		if (configJSONText != '') {
-			var configData = JSON.parse(configJSONText);
-			Singleton.instance = configData;
-			initializeConfig();
+		var setupJSONText = $('#alternativeSetupInput').val() || '';
+		if (setupJSONText) {
+			Singleton.instance = JSON.parse(setupJSONText);
+			initializeSetup();
 		}
 		$('#start').hide(500);
 		$('#language_input').show(500);
