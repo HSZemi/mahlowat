@@ -118,7 +118,7 @@ function generateLanguage(name, flag_file, url) {
 			<div class="form-group">
 				<label>Link zum Vote-O-Maten für diese Sprache</label>
 				<input type="text" class="form-control input_language_url" placeholder="https://meinserver.de/vote-o-mat/de/" value="${url}">
-				<small id="urlHelp" class="form-text text-muted">Der Link kann als URL (also mit <tt>https://...</tt> beginnend) oder relativ zum Vote-O-Maten (z.B. <tt>de/</tt>) angegeben werden.</small>
+				<small id="urlHelp" class="form-text"><a href="" data-toggle="modal" data-target="#languageUrlHelpModal">Woher bekomme ich den Link?</a></small>
 			</div>
 			<div class="form-group">
 				<button type="button" class="btn btn-danger" onclick="deleteme(this.parentNode)">Diese Sprache löschen</button>
