@@ -111,12 +111,14 @@ function generateLanguage(name, flag_file, url) {
 					<div class="form-group">
 						<label>Dateiname der Flagge</label>
 						<input type="text" class="form-control input_language_flag" placeholder="de.svg" value="${flag_file}">
+						<small id="flagHelp" class="form-text text-muted">Name der Flaggen-Datei. Platziere die Datei im <code>img</code>-Verzeichnis. Die Flaggen <tt>de.svg</tt>, <tt>en.svg</tt> und <tt>fr.svg</tt> können bereits genutzt werden.</small>
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<label>URL des Vote-O-Maten für diese Sprache</label>
+				<label>Link zum Vote-O-Maten für diese Sprache</label>
 				<input type="text" class="form-control input_language_url" placeholder="https://meinserver.de/vote-o-mat/de/" value="${url}">
+				<small id="urlHelp" class="form-text text-muted">Der Link kann als URL (also mit <tt>https://...</tt> beginnend) oder relativ zum Vote-O-Maten (z.B. <tt>de/</tt>) angegeben werden.</small>
 			</div>
 			<div class="form-group">
 				<button type="button" class="btn btn-danger" onclick="deleteme(this.parentNode)">Diese Sprache löschen</button>

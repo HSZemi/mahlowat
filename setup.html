@@ -6,7 +6,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta content="">
 	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<link href="css/setup.css" rel="stylesheet" media="screen">
+	<link href="css/popover.css" rel="stylesheet" media="screen">
 
 	<style>
 	    .container {
@@ -27,9 +27,9 @@
 
 			<div id="start">
 				<p class="lead">Moin!</p>
-				<p>Mit diesem hoffentlich praktischen Tool kannst du den Vote-O-Maten allgemein einrichten. Die Thesen und Antworten der Listen kannst du mit <code>generator.html</code> im Verzeichnis <code>vote-o-mat-instance</code> erstellen.</p>
+				<p>Mit diesem hoffentlich praktischen Tool kannst du den Vote-O-Maten allgemein einrichten. Die Thesen und Antworten der Listen kannst du mit <code>generator.html</code> im Verzeichnis <code>vom-instance</code> erstellen.</p>
 				<p>Am Ende dieses Setups kommt dann ein kryptischer Text heraus, der im
-					<code>config</code>-Verzeichnis des Vote-O-Mats als
+					<code>config</code>-Verzeichnis des Vote-O-Maten als
 					<code>setup.json</code> gespeichert werden muss. Keine Angst, am Ende wird das nochmal detailliert erklärt.</p>
 				<p class="text-center">
 					<button type="button" id="btn_start_next" class="btn btn-primary">Vote-O-Mat konfigurieren!</button>
@@ -40,7 +40,7 @@
 			<div id="language_input">
 				<h2>Schritt 1: Sprachen listen</h2>
 
-				<p>Der Vote-O-Mat bietet im Gegensatz zum <a href="https://github.com/HSZemi/mahlowat" target="_blank">mahlowat</a> eine Startseite, auf der Vote-O-Maten in verschiedenen Sprachen gelistet werden. Hier kannst du angeben, welche Sprachen auf der Startseite angezeigt werden sollen.</p>
+				<p>Der Vote-O-Mat bietet im Gegensatz zum <a href="https://github.com/HSZemi/mahlowat" target="_blank">mahlowat</a> eine Startseite, auf der Vote-O-Mat-Instanzen in verschiedenen Sprachen gelistet werden. Hier kannst du angeben, welche Sprachen auf der Startseite angezeigt werden sollen.</p>
 				<div class="alert alert-primary" role="alert"">
 					Diese Einstellungen betreffen ausschließlich die Angaben auf der Startseite. Die eigentlichen Vote-O-Maten in den unterschiedlichen Sprachen musst du händisch erzeugen. In der <code>README</code> erfährst du, wie das geht.
 				  </div>
@@ -62,9 +62,9 @@
 			<div id="branding_input">
 				<h2>Schritt 2: Branding</h2>
 
-				<p>Der Vote-O-Mat kann mit einem Logo von z.B. der verantwortlichen Organisation versehen werden, um ihm einen offiziellen Charakter zu geben. Dieses Logo wird sowohl im eigentlichen Vote-O-Maten als auch auf der Startseite gemeinsam mit einem textuellen Zusatz angezeigt.</p>
+				<p>Der Vote-O-Mat kann mit einem Logo von z.B. der verantwortlichen Organisation versehen werden, um ihm einen offiziellen Charakter zu geben. Dieses Logo wird sowohl in den eigentlichen Vote-O-Mat-Instanzen als auch auf der Startseite gemeinsam mit einem textuellen Zusatz angezeigt.</p>
 				
-				<img src="img/internal/branding-example.png" alt="Beispielbild für Startseite mit verschiedenen Sprachen" style="max-width: 1000px" width="100%"/>
+				<img src="img/internal/branding-example.png" alt="Beispielbild für das Logo auf der Startseite und in der Vote-O-Mat-Instanz" title="Beispielbild für das Logo auf der Startseite und in der Vote-O-Mat-Instanz style="max-width: 1000px" width="100%"/>
 				
 				<div class="alert alert-primary" role="alert" style="margin-top: 1em;">
 					Möchtest du eine Funktion nicht nutzen, lasse das entsprechende Feld frei.
@@ -107,7 +107,7 @@
 
 				<p>Der Vote-O-Mat kann anonyme Statistiken zur Nutzung erstellen. Damit sind grobe Aussagen zum allgemeinen Nutzungsverhalten im zeitlichen Verlauf möglich.</p>
 				<div class="alert alert-primary" role="alert" style="margin: 1em auto;">
-					<p>Möchtest du die Statistiken nicht aktivieren, stelle sicher, dass unten alle Haken abgewählt sind und gehe direkt weiter.</p>
+					Möchtest du die Statistiken nicht aktivieren, stelle sicher, dass unten alle Haken abgewählt sind und erstelle direkt die Konfiguration.
 				</div>
 				<p><strong>Die Datensammlung funktioniert so:</strong> Im Vote-O-Maten gibt es verschiedene "Checkpoints". Ein Checkpoint kann zum Beispiel der Moment sein, in dem die Ergebnisse angezeigt werden. Das Statistik-Modul speichert, wann welcher Checkpoint erreicht wurde. Zu keinem Zeitpunkt werden durch den Vote-O-Maten nutzerbezogene Daten oder Daten zu den eingegebenen Meinungen erhoben.
 				<br>Das Statistik-Modul bereitet die gesammelten Daten visuell auf. Außerdem können sie zur weiteren Analyse heruntergeladen werden.</p>

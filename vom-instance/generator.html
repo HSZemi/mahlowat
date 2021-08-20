@@ -2,22 +2,18 @@
 <html>
 
 <head>
-	<title>mahlowat - Generator</title>
+	<title>Vote-O-Mat - Generator</title>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<meta content="">
 	<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="../css/popover.css" rel="stylesheet" media="screen">
 
 	<style>
-		.singlethesis {
-			margin: 1em 0em 1em 0em;
-			padding: 1em;
-			background-color: #ccc;
+		.container {
+			margin: 2em auto;
 		}
-
-		.singlelist {
+		.listcard {
 			margin: 1em 0em 1em 0em;
-			padding: 1em;
-			background-color: #ccc;
 		}
 
 		#config {
@@ -32,20 +28,20 @@
 </head>
 
 <body>
-	<div class="container" style="margin-top: 20px;">
+	<div class="container">
 		<div class="bottom-buffer top-buffer">
 
-			<h1>Mahlowat - Generator</h1>
+			<h1>Vote-O-Mat - Generator</h1>
 
 			<div id="start">
 				<p class="lead">Hallöle!</p>
-				<p>Mit diesem Helferlein kannst du die Konfigurationsdatei für den Mahlowat erstellen. Sie wird alle Thesen mit Erläuterungen,
+				<p>Mit diesem Helferlein kannst du die Konfigurationsdatei für diese Vote-O-Mat-Instanz erstellen. Sie wird alle Thesen mit Erläuterungen,
 					alle Listen sowie deren Antworten und Stellungnahmen zu den Thesen enthalten.</p>
 				<p>Am Ende kommt dann ein kryptischer Text heraus, der im
-					<code>config</code>-Verzeichnis des Mahlowat als
+					<code>config</code>-Verzeichnis dieser Vote-O-Mat-Instanz als
 					<code>data.json</code> gespeichert werden muss. Keine Angst, am Ende wird das nochmal detailliert erklärt.</p>
 				<p class="text-center">
-					<button type="button" id="btn_start_next" class="btn btn-primary btn-lg">Los!</button>
+					<button type="button" class="btn btn-primary btn-lg btn_start_next">Los!</button>
 				</p>
 			</div>
 
@@ -54,16 +50,20 @@
 				<h2>Schritt 1: Thesen anlegen</h2>
 
 				<p>Hier legst du die Thesen an, zu denen die zur Wahl antretenden Listen Stellung nehmen (oder es bereits getan haben).
-					Der Kurzname wird überall dort verwendet, wo nur wenig Platz ist, zum Beispiel auf Buttons.
-					<br> Wenn alle Thesen erstellt sind, geht es mit einem Klick auf "Weiter" weiter.</p>
-
+					Der Kurzname wird überall dort verwendet, wo nur wenig Platz ist, zum Beispiel auf Buttons.</p>
+				<p>Wenn alle Thesen erstellt sind, geht es mit einem Klick auf "Weiter" weiter.</p>
+				
 				<div id="theses_topbuttonrow" class="col-md-12">
-					<button type="button" id="btn_add_thesis" class="btn btn-primary">These hinzufügen</button>
-					<button type="button" id="btn_step_1_next" class="btn btn-success">Weiter</button>
+					<button type="button" class="btn btn-success btn_step_1_next">Weiter</button>
 				</div>
 
 				<div id="theses_list" class="col-md-12">
 
+				</div>
+
+				<div id="theses_bottombuttonrow" class="col-md-12">
+					<button type="button" class="btn btn-primary btn_add_thesis">These hinzufügen</button>
+					<button type="button" class="btn btn-success btn_step_1_next">Weiter</button>
 				</div>
 
 			</div>
@@ -72,18 +72,23 @@
 				<h2>Schritt 2: Listen anlegen</h2>
 
 				<p>Welche Listen treten zur Wahl an? Hier trägst du das ein. Auch hier gilt: Der Kurzname wird überall dort verwendet, wo
-					nur wenig Platz ist.
-					<br> Sind alle Listen angelegt, geht es mit einem Klick auf "Weiter" zum nächsten und vorletzten Schritt, in dem du die
+					nur wenig Platz ist.</p>
+				<p>Sind alle Listen angelegt, geht es mit einem Klick auf "Weiter" zum nächsten und vorletzten Schritt, in dem du die
 					Antworten der Listen zu den Thesen eintragen kannst.</p>
 
 				<div id="lists_topbuttonrow" class="col-md-12">
-					<button type="button" id="btn_step_2_prev" class="btn btn-default">Zurück</button>
-					<button type="button" id="btn_add_list" class="btn btn-primary">Liste hinzufügen</button>
-					<button type="button" id="btn_step_2_next" class="btn btn-success">Weiter</button>
+					<button type="button" class="btn btn-default btn_step_2_prev">Zurück</button>
+					<button type="button" class="btn btn-success btn_step_2_next">Weiter</button>
 				</div>
 
 				<div id="lists_list" class="col-md-12">
 
+				</div>
+
+				<div id="lists_bottombuttonrow" class="col-md-12">
+					<button type="button" class="btn btn-default btn_step_2_prev">Zurück</button>
+					<button type="button" class="btn btn-primary btn_add_list">Liste hinzufügen</button>
+					<button type="button" class="btn btn-success btn_step_2_next">Weiter</button>
 				</div>
 
 			</div>
@@ -92,66 +97,65 @@
 				<h2>Schritt 3: Listen-Antworten und Erläuterungen</h2>
 
 				<p class="lead">Jetzt wird es lustig.</p>
-				<p>Mit den Tabs wählst du die Liste aus, deren Antworten du eintragen willst. Darunter wählst du dann die Thesen aus, wählst
-					bei den Knöpfen die Antwort der Liste aus und trägst in das Textfeld die Begründung der Liste ein, falls sie eine geliefert
-					hat. Zwischen den Thesen kannst du auch mit den Pfeiltasten deiner Tastatur
-					<kbd>←</kbd>
-					<kbd>→</kbd> umschalten.
-					<br> Wenn du alles eingetragen hast, kannst du als letzten Schritt mit einem Klick auf den "Erstellen"-Knopf oben rechts
-					die Konfiguration erstellen. Einfach, oder?</p>
+				<p>Mit den Tabs wählst du die Liste aus, deren Antworten du eintragen willst. Darunter wählst du dann die Thesen aus, wählst bei den Knöpfen die Antwort der Liste aus und trägst in das Textfeld die Begründung der Liste ein, falls sie eine geliefert hat. Zwischen den Thesen kannst du auch mit den Pfeiltasten deiner Tastatur <kbd>←</kbd> <kbd>→</kbd> umschalten.</p>
+				<p>Wenn du alles eingetragen hast, kannst du mit dem Klick auf "Weiter" zum letzten Schritt übergehen. Einfach, oder?</p>
 
 				<div id="data_topbuttonrow" class="col-md-12" style="margin-bottom: 1em;">
-					<button type="button" id="btn_step_3_prev" class="btn btn-default">Zurück</button>
-					<button type="button" id="btn_step_3_next" class="btn btn-success">Weiter</button>
+					<button type="button" class="btn btn-default btn_step_3_prev">Zurück</button>
+					<button type="button" class="btn btn-success btn_step_3_next">Weiter</button>
 				</div>
 
-				<p>Für die aktuelle Liste wurden
-					<span class="label label-primary" id="answered_questions_count">4</span>
-					von
-					<span class="label label-primary" id="overall_questions_count">4</span> Thesen beantwortet.</p>
-
-
-				<div id="listselect"></div>
-
-				<div id="pagination"></div>
-
-				<div id="thesesform" class="form">
-
-					<div id="thesesbox"></div>
-
+				<div class="card bg-light">
+					<div class="card-body">
+						<p>Für die aktuelle Liste wurden
+							<span class="label label-primary" id="answered_questions_count">4</span>
+							von
+							<span class="label label-primary" id="overall_questions_count">4</span> Thesen beantwortet.</p>
+		
+		
+						<div id="listselect"></div>
+		
+						<div id="pagination"></div>
+		
+						<div id="thesesform" class="form">
+		
+							<div id="thesesbox"></div>
+		
+						</div>
+		
+						<hr/>
+		
+						<div class="row">
+							<div class="col-xs-6 col-xs-offset-3 col-sm-2 col-md-1 col-md-offset-1">
+								<button id='prev' type='submit' class='btn btn-default btn-block' name='prev' onclick="prevThesis()">
+									<i class="fas fa-chevron-circle-left"></i>
+								</button>
+							</div>
+							<div class="col-xs-12 col-sm-2 col-md-2">
+								<button id='yes' type='submit' class='btn btn-success btn-block' name='yes' onclick="setThesis('a')">
+									<i class="fas fa-check"></i> Zustimmung</button>
+							</div>
+							<div class="col-xs-12 col-sm-2 col-md-2 ">
+								<button id='neutral' type='submit' class='btn btn-warning btn-block' name='neutral' onclick="setThesis('b')">
+									<i class="far fa-circle"></i> Neutral</button>
+							</div>
+							<div class="col-xs-12 col-sm-2 col-md-2">
+								<button id='no' type='submit' class='btn btn-danger btn-block' name='no' onclick="setThesis('c')">
+									<i class="fas fa-ban"></i> Ablehnung</button>
+							</div>
+							<div class="col-xs-12 col-sm-2 col-md-2">
+								<button id='skip' type='submit' class='btn btn-default btn-block' name='skip' onclick="setThesis('d')">
+										<i class="fas fa-minus"></i> Überspringen</button>
+							</div>
+							<div class="col-xs-6 col-xs-offset-3 col-sm-2 col-sm-offset-0 col-md-1">
+								<button id='next' type='submit' class='btn btn-default btn-block' name='next' onclick="nextThesis()">
+									<i class="fas fa-chevron-circle-right"></i>
+								</button>
+							</div>
+						</div>
+						<hr>
+					</div>
 				</div>
-
-				<hr/>
-
-				<div class="row">
-					<div class="col-xs-6 col-xs-offset-3 col-sm-2 col-md-1 col-md-offset-1">
-						<button id='prev' type='submit' class='btn btn-default btn-block' name='prev' onclick="prevThesis()">
-							<i class="fas fa-chevron-circle-left"></i>
-						</button>
-					</div>
-					<div class="col-xs-12 col-sm-2 col-md-2">
-						<button id='yes' type='submit' class='btn btn-success btn-block' name='yes' onclick="setThesis('a')">
-							<i class="fas fa-check"></i> Zustimmung</button>
-					</div>
-					<div class="col-xs-12 col-sm-2 col-md-2 ">
-						<button id='neutral' type='submit' class='btn btn-warning btn-block' name='neutral' onclick="setThesis('b')">
-							<i class="far fa-circle"></i> Neutral</button>
-					</div>
-					<div class="col-xs-12 col-sm-2 col-md-2">
-						<button id='no' type='submit' class='btn btn-danger btn-block' name='no' onclick="setThesis('c')">
-							<i class="fas fa-ban"></i> Ablehnung</button>
-					</div>
-					<div class="col-xs-12 col-sm-2 col-md-2">
-						<button id='skip' type='submit' class='btn btn-default btn-block' name='skip' onclick="setThesis('d')">
-								<i class="fas fa-minus"></i> Überspringen</button>
-					</div>
-					<div class="col-xs-6 col-xs-offset-3 col-sm-2 col-sm-offset-0 col-md-1">
-						<button id='next' type='submit' class='btn btn-default btn-block' name='next' onclick="nextThesis()">
-							<i class="fas fa-chevron-circle-right"></i>
-						</button>
-					</div>
-				</div>
-				<hr>
 
 			</div>
 
@@ -161,7 +165,7 @@
 				<p>Der Vote-O-Mat kann anonyme Statistiken zur Nutzung erstellen. Damit sind grobe Aussagen zum allgemeinen Nutzungsverhalten im zeitlichen Verlauf möglich.</p>
 
 				<div class="alert alert-primary" role="alert" style="margin: 1em auto;">
-					Die Statistiken müssen in der <a href="../setup.html" target="_blank"><tt>../setup.html</tt></a>-Konfiguration aktiviert werden. Wurde das nicht getan, kannst du diesen Schritt direkt überspringen. Es werden dann keine Daten erhoben.
+					Die Statistiken müssen in der <a href="../setup.html" target="_blank"><tt>../setup.html</tt></a>-Konfiguration aktiviert werden. Wurde das nicht getan, kannst du direkt die Konfiguration erstellen. Es werden dann keine Daten erhoben.
 				</div>
 
 				<p>Die Statistiken können nach Sprachen getrennt erfasst werden. Die verfügbaren Sprachen wurden in der <a href="../setup.html" target="_blank"><tt>../setup.html</tt></a>-Konfiguration festgelegt.</p>
@@ -174,14 +178,14 @@
 							<select class="form-control" id="input_group_select" disabled>
 								<option>Keine Sprache verfügbar</option>
 							</select>
-							<small id="customSelectHelp" class="form-text text-muted">Wähle hier die Sprache, für die dieser Vote-O-Mat konfiguriert wird.</small>
+							<small id="customSelectHelp" class="form-text text-muted">Wähle hier die Sprache, für die dieser Vote-O-Mat konfiguriert wird. Ist keine verfügbar, wurden in <tt>../setup.html</tt> keine Sprachen konfiguriert.</small>
 						</div>
 					</div>
 				</div>
 
 				<div id="statistics_topbuttonrow" class="col-md-12">
-					<button type="button" id="btn_step_4_prev" class="btn btn-default">Zurück</button>
-					<button type="button" id='btn_generate' class="btn btn-success">Konfiguration erstellen</button>
+					<button type="button" class="btn btn-default btn_step_4_prev">Zurück</button>
+					<button type="button" class="btn btn-success btn_generate">Konfiguration erstellen</button>
 				</div>
 
 			</div>
@@ -189,12 +193,14 @@
 
 		<div id="encodeddata">
 			<p class="lead">Geschafft! Also fast.</p>
-			<p>Das hier ist deine Mahlowat-Konfiguration:</p>
-			<textarea class="form-control" rows="20" id="output_encodeddata"></textarea>
+			<p>Im untenstehenden Textfeld findest du deine Vote-O-Mat-Instanz-Konfiguration.</p>
 			<p>Dieser Text muss jetzt genau so in die Datei
 				<code>data.json</code> im Verzeichnis
-				<code>config</code> des Mahlowat kopiert werden. Falls diese Datei nicht existiert, erstelle sie einfach. Achte darauf, dass die Datei im
+				<code>config</code> dieser Vote-O-Mat-Instanz kopiert werden. Diese befindet sich standardmäßig im Ordner <code>vom-instance</code>. Falls die Datei nicht existiert, erstelle sie einfach. Achte darauf, dass die Datei im
 				UTF-8-Format gespeichert wird!</p>
+			<button type="button" class="btn btn-default btn_generate_prev">Zurück</button>
+			<a tabindex="0" role="button" class="btn btn-success btn_copy_encodeddata" data-toggle="popover" data-content="Konfiguration kopiert! Du kannst sie nun in die Konfigurationsdatei einfügen." data-template='<div class="popover bg-success" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body border-success bg-success text-white"></div></div>'>Konfiguration in Zwischenablage kopieren</a>
+			<textarea class="form-control" rows="20" id="output_encodeddata" style="margin-top: 1em;"></textarea>
 		</div>
 
 	</div>

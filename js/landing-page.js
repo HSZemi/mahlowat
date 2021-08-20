@@ -20,7 +20,7 @@ function translate() {
 }
 
 function missing(dataItem) {
-	$('#error-msg').append(`<div class="alert alert-danger" role="alert"><b>Fehlende Daten:</b> In der Konfigurationsdatei <a href="${CONFIG_FILE}"><tt>${CONFIG_FILE}</tt></a> wurde folgendes Datum nicht spezifiziert: ${dataItem}. Nutze <a href="setup.html"><tt>setup.html</tt></a> um es nachzutragen.</div>`);
+	$('#error-msg').append(`<div class="alert alert-danger" role="alert"><b>Fehlende Daten:</b> In der Konfigurationsdatei <a href="${CONFIG_FILE}"><tt>${CONFIG_FILE}</tt></a> wurde folgendes Datum nicht spezifiziert: ${dataItem}.<br><a href="setup.html">Jetzt nachtragen</a></div>`);
 }
 
 function init() {

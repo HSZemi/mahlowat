@@ -19,24 +19,27 @@ function Singleton() {
 }
 
 function deleteme(self) {
-	$(self).parent().parent().hide(400);
-	window.setTimeout(function () { $(self).parent().parent().remove(); }, 500);
+	const listCard = $(self).parent().parent().parent();
+	listCard.hide(400);
+	window.setTimeout(function () { listCard.remove(); }, 500);
 }
 
 function moveup(self) {
-	$(self).parent().parent().hide(400);
+	const listCard = $(self).parent().parent().parent();
+	listCard.hide(400);
 	window.setTimeout(function () {
-		$(self).parent().parent().insertBefore($(self).parent().parent().prev(".singlethesis"));
-		$(self).parent().parent().show(400);
+		listCard.insertBefore(listCard.prev(".listcard"));
+		listCard.show(400);
 	}, 400);
 
 }
 
 function movedown(self) {
-	$(self).parent().parent().hide(400);
+	const listCard = $(self).parent().parent().parent();
+	listCard.hide(400);
 	window.setTimeout(function () {
-		$(self).parent().parent().insertAfter($(self).parent().parent().next(".singlethesis"));
-		$(self).parent().parent().show(400);
+		listCard.insertAfter(listCard.next(".listcard"));
+		listCard.show(400);
 	}, 400);
 }
 
@@ -121,25 +124,27 @@ function generateEmptyThesis() {
 }
 
 function generateThesis(name, shortname, explanation) {
-	var thesisdiv = '<div class="singlethesis">' +
-		'	<div class="form-group">' +
-		'		<label>These</label>' +
-		'		<input type="text" class="form-control input_thesis" placeholder="These" value="' + name + '">' +
-		'	</div>' +
-		'	<div class="form-group">' +
-		'		<label>These (Kurzname)</label>' +
-		'		<input type="text" class="form-control input_thesis_short" placeholder="These (Kurzname)" value="' + shortname + '">' +
-		'	</div>' +
-		'	<div class="form-group">' +
-		'		<label>Erläuterung</label>' +
-		'		<input type="text" class="form-control input_explanation" placeholder="Erläuterung" value="' + explanation + '">' +
-		'	</div>' +
-		'	<div class="form-group">' +
-		'		<button type="button" class="btn btn-danger" onclick="deleteme(this)">Diese These löschen</button>' +
-		'		<button type="button" class="btn btn-default" onclick="moveup(this)"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Diese These nach <strong>oben</strong> verschieben</button>' +
-		'		<button type="button" class="btn btn-default" onclick="movedown(this)"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> Diese These nach <strong>unten</strong> verschieben</button>' +
-		'	</div>' +
-		'</div>';
+	var thesisdiv = `<div class="card bg-light listcard">
+		<div class="card-body">
+			<div class="form-group">
+				<label>These</label>
+				<input type="text" class="form-control input_thesis" placeholder="These" value="${name}">
+			</div>
+			<div class="form-group">
+				<label>These (Kurzname)</label>
+				<input type="text" class="form-control input_thesis_short" placeholder="These (Kurzname)" value="${shortname}">
+			</div>
+			<div class="form-group">
+				<label>Erläuterung</label>
+				<input type="text" class="form-control input_explanation" placeholder="Erläuterung" value="${explanation}">
+			</div>
+			<div class="form-group">
+				<button type="button" class="btn btn-danger" onclick="deleteme(this)">Diese These löschen</button>
+				<button type="button" class="btn btn-default" onclick="moveup(this)"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Diese These nach <strong>oben</strong> verschieben</button>
+				<button type="button" class="btn btn-default" onclick="movedown(this)"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> Diese These nach <strong>unten</strong> verschieben</button>
+			</div>
+		</div>
+	</div>`;
 
 	$('#theses_list').append(thesisdiv);
 }
@@ -149,21 +154,23 @@ function generateEmptyList() {
 }
 
 function generateList(name, shortname) {
-	var listdiv = '<div class="singlelist">' +
-		'	<div class="form-group">' +
-		'		<label>Listenname</label>' +
-		'		<input type="text" class="form-control input_list" placeholder="Listenname" value="' + name + '">' +
-		'	</div>' +
-		'	<div class="form-group">' +
-		'		<label>Listenname (kurz)</label>' +
-		'		<input type="text" class="form-control input_list_short" placeholder="Listenname (kurz)" value="' + shortname + '">' +
-		'	</div>' +
-		'	<div class="form-group">' +
-		'		<button type="button" class="btn btn-danger" onclick="deleteme(this)">Diese Liste löschen</button>' +
-		'		<button type="button" class="btn btn-default" onclick="moveup(this)"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Diese Liste nach <strong>oben</strong> verschieben</button>' +
-		'		<button type="button" class="btn btn-default" onclick="movedown(this)"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> Diese Liste nach <strong>unten</strong> verschieben</button>' +
-		'	</div>' +
-		'</div>';
+	var listdiv = `<div class="card bg-light listcard">
+		<div class="card-body">
+			<div class="form-group">
+				<label>Listenname</label>
+				<input type="text" class="form-control input_list" placeholder="Listenname" value="${name}">
+			</div>
+			<div class="form-group">
+				<label>Listenname (kurz)</label>
+				<input type="text" class="form-control input_list_short" placeholder="Listenname (kurz)" value="${shortname}">
+			</div>
+			<div class="form-group">
+				<button type="button" class="btn btn-danger" onclick="deleteme(this)">Diese Liste löschen</button>
+				<button type="button" class="btn btn-default" onclick="moveup(this)"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Diese Liste nach <strong>oben</strong> verschieben</button>
+				<button type="button" class="btn btn-default" onclick="movedown(this)"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> Diese Liste nach <strong>unten</strong> verschieben</button>
+			</div>
+		</div>
+	</div>`;
 
 	$('#lists_list').append(listdiv);
 }
@@ -210,11 +217,11 @@ $(function () {
 	});
 
 
-	$('#btn_add_list').click(function () {
+	$('.btn_add_list').click(function () {
 		generateEmptyList();
 	});
 
-	$('#btn_add_thesis').click(function () {
+	$('.btn_add_thesis').click(function () {
 		generateEmptyThesis();
 	});
 
@@ -225,43 +232,48 @@ $(function () {
 	$('#encodeddata').hide();
 
 
-	$('#btn_start_next').click(function () {
+	$('.btn_start_next').click(function () {
 		$('#start').hide(500);
 		$('#theses_input').show(500);
 	});
 
-	$('#btn_step_1_next').click(function () {
+	$('.btn_step_1_next').click(function () {
 		$('#theses_input').hide(500);
 		$('#lists_input').show(500);
 	});
 
-	$('#btn_step_2_next').click(function () {
+	$('.btn_step_2_next').click(function () {
 		createStep3();
 		$('#lists_input').hide(500);
 		$('#data_input').show(500);
 	});
 
-	$('#btn_step_3_next').click(function () {
+	$('.btn_step_3_next').click(function () {
 		$('#statistics_input').show(500);
 		$('#data_input').hide(500);
 	});
 
-	$('#btn_step_2_prev').click(function () {
+	$('.btn_step_2_prev').click(function () {
 		$('#theses_input').show(500);
 		$('#lists_input').hide(500);
 	});
 
-	$('#btn_step_3_prev').click(function () {
+	$('.btn_step_3_prev').click(function () {
 		$('#lists_input').show(500);
 		$('#data_input').hide(500);
 	});
 
-	$('#btn_step_4_prev').click(function () {
+	$('.btn_step_4_prev').click(function () {
 		$('#data_input').show(500);
 		$('#statistics_input').hide(500);
 	});
 
-	$('#btn_generate').click(function () {
+	$('.btn_generate_prev').click(function () {
+		$('#statistics_input').show(500);
+		$('#encodeddata').hide(500);
+	});
+
+	$('.btn_generate').click(function () {
 		readStatisticsData();
 		var copy = JSON.parse(JSON.stringify(Singleton.instance))
 		delete copy.activeThesis;
@@ -271,6 +283,17 @@ $(function () {
 		$('#statistics_input').hide(500);
 		$('#encodeddata').show(500);
 	});
+
+	$('.btn_copy_encodeddata').click(function () {
+		var textArea = $('#output_encodeddata');
+		textArea.focus();
+		textArea.select();
+		var encodedData = textArea.val();
+		navigator.clipboard.writeText(encodedData).then(() => {
+			$('.btn_copy_encodeddata').popover('show');
+			window.setTimeout(() => $('.btn_copy_encodeddata').popover('hide'), 5000);
+		});
+	});	
 
 });
 
