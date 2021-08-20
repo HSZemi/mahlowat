@@ -8,14 +8,15 @@ function Singleton() {
 	this.languages = [];
 	this.branding = {};
 	this.statistics = {
-		checkpoints: {}
+		checkpoints: {},
+		groups: []
 	};
 
 	Singleton.instance = this;
 }
 
 function deleteme(self) {
-	var btnContainer = $(self).parent().parent().parent();
+	var btnContainer = $(self).parent().parent();
 	btnContainer.hide(400);
 	window.setTimeout(function () { btnContainer.remove(); }, 500);
 }
@@ -24,7 +25,7 @@ function moveup(self) {
 	var btnContainer = $(self).parent().parent().parent();
 	btnContainer.hide(400);
 	window.setTimeout(function () {
-		btnContainer.insertBefore(btnContainer.prev(".singlelanguage"));
+		btnContainer.insertBefore(btnContainer.prev(".listcard"));
 		btnContainer.show(400);
 	}, 400);
 
@@ -34,7 +35,7 @@ function movedown(self) {
 	var btnContainer = $(self).parent().parent().parent();
 	btnContainer.hide(400);
 	window.setTimeout(function () {
-		btnContainer.insertAfter(btnContainer.next(".singlelanguage"));
+		btnContainer.insertAfter(btnContainer.next(".listcard"));
 		btnContainer.show(400);
 	}, 400);
 }
@@ -62,12 +63,24 @@ function readData() {
 
 	/* statistics */
 	Singleton.instance.statistics = {
-		checkpoints: {}
+		checkpoints: {},
+		groups: []
 	}
 	const checkpoints = ['enter', 'start', 'result'];
 	checkpoints.forEach(id => {
 		if ($(`#input_statistics_${id}_enable`).is(":checked"))
 			Singleton.instance.statistics.checkpoints[id] = $(`#input_statistics_${id}_name`).val();
+	});
+	$('#group_list .card').each(function(index) {
+		const groupNode = $(this);
+		const groupName = groupNode.find('.input_group_name').val();
+		const groupPrefix = groupNode.find('.input_group_prefix').val();
+
+		if (groupName && groupPrefix)
+			Singleton.instance.statistics.groups.push({
+				name: groupName,
+				prefix: groupPrefix
+			});
 	});
 	Singleton.instance.statistics.log = $(`#input_statistics_log`).val();
 	Singleton.instance.statistics.url = $(`#input_statistics_url`).val();
@@ -85,7 +98,7 @@ function generateEmptyLanguage() {
 }
 
 function generateLanguage(name, flag_file, url) {
-	var languagediv = `<div class="singlelanguage card bg-light">
+	var languagediv = `<div class="listcard card bg-light">
 		<div class="card-body">
 			<div class="form-row">
 				<div class="col">
@@ -106,7 +119,7 @@ function generateLanguage(name, flag_file, url) {
 				<input type="text" class="form-control input_language_url" placeholder="https://meinserver.de/vote-o-mat/de/" value="${url}">
 			</div>
 			<div class="form-group">
-				<button type="button" class="btn btn-danger" onclick="deleteme(this)">Diese Sprache löschen</button>
+				<button type="button" class="btn btn-danger" onclick="deleteme(this.parentNode)">Diese Sprache löschen</button>
 				<button type="button" class="btn btn-default" onclick="moveup(this)"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span> Diese Sprache nach <strong>oben</strong> verschieben</button>
 				<button type="button" class="btn btn-default" onclick="movedown(this)"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> Diese Sprache nach <strong>unten</strong> verschieben</button>
 			</div>
@@ -114,6 +127,40 @@ function generateLanguage(name, flag_file, url) {
 	</div>`;
 
 	$('#language_list').append(languagediv);
+}
+
+function generateGroups() {
+	if (!Singleton.instance.statistics || !Singleton.instance.statistics.groups) return;
+	Singleton.instance.statistics.groups.forEach(
+		group => generateGroup(group.name, group.prefix)
+	);
+}
+
+function generateEmptyGroup() {
+	generateGroup("", "");
+}
+
+function generateGroup(name, prefix) {
+	let groupDiv = `<div class="card listcard">
+		<div class="card-body">
+			<div class="form-row">
+				<div class="col">
+					<label>Sprache</label>
+					<input type="text" class="form-control input_group_name" placeholder="Deutsch" value="${name}">
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<label>Sprachspezifischer Präfix</label>
+						<input type="text" class="form-control input_group_prefix" placeholder="de-" value="${prefix}">
+						<small id="customPrefixHelp" class="form-text text-muted">Präfix der Sprache. Mit diesem können Statistiken nach Sprachen getrennt ausgewertet werden.</small>
+					</div>
+				</div>
+			</div>
+			<button type="button" class="btn btn-danger" onclick="deleteme(this)">Präfix löschen</button>
+		</div>
+	</div>`;
+
+	$('#group_list').append(groupDiv);
 }
 
 function initializeBrandingInputs() {
@@ -150,6 +197,7 @@ function showConfigAlternative () {
 
 function initializeConfig() {
 	generateLanguages();
+	generateGroups();
 	initializeBrandingInputs();
 	initializeStatisticsInputs();
 }
@@ -164,6 +212,10 @@ $(function () {
 
 	$('#btn_add_language').click(function () {
 		generateEmptyLanguage();
+	});
+
+	$('#btn_add_group').click(function () {
+		generateEmptyGroup();
 	});
 
 	$('#language_input').hide();

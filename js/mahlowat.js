@@ -46,7 +46,7 @@ function hit(id) {
 	alreadyHit[id] = true;
 
 	id = setup.statistics.checkpoints[id] || id;
-	prefix = config.statistics ? config.statistics.prefix || '' : '';
+	prefix = config.statistics.group ? config.statistics.group.prefix || '' : '';
 	checkpointId = prefix+id;
 	const hitUrl = `${formatURL(setup.statistics.url || DEFAULT_STATISTICS_PATH)}hit.php?cp=${encodeURIComponent(checkpointId)}`;
 	$.ajax({

@@ -12,8 +12,8 @@
 	    .container {
 			margin: 2em auto;
 		}
-		.singlelanguage {
-			margin: 1em 0em 1em 0em;
+		.listcard {
+			margin: 0em 0em 1em 0em;
 		}
 	</style>
 	<script defer src="js/fontawesome-all.min.js"></script>
@@ -106,12 +106,11 @@
 				<h2>Schritt 3: Statistiken</h2>
 
 				<p>Der Vote-O-Mat kann anonyme Statistiken zur Nutzung erstellen. Damit sind grobe Aussagen zum allgemeinen Nutzungsverhalten im zeitlichen Verlauf möglich.</p>
-				<p>Möchtest du die Statistiken nicht aktivieren, stelle sicher, dass unten alle Haken abgewählt sind und gehe direkt weiter.</p>
 				<div class="alert alert-primary" role="alert" style="margin: 1em auto;">
-					Die Nutzung von Statistiken setzt die Einrichtung des Statistik-Moduls voraus. <a href="README-DE.md" target="_blank">Mehr zur Einrichtung erfahren</a>
+					<p>Möchtest du die Statistiken nicht aktivieren, stelle sicher, dass unten alle Haken abgewählt sind und gehe direkt weiter.</p>
 				</div>
-				<p><strong>Die Datensammlung funktioniert so:</strong> Im Vote-O-Maten gibt es verschiedene "Checkpoints". Wird ein solcher Checkpoint, z.B. die Anzeige der Ergebnisse, erreicht, sendet der Vote-O-Mat diese Information an das Statistik-Modul. Dieses speichert den Checkpoint zusammen mit dem Zeitpunkt in einer <a href="https://de.wikipedia.org/wiki/CSV_(Dateiformat)" target="_blank"><code>CSV</code>-Datei</a> ab. Zu keinem Zeitpunkt werden durch den Vote-O-Maten nutzerbezogene Daten oder Daten zu den eingegebenen Meinungen erhoben.
-					<br>Das Statistik-Modul bereitet die gesammelten Daten visuell auf. Außerdem können sie zur weiteren Analyse heruntergeladen werden.</p>
+				<p><strong>Die Datensammlung funktioniert so:</strong> Im Vote-O-Maten gibt es verschiedene "Checkpoints". Ein Checkpoint kann zum Beispiel der Moment sein, in dem die Ergebnisse angezeigt werden. Das Statistik-Modul speichert, wann welcher Checkpoint erreicht wurde. Zu keinem Zeitpunkt werden durch den Vote-O-Maten nutzerbezogene Daten oder Daten zu den eingegebenen Meinungen erhoben.
+				<br>Das Statistik-Modul bereitet die gesammelten Daten visuell auf. Außerdem können sie zur weiteren Analyse heruntergeladen werden.</p>
 				
 				<p>Im Folgenden kannst du einstellen, welche Checkpoints aktiviert werden sollen.</p>
 
@@ -191,6 +190,27 @@
 				</div>
 
 				<div class="card bg-light" style="margin-bottom: 1em">
+					<div class="card-header" id="groupOptionsHeader">
+					  	<h5 class="mb-0">
+							<button class="btn btn-link" data-toggle="collapse" data-target="#groupOptionsBody" aria-expanded="true" aria-controls="collapseOne">
+								Nach Sprachen getrennte Statistiken
+							</button>
+						</h5>
+					</div>
+					<div id="groupOptionsBody" class="collapse" aria-labelledby="groupOptionsBody">
+						<div class="card-body">
+							<p>Die Statistiken können nach Sprachen getrennt erfasst werden. Das geschieht, indem das Statistik-Modul jeden gespeicherten Checkpoint mit einem Präfix versieht, das die Sprache des verwendeten Vote-O-Maten angibt.</p>
+							<p>Im Folgenden kannst du einstellen, welche Sprache welches Präfix erhalten soll. Wenn die Statistiken nicht nach Sprachen getrennt erstellt werden sollen, lösche alle Präfixe.</p>
+							<p>Empfohlene Präfixe: "de-" für Deutsch, "en-" für Englisch und "fr-" für Französisch.</p>
+							<div id="group_list"></div>
+							<div id="statistics_group_list_buttons" class="col-md-12">
+								<button type="button" id='btn_add_group' class="btn btn-primary">Sprachpräfix hinzufügen</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card bg-light" style="margin-bottom: 1em">
 					<div class="card-header" id="advancedOptionsHeader">
 					  	<h5 class="mb-0">
 							<button class="btn btn-link" data-toggle="collapse" data-target="#advancedOptionsBody" aria-expanded="true" aria-controls="collapseOne">
@@ -219,7 +239,7 @@
 
 				<div id="logo_topbuttonrow" class="col-md-12">
 					<button type="button" id="btn_step_3_prev" class="btn btn-default">Zurück</button>
-					<button type="button" id="btn_generate" class="btn btn-primary">Konfiguration erstellen</button>
+					<button type="button" id="btn_generate" class="btn btn-success">Konfiguration erstellen</button>
 				</div>
 
 			</div>

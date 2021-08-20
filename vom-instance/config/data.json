@@ -330,5 +330,8 @@
 				"statement": ""
 			}
 		}
+	},
+	"statistics": {
+		"group": {}
 	}
 }

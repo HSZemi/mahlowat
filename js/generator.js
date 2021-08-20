@@ -1,4 +1,7 @@
+const SETUP_FILE = '../config/setup.json';
 const CONFIG_FILE = 'config/data.json';
+
+let setup = null;
 
 function Singleton() {
 	if (typeof Singleton.instance === 'object') {
@@ -40,7 +43,8 @@ function movedown(self) {
 // needs to be exluded from readData() as it is called later in the configuration process
 function readStatisticsData() {
 	Singleton.instance.statistics = {};
-	Singleton.instance.statistics.prefix = $('#input_statistics_prefix').val();
+	const selectedGroup = setup.statistics.groups[$('#input_group_select').val()] || {};
+	Singleton.instance.statistics.group = selectedGroup;
 }
 
 function readData() {
@@ -164,22 +168,45 @@ function generateList(name, shortname) {
 	$('#lists_list').append(listdiv);
 }
 
+function generateGroup(index, name) {
+	var groupSelector = `<option value="${index}">${name}</option>`;
+	$('#input_group_select').append(groupSelector);
+}
+
 function initializeStatisticsInputs () {
-	if (!Singleton.instance.statistics) return;
-	$('#input_statistics_prefix').val(Singleton.instance.statistics.prefix || '');
+	if (!setup.statistics || !setup.statistics.groups) return;
+	const groups = setup.statistics.groups;
+	if (groups.length > 0) {
+		$('#input_group_select').prop('disabled', false);
+		$('#input_group_select').html('<option>Sprache wählen...</option>');
+	}
+	groups.forEach((group, index) => {
+		generateGroup(index, group.name);
+	});
+
+	/* preselect language if already configured */
+	if (!Singleton.instance.statistics.group) return;
+	const indexOfSelectedGroup = groups.findIndex(
+		group => group.name === Singleton.instance.statistics.group.name);
+	if (indexOfSelectedGroup >= 0) $('#input_group_select').val(indexOfSelectedGroup);
 }
 
 $(function () {
 	var singleton = new Singleton();
 
-	$.getJSON(CONFIG_FILE, function (data) {
-		data.activeThesis = 0;
-		data.activeList = 0;
-		Singleton.instance = data;
+	$.getJSON(SETUP_FILE, function (setupJSON) {
+		setup = setupJSON;
+	})
+	.then(() => {
+			$.getJSON(CONFIG_FILE, function (data) {
+			data.activeThesis = 0;
+			data.activeList = 0;
+			Singleton.instance = data;
 
-		generateTheses();
-		generateLists();
-		initializeStatisticsInputs();
+			generateTheses();
+			generateLists();
+			initializeStatisticsInputs();
+		});
 	});
 
 

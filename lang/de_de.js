@@ -144,8 +144,17 @@ function () {
     get: function get() {
       return '<b>Fehler:</b> Das Statistik-Modul arbeitet nicht korrekt. Prüfe die Browser-Konsole für weitere Fehlerinformationen.';
     }
+  }, {
+    key: "warning_unknown_checkpoint_prefix",
+    get: function get() {
+      return '<b>Warnung:</b> Die Log-Datei enthält Checkpoint Präfixe, die keiner Sprache zugeordnet werden können. Grund hierfür könnte eine falsche Sprach-Konfiguration oder veraltete Log-Datei sein.<br><b>Behebung:</b> Prüfe mit <a href="../setup.html"><tt>../setup.html</tt></a>, ob die Sprach-Konfiguration im Abschnitt Statistiken korrekt ist und passe sie ggf. an. Führe anschließend die Konfiguration aller Vote-O-Mat-Instanzen erneut durch (sollte schnell gehen, die Werte werden vorausgefüllt). Wenn die Sprach-Konfiguration erst kürzlich geändert wurde, kann auch nur die Log-Datei veraltet sein. Lösche dann die gesamte Datei oder aber zumindest Einträge mit folgendem Präfix aus der Log-Datei: ';
+    }
+  }, {
+    key: "warning_unknown_checkpoint_id",
+    get: function get() {
+      return '<b>Warnung:</b> Die Log-Datei enthält unbekannte Checkpoints. Grund hierfür könnte eine falsche Konfiguration oder veraltete Log-Datei sein.<br><b>Behebung:</b> Prüfe mit <a href="../setup.html"><tt>../setup.html</tt></a>, ob die aktivierten Checkpoints im Abschnitt Statistiken korrekt eingestellt sind. Passe die Konfiguration ggf. an. Ist die Konfiguration korrekt, kann auch lediglich die Log-Datei veraltet sein. Lösche dann die gesamte Datei oder aber zumindest die Einträge der Log-Datei, die folgendermaßen enden: ';
+    }
   }]);
 
   return T;
 }();
-
