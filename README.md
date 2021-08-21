@@ -62,8 +62,11 @@ Download Vote-O-Mat into a directory of your choice using the green `Code` butto
 
 ## General Setup
 
-First, open the setup tool `setup.html` in the root directory. It takes you through all settings needed for the setup. During setup, you need to fill in links to the individual Vote-O-Mat instances. If you do not know them yet, leave them blank for now and fill them in after setting everything else up.  
-At the end, it generates a cryptic text, which you need to copy into `config/setup.json`. If the file does not exist in the `config` directory, simply create it. Make sure the file is saved as `UTF-8` encoding.
+First, open the setup tool `setup.html` in the root directory. It takes you through all settings needed for the setup.
+
+During setup, you need to fill in links to the individual Vote-O-Mat instances. If you do not know them yet, leave them blank for now and fill them in after setting everything else up.
+
+At the end, the setup tool generates a cryptic text, which you need to copy into `config/setup.json`. If the file does not exist in the `config` directory, simply create it. Make sure the file is saved as `UTF-8` encoding.
 
 If you later need to make changes to `config/setup.json`, just open `setup.html` again. It loads all data from an existing `config/setup.json`, so you do not have to start from scratch.
 
@@ -73,7 +76,8 @@ If you later need to make changes to `config/setup.json`, just open `setup.html`
 
 We now need to create the actual Vote-O-Mat instances, one for each language.
 
-In the root directory, create as many Vote-O-Mat instances as you need by copying the template directory `vom-instance` (you can also use the template itself as an instance).  
+In the root directory, create as many Vote-O-Mat instances as you need by copying the template directory `vom-instance` (you can also use the template directory itself as an instance).
+
 Repeat the following process for each instance.
 
 - Rename the instance's directory (not the root directory) to suit the anticipated language. Like `en` if it contains the English Vote-O-Mat instance.
@@ -162,7 +166,7 @@ The Vote-O-Mat contains predefined *checkpoints*. These are specific actions wit
 - *start*: the start button on the intro page was clicked, now displaying the first thesis
 - *result* the results are displayed
 
-Every checkpoint can be activated separately. Only then it is part of the collected data. By default, all checkpoints are disabled, thus no data is collected, and no statistics are available.
+Each checkpoint can be activated separately. Only then it is part of the collected data. By default, all checkpoints are disabled, thus no data is collected, and no statistics are available.
 
 Every time an activated checkpoint is entered, the Vote-O-Mat instance sends the checkpoint ID (*enter*, *start*, or *result*, or a custom name for these) to the statistics module. The ID can be preceeded by a prefix like *de-* which can be set for each Vote-O-Mat instance and makes it possible to differentiate usages between languages.
 
@@ -233,7 +237,7 @@ directly or do you get an error message? And lastly, does it not contain syntax 
 
 Great! [Open an issue](https://github.com/HSZemi/mahlowat/issues) (and hope it gets noticed).
 
-### I wang to fix a bug
+### I want to fix a bug
 
 Great! [Issue a pull request](https://github.com/HSZemi/mahlowat/pulls) (and hope it gets noticed).
 
