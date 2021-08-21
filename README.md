@@ -354,7 +354,7 @@ Here is how you can change that URL:
 
 **Attention (for techies):** This feature enables you to move the complete statistics module to another location, like another server. For whatever reason you possibly would want to that: notice, that the module expects the `setup.json` to be located at `../config/setup.json`, relative to the statistics module's directory.
 
-# Troubleshooting
+# <a name="troubleshooting"></a>Troubleshooting
 
 ### I keep klicking on the Start! button, but nothing happens
 
@@ -379,15 +379,18 @@ directly or do you get an error message? And lastly, does it not contain syntax 
 
 
 # Weal and Woe
+### I cannot get the Vote-O-Mat up and running
+
+A pity! Check out [Troubleshooting](#troubleshooting). If this does not work, ask a friend. If this person also cannot help, [open an issue](https://github.com/SilvanVerhoeven/vote-o-mat/issues) (and hope it gets noticed).
 
 ### I want to report a bug
 
-Great! [Open an issue](https://github.com/HSZemi/mahlowat/issues) (and hope it gets noticed).
+Great! [Open an issue](https://github.com/SilvanVerhoeven/vote-o-mat/issues) (and hope it gets noticed).
 
 ### I want to fix a bug
 
-Great! [Issue a pull request](https://github.com/HSZemi/mahlowat/pulls) (and hope it gets noticed).
+Great! [Issue a pull request](https://github.com/SilvanVerhoeven/vote-o-mat/pulls) (and hope it gets noticed).
 
 ### I want to complain / say thanks
 
-I am always happy to receive success stories (or stories of failure for that matter) at mahlowat@hszemi.de
+I am always happy to receive success stories (or stories of failure for that matter) at silvan.verhoeven@student.hpi.de
