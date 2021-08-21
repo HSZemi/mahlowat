@@ -96,7 +96,7 @@ You need to create one Vote-O-Mat instance for each language. This can be quite 
     - Walk through the configuration process.
         - You need to add all theses, electable groups or candidates, and their answers.
         - Also set the language of the Vote-O-Mat instance. If you have not uploaded the files before, no language is going to be available. Skip this step for now.
-    - Copy and save the text created by the configuration tool in `config/data.json` (located inside the instance's directory)
+    - Copy and save the text created by the configuration tool in `config/data.json` (located inside the instance's directory).
         - Create the file if it does not yet exis. Save it using `UTF-8` encoding. You know the drill.
     - Set the display language (e.g. button captions). [Learn how to do that](#DisplayLanguage)
 
@@ -110,7 +110,7 @@ If you have not [uploaded the files](#upload), do so now.
 
 If you have not set the links to the Vote-O-Mat instances, do so now:
 
-- Open `setup.html` in the root directory.
+- Open `setup.html` in the root directory (via the web browser).
 - Enter the links to the Vote-O-Mat instances.
     - Supposed you named the instances `de` and `en` when creating them. The links are then `https://example.com/de` and `https://example.com/en`.
 - Save the setup text again in `config/setup.json` (in the root directory).
@@ -133,7 +133,7 @@ Delete all other files.
 
 Done!
 
-## Accessing
+## Access
 
 Supposed you uploaded the Vote-O-Mat files at `https://example.com` and created two instances named `de` and `en`.
 
@@ -147,12 +147,12 @@ You can open the statistics dashboard at `https://example.com/vom-statistics`. [
 
 The points for the groups in the results at the end are calculated as follows: 
 
- - The user's answers are compared to each group's answers.
- - The group gains 2 points for each thesis where their answer matches the user's.
- - A slight deviation (yes/neutral or neutral/no) gains the group still 1 point.
- - If the answers are contrary or if a group has no position on a thesis, the group gains no point.
- - A thesis that the user skipped gains no one any point. The maximum number of points possible decreases.
- - A thesis that the user counts double gets groups twice the points (0/2/4). This increases the maximum number of points possible.
+- The user's answers are compared to each group's answers.
+- The group gains 2 points for each thesis where their answer matches the user's.
+- A slight deviation (yes/neutral or neutral/no) gains the group still 1 point.
+- If the answers are contrary or if a group has no position on a thesis, the group gains no point.
+- A thesis that the user skipped gains no one any point. The maximum number of points possible decreases.
+- A thesis that the user counts double gets groups twice the points (0/2/4). This increases the maximum number of points possible.
 
 # Details for Nerds
 
@@ -169,9 +169,9 @@ If you want to change the display language if a Vote-O-Mat instance, you have to
 <!-- end languages-->
 ```
 
-To change the active language, comment out the currently active language (comment out = enclose the whole line in `<!--` and `-->`)
-and uncomment the language of your choice (removing the `<!--` and `-->`). Example: If you want to run Mahlowat in french, it should
-look like this:
+To change the active language, comment out the currently active language (comment out = enclose the whole line in `<!--` and `-->`) and uncomment the language of your choice (removing the `<!--` and `-->`).
+
+Example: If you want to run Vote-O-Mat in French, it should look like this:
 
 ```
 <!-- Select (uncomment) exactly one of the following languages-->
@@ -183,11 +183,9 @@ look like this:
 
 You may also want to change some of the text, especially the Q&A part. In order to do that, directly edit the language `*.js` files which you can find in the `../lang` subfolder in the root directory. 
 
-You can use html tags inside of the strings. Just make sure to not introduce errors in the JavaScript, because that will unfortunately
-break the whole application. If you are unsure, maybe ask a friend for help.
+You can use html tags inside of the strings. Just make sure to not introduce errors in the JavaScript, because that will unfortunately break the whole application. If you are unsure, maybe ask a friend for help.
 
-**Attention!** In order to support Internet Explorer 11 (lol), [babel](https://babeljs.io) has been used to transpile the language files from a raw version (e.g. `en_gb.raw.js`) into the production version (e.g. `en_gb.js`).
-You can edit the "raw" files and then do that yourself – or edit the transpiled production versions directly.
+**Attention!** In order to support Internet Explorer 11 (lol), [babel](https://babeljs.io) has been used to transpile the language files from a raw version (e.g. `en_gb.raw.js`) into the production version (e.g. `en_gb.js`). You can edit the "raw" files and then do that yourself – or edit the transpiled production versions directly.
 
 ```
 npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/node
@@ -195,6 +193,8 @@ babel --presets @babel/preset-env lang/de_de.raw.js > lang/de_de.js
 babel --presets @babel/preset-env lang/en_gb.raw.js > lang/en_gb.js
 babel --presets @babel/preset-env lang/fr_fr.raw.js > lang/fr_fr.js
 ```
+
+**Footnote to Attention!** Of course I did not bother to test Vote-O-Mat on Internet Explorer 11 (sic!). If you experience any problems, feel free to contact me. I am sure we can find a solution (and I explicitely do not want to commit myself to whether this solution is a code change in Vote-O-Mat or a browser update).
 
 ## <a name="statistics"></a>Statistics
 
@@ -255,7 +255,7 @@ You may ask
 
 > Statistics in an election-related software? But what about privacy!?
 
-If you do not, you should. Privacy is always important, even more in this context. That is why Vote-O-Mat only collects a minimum of data, all anonymous. [As described](#DataCollection), Vote-O-Mat does not log any personal information.
+If you do not, you should. Privacy is always important, even more in this context. That is why Vote-O-Mat only collects a minimum of data, all anonymous. [As described](#DataCollection), Vote-O-Mat does not log any personal information at any moment.
 
 ### <a name="DataProtection"></a>How is the collected data protected?
 
@@ -288,7 +288,7 @@ Each line in this file is called an *entry*. An entry has the following syntax:
 ```
 
 - `prefix`: identifier of the Vote-O-Mat instance which sent the entry *(Default: empty string)*
-- `checkpoint ID`: identifier of the checkpoint which was accessed. *(Default: 'enter', 'start', or 'result')*
+- `checkpoint ID`: identifier of the checkpoint which was accessed *(Default: 'enter', 'start', or 'result')*
 - `timestamp`: UNIX timestamp in milliseconds
 
 ### Custom Checkpoint IDs
@@ -299,11 +299,11 @@ By default, the checkpoint IDs are the same as the checkpoints: *enter*, *start*
 - Forward to the statistics settings.
 - Enter custom checkpoint IDs for checkpoints as you like. Leave a field empty to use the respective default ID.
 
-**Attention:** With great power comes great responsibility. Vote-O-Mat does not verify your checkpoint ID. Make sure it does not contain any malicious characters, like `;`, which would interfere with the logging format above. You probably also want all IDs to be distinct.
+**Attention:** With great power comes great responsibility. Vote-O-Mat does not verify your checkpoint IDs. Make sure they do not contain any malicious characters, like `;`, which would interfere with the logging format above. You probably also want all IDs to be distinct.
 
 ### Custom Checkpoint Prefixes
 
-In theory, the checkpoint prefixes are thought to classify data by the Vote-O-Mat language. In practice, you could group Vote-O-Mat instances as you like.
+In theory, the checkpoint prefixes are thought to classify data by the Vote-O-Mat language. In practice, you could use them to group Vote-O-Mat instances as you like.
 
 - Open `setup.html` to create groups.
 - Advance to the statistics settings.
@@ -312,11 +312,11 @@ In theory, the checkpoint prefixes are thought to classify data by the Vote-O-Ma
 
 **Attention:** Again, you are responsible for breaking stuff, as Vote-O-Mat does not verify your groups. Malicious characters like `;` will not be filtered, indistinct group prefixes will render the groups useless.
 
-For each Vote-O-Mat instance:
+Repeat for each Vote-O-Mat instance:
 
 - Open `generator.html` to assign the instance to a group.
 - Advance to the statistics settings.
-- Select the desired group. If you assign no group to an instance, it uses an empty string as prefix.
+- Select the desired group. If you assign no group to an instance, it uses an empty string as prefix and is listed as "Sonstige" in the dashboard.
 - You can also assign multiple Vote-O-Mat instances to the same group.
 
 **Attention:** The group assignment saves the group's name and the group's prefix directly in the configuration of the Vote-O-Mat instance. If you change the group prefix in `config/setup.json`, this change will not have an effect on already configured instances, but every future configuration of a Vote-O-Mat instance.
@@ -358,21 +358,21 @@ Here is how you can change that URL:
 
 ### My changes in `setup.json` and `data.json` do not seem to have an effect.
 
-Are you saving the text generated by the setup/configuration tool in the files? Are you editing the correct file? Is the file at the correct location? Have you uploaded the updated version to the web server?
+Are you saving the text generated by the setup/configuration tool in the files? Are you editing the correct file? Is the file at the correct location? Have you uploaded the updated file to the web server?
 
 If yes, it might be a cache issue. Access the file in question via browser (at `https://example.com/config/setup.json` or `https://example.com/example-instance/config/data.json`). Press `Ctrl+F5` to fully reload the file. Go back to your Vote-O-Mat (instance), reload and check whether this worked.
 
-### Help! My previous setup or configuration is suddenly gone when opening `setup.html` or `generator.html`!
+### Help! My previous setup/configuration is suddenly gone when opening `setup.html`/`generator.html`!
 
 Vote-O-Mat could not load the `setup.json` or `data.json` file.
 
-Are you working locally on your PC? Most browsers prohibit Vote-O-Mat to access local files. In this case, Vote-O-Mat displays you a text field at the beginning of the setup or configuration process. Reload the setup/configuration tool to go back to the beginning. Open `setup.json` and/or `data.json`. Copy their contents into the respective text fields and start the process again.
+Are you working locally on your computer? Most browsers prohibit Vote-O-Mat to access local files. In this case, Vote-O-Mat displays you a text field at the beginning of the setup or configuration process. Reload the setup/configuration tool to go back to the beginning. Open `setup.json` and/or `data.json`. Copy their contents into the respective text fields and start the process again.
 
 Are you working on the web server? Make sure the file exists, is readable to the web server (you could try to access it directly with your browser at `https://example.com/config/setup.json` or `https://example.com/example-instance/config/data.json`) and is syntactically correct.
 
 ### I cannot select a language in `generator.html`.
 
-Where langauges configured in `setup.html`? Can the Vote-O-Mat instance access `setup.json`? Is `setup.json` located in `../config` (the folder named `config`, in the directory which also contains the instance directory)?
+Were langauges configured in `setup.html`? Can the Vote-O-Mat instance access `setup.json`? Is `setup.json` located in `../config` (the folder named `config`, in the directory which also contains the instance directory)?
 
 ### Everything says weird stuff like btn-start or start-explanatory-text. Also, nothing works.
 
@@ -403,4 +403,4 @@ Great! [Issue a pull request](https://github.com/SilvanVerhoeven/vote-o-mat/pull
 
 ### I want to complain / say thanks
 
-I am always happy to receive success stories (or stories of failure for that matter) at silvan.verhoeven@student.hpi.de
+I am always happy to receive success stories (or stories of failure for that matter) at silvan.verhoeven@student.hpi.de!
