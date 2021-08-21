@@ -1,4 +1,4 @@
-![Mahlowat](img/mahlowat_logo.png)
+![Vote-O-Mat](img/internal/Vote-O-Mat_Logo.svg)
 
 [Deutsche Version](README-DE.md)
 
