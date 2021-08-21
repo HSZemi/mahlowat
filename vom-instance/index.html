@@ -163,11 +163,15 @@
 	<div id="start" class="container">
 		<div class="jumbotron">
 			<h1 class="display-4 text-center">
-				<img src="../img/mahlowat_logo.png" />
+				<div id="vote-o-mat-title" style="font-weight: normal;">vote-o-mat-title</div>
+				<div style="font-size: 1.6rem; font-weight: normal; margin-top: 0.7rem" id="vote-o-mat-subtitle">vote-o-mat-subtitle</div>
+				<div class="branding-container" style="font-size: 1.3rem; margin-top: 1rem">
+					<!-- logo and appendix will be inserted here -->
+				</div>
 			</h1>
-			<p class="lead text-center" id="start-subtitle">start-subtitle</p>
+			<p class="lead text-center" id="start-caption">start-caption</p>
 			<hr class="my-4">
-			<div id="start-explanatory-text">
+			<div id="start-explanatory-text" class="text-center">
 				start-explanatory-text
 			</div>
 			<p class="lead text-center">
@@ -188,7 +192,9 @@
 				</nav>
 			</div>
 			<div class="col-auto">
-				<img src="../img/mahlowat_logo.png" />
+				<span class="branding-logo-placeholder" style="height: 2.5rem; margin-top: -0.25rem">
+					<!-- span will be replaced with logo, style attribute of branding will be taken over -->
+				</span>
 			</div>
 		</div>
 
@@ -291,12 +297,17 @@
 
 	<div id="result" class="container">
 
-		<h4 id="title-results">title-results</h4>
+		<h4>
+			<span id="results-title">results-title</span>
+			<span class="branding-logo-placeholder" style="height: 2rem; float: right">
+				<!-- span will be replaced with logo, style attribute of branding will be taken over -->
+			</span>
+		</h4>
 
 		<div class="row" id="result-summary-row">
 			<div class="card col-sm-8 offset-sm-2">
 				<div class="card-body">
-					<h5 class="card-title" id="title-results-summary">title-results-summary</h5>
+					<h5 class="card-title" id="results-title-summary">results-title-summary</h5>
 					<div id="result-summary">
 					</div>
 				</div>
@@ -307,7 +318,7 @@
 			text-result-below-summary
 		</p>
 
-		<h5 id="title-results-details">title-results-details</h5>
+		<h5 id="results-title-details">results-title-details</h5>
 
 		<div id="result-detail">
 		</div>

@@ -12,8 +12,9 @@ function () {
   function T() {
     _classCallCheck(this, T);
 
-    this.page_title = "Vote-O-Mat";
-    this.vote_o_mat_title = "Vote-O-Mat 2021";
+    this.page_title = "Vote-O-Mat $YEAR";
+    this.vote_o_mat_title = "Vote-O-Mat $YEAR";
+    this.vote_o_mat_subtitle = "für die $WAHL";
     this.qa_modal_title = "Fragen &amp; Antworten";
     this.qa_modal_body = '<h4>Wer steht hinter dem Vote-O-Mat?</h4>\
 					<p>Lorem Ipsum.</p>\
@@ -21,23 +22,22 @@ function () {
 					<h4>Wer hat die Thesen erarbeitet?</h4>\
 					<p>Lorem Ipsum.</p>\
 \
-					<h4>Woher stammen die Positionen der Gruppen?</h4>\
-					<p>Den an der Wahl teilnehmenden Gruppen wurden die Thesen mit der Bitte um Stellungnahme zugeleitet. Neben der reinen\
+					<h4>Woher stammen die Positionen der Listen?</h4>\
+					<p>Den an der Wahl teilnehmenden Listen wurden die Thesen mit der Bitte um Stellungnahme zugeleitet. Neben der reinen\
 						Positionierung (Zustimmung/Neutral/Ablehnung/Keine Stellungnahme) konnten sie ihre Position auch in einem kurzen Absatz\
 						erläutern.\
 					</p>\
-					<p>Für ihre Stellungnahmen zu den Thesen sind die Gruppen selbst verantwortlich.</p>\
+					<p>Für ihre Stellungnahmen zu den Thesen sind die Listen selbst verantwortlich.</p>\
 \
 					<h4>Von welcher Wahl reden wir hier überhaupt?</h4>\
 					<p>Lorem Ipsum.</p>\
 \
 					<h4>Wie werden die Punkte berechnet?</h4>\
-					<p>Deine Antworten werden mit den vorgegebenen Antworten der Gruppen abgeglichen.</p>\
+					<p>Deine Antworten werden mit den vorgegebenen Antworten der Listen abgeglichen.</p>\
 					<ul>\
-						<li>Stimmt die Antwort überein, werden der Gruppe 2 Punkte gutgeschrieben;</li>\
-						<li>Weicht die Antwort leicht ab (Zustimmung/Neutral oder Neutral/Ablehnung), wird der Gruppe 1 Punkt gutgeschrieben;</li>\
-						<li>Sind die Antworten entgegengesetzt oder hat eine Gruppe eine These nicht beantwortet, gibt es keine Punkte für die\
-							Gruppe.\
+						<li>Stimmt die Antwort überein, werden der Liste 2 Punkte gutgeschrieben;</li>\
+						<li>Weicht die Antwort leicht ab (Zustimmung/Neutral oder Neutral/Ablehnung), wird der Liste 1 Punkt gutgeschrieben;</li>\
+						<li>Sind die Antworten entgegengesetzt oder hat eine Liste eine These nicht beantwortet, gibt es keine Punkte für die Liste.\
 						</li>\
 					</ul>\
 					<p>Eine These, die du übersprungen hast, wird nicht gewertet. Die erreichbare Höchstpunktzahl wird dadurch geringer.</p>\
@@ -45,7 +45,7 @@ function () {
 						gutgeschrieben (0/2/4). Dadurch können insgesamt mehr Punkte erreicht werden.</p>\
 \
 					<h4>Werden meine Antworten gespeichert?</h4>\
-					<p>Nein. Alles läuft vollständig in deinem Browser ab.</p>\
+					<p>Nein. Der Vote-O-Mat läuft vollständig in deinem Browser ab.</p>\
 \
 					<h4>Ich habe einen inhaltlichen Fehler gefunden!</h4>\
 					<p>Gib uns gern Bescheid, wir sehen uns das an. Wer „wir“ sind, steht oben auf dieser Seite.</p>\
@@ -60,11 +60,13 @@ function () {
     this.btn_qa_modal_close = "Schließen";
     this.swype_info_message_text = "Wische, um manuell zwischen Thesen zu wechseln";
     this.btn_swype_info_ok = "OK";
-    this.start_subtitle = "Der Vote-O-Mat ist ein Wahlpositions&shy;vergleichswerkzeug.";
-    this.start_explanatory_text = "<p>Der Vote-O-Mat ermöglicht es dir, deine Meinung zu ausgewählten Thesen mit denen der Gruppen zu vergleichen, die zur $WAHL\
-						antreten.\
-					</p>\
-					<p>Für ihre Stellungnahmen zu den Thesen sind die Gruppen selbst verantwortlich.</p>";
+    this.start_caption = "Der Vote-O-Mat ist ein Wahlpositionsvergleichswerkzeug zur Informationsbeschaffung ohne Anspruch auf Vollständigkeit.";
+    this.start_explanatory_text = `<p>Vergleiche deine Meinung zu ausgewählten Thesen mit denen der antretenden Listen:</p>
+    <p><ul style="display: inline-block; text-align: left">
+    <li>Gewichte Thesen doppelt, die dir besonders wichtig sind</li>
+    <li>Am Ende kannst du auch Stellungnahmen der Listen einsehen</li>
+    <li>Für die Stellungnahmen sind ausschließlich die Listen selbst verantwortlich</li>
+    <li>Noch Fragen? Schau mal in die "Fragen &amp; Antworten"</li></ul></p>`;
     this.btn_start = "Vote-O-Mat starten!";
     this.btn_start_show_qa = "Fragen &amp; Antworten";
     this.btn_toggle_thesis_more_text = "Erläuterung";
@@ -76,12 +78,12 @@ function () {
     this.btn_mahlowat_show_start = "Zurück zur Startseite";
     this.btn_mahlowat_show_qa = "Fragen &amp; Antworten";
     this.btn_mahlowat_skip_remaining_theses = "Alle verbleibenden Thesen überspringen und aktuellen Stand auswerten";
-    this.title_results = "Ergebnis";
-    this.title_results_summary = "Zusammenfassung";
+    this.results_title = "Ergebnis";
+    this.results_title_summary = "Zusammenfassung";
     this.text_result_below_summary = '<small>Nicht zufrieden mit dem Ergebnis?\
 				<button class="btn btn-sm btn-light" onclick="showMahlowatFirstThesis()">Ändere die Antworten oder die Gewichtung!</button>\
 			</small>';
-    this.title_results_details = "";
+    this.results_title_details = "";
     this.btn_results_show_start = "Zurück zur Startseite";
     this.btn_results_show_qa = "Fragen &amp; Antworten";
     this.no_log_data = "Der Vote-O-Mat wurde bisher nicht genutzt.";

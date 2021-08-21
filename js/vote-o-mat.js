@@ -2,6 +2,10 @@ const CONFIG_FILE = 'config/data.json';
 const SETUP_FILE = '../config/setup.json';
 const DEFAULT_STATISTICS_PATH = '../vom-statistics/'
 
+function img(file_name) {
+	return '../img/'+file_name;
+}
+
 var setup = null;
 var config = null;
 var answers = null;
@@ -84,6 +88,7 @@ function init() {
 	$.getJSON(SETUP_FILE)
 		.done(function (jsondata) {
 			setup = jsondata;
+			setBranding(jsondata.branding);
 		})
 		.fail(function () {
 			$('#error-msg').html('<div class="alert alert-danger" role="alert">' + t.error_loading_setup_file + '</div>');
@@ -134,6 +139,28 @@ function initHammer() {
 	resultHammer.on('swiperight', function (ev) {
 		showMahlowat();
 	});
+}
+
+function setBranding(branding) {
+	$('.branding-container').html(getBrandingHTML(branding));
+	$('.branding-logo-placeholder').replaceWith(function () {
+		return getBrandingLogoHTML(branding, $(this).attr("style"));
+	});
+}
+
+function getBrandingHTML(branding) {
+	let brandingText = branding.appendix || "";
+	if (!brandingText) return getBrandingLogoHTML(branding, "height: 1.5em; margin-top: -0.25em");
+	return `${brandingText} ${getBrandingLogoHTML(branding, "height: 1.5em; margin-top: -0.25em")}`
+}
+
+function getBrandingLogoHTML(branding, style="") {
+	if (!branding.logo) return "";
+	let brandingLogo = `<img src="${img(branding.logo)}" alt="Brand Logo" style="${style}"/>`;
+
+	if (!branding.url) return brandingLogo;
+
+	return `<a href="${branding.url}" title="Website öffnen" target="_blank">${brandingLogo}</a>`;
 }
 
 function showQA() {

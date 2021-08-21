@@ -66,7 +66,7 @@ function getBrandingHTML(branding) {
 	var brandingText = branding.appendix || "";
 
 	if (!branding.logo) return brandingText;
-	var brandingLogo = `<img src="${img(branding.logo)}" alt="Branding Logo" style="height: 1.5em; margin-top: -0.25em"/>`;
+	var brandingLogo = `<img src="${img(branding.logo)}" alt="Brand Logo" style="height: 1.5em; margin-top: -0.25em"/>`;
 
 	if (!branding.url) return `${brandingText} ${brandingLogo}`;
 

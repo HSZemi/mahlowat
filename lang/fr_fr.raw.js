@@ -60,12 +60,12 @@ class T {
     this.btn_mahlowat_show_start = "Retourner à la page d'accueil";
     this.btn_mahlowat_show_qa = "Questions-réponses";
     this.btn_mahlowat_skip_remaining_theses = "Sauter les théses restants et evaluer l'état présent";
-    this.title_results = "Résultat";
-    this.title_results_summary = "Résumé";
+    this.results_title = "Résultat";
+    this.results_title_summary = "Résumé";
     this.text_result_below_summary = '<small>Vous n\'aimez pas votre résultat?\
 				<button class="btn btn-sm btn-light" onclick="showMahlowatFirstThesis()">Changez les réponses ou les points doubles!</button>\
 			</small>';
-    this.title_results_details = "";
+    this.results_title_details = "";
     this.btn_results_show_start = "Retourner à la page d'accueil";
     this.btn_results_show_qa = "Questions-réponses";
   }
