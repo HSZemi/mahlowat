@@ -403,16 +403,18 @@ function showResults() {
 			let thesis_id = "" + i;
 			pointsForList += calculatePairPoints(answers[i], config.answers[list_id][thesis_id].selection);
 		}
-		let list = config.lists[list_id].name_x;
-		results.push([list, pointsForList]);
+		let list = config.lists[list_id].name;
+		let list_abbr = config.lists[list_id].name_x;
+		results.push([list, list_abbr, pointsForList]);
 	}
 	results.sort(function (a, b) { if (a[1] == b[1]) { return 0; } else if (a[1] > b[1]) return -1; return 1; })
 	$('#result-summary').empty();
 	for (let i=0; i < results.length; i++) {
 		let result = results[i];
 		let list = result[0];
-		let pointsForList = result[1];
-		addResultSummary(list, pointsForList, maxAchievablePoints);
+		let list_abbr = result[1];
+		let pointsForList = result[2];
+		addResultSummary(list, list_abbr, pointsForList, maxAchievablePoints);
 	}
 	updateResultDetailPlaceholders();
 	showResult();
@@ -426,7 +428,7 @@ function updateResultDetailPlaceholders() {
 	}
 }
 
-function addResultSummary(list, pointsForList, maxAchievablePoints) {
+function addResultSummary(list, list_abbr, pointsForList, maxAchievablePoints) {
 	let percentage = Math.round(pointsForList / maxAchievablePoints * 100);
 	let remaining_percentage = 100 - percentage;
 	let text_percentage = t.achieved_points_text(pointsForList, maxAchievablePoints);
@@ -436,14 +438,14 @@ function addResultSummary(list, pointsForList, maxAchievablePoints) {
 		text_percentage = '';
 	}
 
-	$('#result-summary').append(getSummaryProgressBar(list, percentage, remaining_percentage, text_percentage, text_remaining_percentage));
+	$('#result-summary').append(getSummaryProgressBar(list, list_abbr, percentage, remaining_percentage, text_percentage, text_remaining_percentage));
 }
 
-function getSummaryProgressBar(list, percentage, remaining_percentage, text_percentage, text_remaining_percentage) {
-	let bar = '<div class="row result-summary-row">\
-				<div class="col-12 col-md">'+ list + '</div>\
-				<div class="col-12 col-md-10">\
-					<div class="progress" style="height: 2rem;">';
+function getSummaryProgressBar(list, list_abbr, percentage, remaining_percentage, text_percentage, text_remaining_percentage) {
+	let bar = `<div class="row result-summary-row">\
+				<div class="col-12 col-md-6">${list}${list !== list_abbr ? `<em> (${list_abbr})</em>` : ''}</div>\
+				<div class="col-12 col-md-6">\
+					<div class="progress" style="height: 2rem;">`;
 	if (percentage > 0) {
 		bar += '<div class="progress-bar main-progress-bar" role="progressbar" style="width: ' + percentage +
 			'%" aria-valuenow="' + percentage + '" aria-valuemin="0" aria-valuemax="100"> ' + text_percentage + '</div>';
