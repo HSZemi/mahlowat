@@ -67,13 +67,13 @@ function () {
     this.btn_neutral_text = "Neutral";
     this.btn_no_text = "No";
     this.btn_skip_text = "Skip";
-    this.btn_mahlowat_show_start = "Back to the welcome page";
-    this.btn_mahlowat_show_qa = "Questions &amp; Answers";
-    this.btn_mahlowat_skip_remaining_theses = "Skip all remaining theses and evaluate the current selections";
+    this.btn_vote_o_mat_show_start = "Back to the welcome page";
+    this.btn_vote_o_mat_show_qa = "Questions &amp; Answers";
+    this.btn_vote_o_mat_skip_remaining_theses = "Skip all remaining theses and evaluate the current selections";
     this.results_title = "Result";
     this.results_title_summary = "Summary";
     this.text_result_below_summary = '<small>Don\'t like your results?\
-				<button class="btn btn-sm btn-light" onclick="showMahlowatFirstThesis()">Change the answers or the weights!</button>\
+				<button class="btn btn-sm btn-light" onclick="showVoteOMatFirstThesis()">Change the answers or the weights!</button>\
 			</small>';
     this.results_title_details = "";
     this.btn_results_show_start = "Back to the welcome page";

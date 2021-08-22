@@ -61,13 +61,13 @@ class T {
     this.btn_neutral_text = "Neutral";
     this.btn_no_text = "Ablehnung";
     this.btn_skip_text = "Überspringen";
-    this.btn_mahlowat_show_start = "Zurück zur Startseite";
-    this.btn_mahlowat_show_qa = "Fragen &amp; Antworten";
-    this.btn_mahlowat_skip_remaining_theses = "Alle verbleibenden Thesen überspringen und aktuellen Stand auswerten";
+    this.btn_vote_o_mat_show_start = "Zurück zur Startseite";
+    this.btn_vote_o_mat_show_qa = "Fragen &amp; Antworten";
+    this.btn_vote_o_mat_skip_remaining_theses = "Alle verbleibenden Thesen überspringen und aktuellen Stand auswerten";
     this.results_title = "Ergebnis";
     this.results_title_summary = "Zusammenfassung";
     this.text_result_below_summary = '<small>Nicht zufrieden mit dem Ergebnis?\
-				<button class="btn btn-sm btn-light" onclick="showMahlowatFirstThesis()">Ändere die Antworten oder die Gewichtung!</button>\
+				<button class="btn btn-sm btn-light" onclick="showVoteOMatFirstThesis()">Ändere die Antworten oder die Gewichtung!</button>\
 			</small>';
     this.results_title_details = "";
     this.btn_results_show_start = "Zurück zur Startseite";

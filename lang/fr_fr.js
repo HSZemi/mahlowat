@@ -69,13 +69,13 @@ function () {
     this.btn_neutral_text = "Neutre";
     this.btn_no_text = "Non";
     this.btn_skip_text = "Sauter";
-    this.btn_mahlowat_show_start = "Retourner à la page d'accueil";
-    this.btn_mahlowat_show_qa = "Questions-réponses";
-    this.btn_mahlowat_skip_remaining_theses = "Sauter les théses restants et evaluer l'état présent";
+    this.btn_vote_o_mat_show_start = "Retourner à la page d'accueil";
+    this.btn_vote_o_mat_show_qa = "Questions-réponses";
+    this.btn_vote_o_mat_skip_remaining_theses = "Sauter les théses restants et evaluer l'état présent";
     this.results_title = "Résultat";
     this.results_title_summary = "Résumé";
     this.text_result_below_summary = '<small>Vous n\'aimez pas votre résultat?\
-				<button class="btn btn-sm btn-light" onclick="showMahlowatFirstThesis()">Changez les réponses ou les points doubles!</button>\
+				<button class="btn btn-sm btn-light" onclick="showVoteOMatFirstThesis()">Changez les réponses ou les points doubles!</button>\
 			</small>';
     this.results_title_details = "";
     this.btn_results_show_start = "Retourner à la page d'accueil";

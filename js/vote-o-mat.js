@@ -114,7 +114,7 @@ function init() {
 
 function initOnclickCallbacks() {
 	$('#swype-info').off('click').click(function () { hideSwypeInfo(); });
-	$('#btn-start').off('click').click(function () { showMahlowat(); });
+	$('#btn-start').off('click').click(function () { showVoteOMat(); });
 	$('#btn-start-show-qa').off('click').click(function () { showQA(); });
 	$('#btn-toggle-thesis-more').off('click').click(function () { toggleThesisMore(); });
 	$('#btn-important').off('click').click(function () { toggleImportant(); });
@@ -122,9 +122,9 @@ function initOnclickCallbacks() {
 	$('#btn-neutral').off('click').click(function () { doNeutral(); });
 	$('#btn-no').off('click').click(function () { doNo(); });
 	$('#btn-skip').off('click').click(function () { doSkip(); });
-	$('#btn-mahlowat-show-start').off('click').click(function () { showStart(); });
-	$('#btn-mahlowat-show-qa').off('click').click(function () { showQA(); });
-	$('#btn-mahlowat-skip-remaining-theses').off('click').click(function () { showResults(); });
+	$('#btn-vote-o-mat-show-start').off('click').click(function () { showStart(); });
+	$('#btn-vote-o-mat-show-qa').off('click').click(function () { showQA(); });
+	$('#btn-vote-o-mat-skip-remaining-theses').off('click').click(function () { showResults(); });
 	$('#btn-results-show-start').off('click').click(function () { showStart(); });
 	$('#btn-results-show-qa').off('click').click(function () { showQA(); });
 }
@@ -137,7 +137,7 @@ function initHammer() {
 
 	var resultHammer = new Hammer(document.getElementById("result-summary-row"));
 	resultHammer.on('swiperight', function (ev) {
-		showMahlowat();
+		showVoteOMat();
 	});
 }
 
@@ -574,20 +574,20 @@ function getSelectionMarker(list, selection) {
 
 function showStart() {
 	init();
-	$("#mahlowat,#result").hide();
+	$("#vote-o-mat,#result").hide();
 	$("#start").show();
 	initializeHitsOnRestart();
 }
 
-function showMahlowatFirstThesis() {
+function showVoteOMatFirstThesis() {
 	currentThesis = 0;
-	showMahlowat();
+	showVoteOMat();
 }
-function showMahlowat() {
+function showVoteOMat() {
 	loadThesis();
 	initResultDetails();
 	$("#start,#result").hide();
-	$("#mahlowat").fadeIn();
+	$("#vote-o-mat").fadeIn();
 	if (showSwypeInfo) {
 		showSwypeInfo = false;
 		$("#swype-info").show();
@@ -596,7 +596,7 @@ function showMahlowat() {
 }
 
 function showResult() {
-	$("#start,#mahlowat").hide();
+	$("#start,#vote-o-mat").hide();
 	$("#result").fadeIn();
 	animateBars();
 	hit('result');
