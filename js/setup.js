@@ -11,6 +11,7 @@ function Singleton() {
 		checkpoints: {},
 		groups: []
 	};
+	this.actions = {}
 
 	Singleton.instance = this;
 }
@@ -60,6 +61,13 @@ function readData() {
 	Singleton.instance.branding.logo = $('#input_branding_logo').val() || '';
 	Singleton.instance.branding.appendix = $('#input_branding_appendix').val() || '';
 	Singleton.instance.branding.url = $('#input_branding_url').val() || '';
+
+	/* actions */
+	Singleton.instance.actions = {};
+	if ($('#input_actions_top_enable').is(":checked"))
+		Singleton.instance.actions.top = $('#input_actions_top_color_select').val()
+	if ($('#input_actions_bottom_enable').is(":checked"))
+		Singleton.instance.actions.bottom = $('#input_actions_bottom_color_select').val()
 
 	/* statistics */
 	Singleton.instance.statistics = {
@@ -172,6 +180,14 @@ function initializeBrandingInputs() {
 	$('#input_branding_url').val(Singleton.instance.branding.url || '');
 }
 
+function initializeActionsInputs() {
+	if (!Singleton.instance.actions) return;
+	$('#input_actions_top_enable').prop('checked', !!Singleton.instance.actions.top);
+	if (!!Singleton.instance.actions.top) $('#input_actions_top_color_select').val(Singleton.instance.actions.top);
+	$('#input_actions_bottom_enable').prop('checked', !!Singleton.instance.actions.bottom);
+	if (!!Singleton.instance.actions.bottom) $('#input_actions_bottom_color_select').val(Singleton.instance.actions.bottom);
+}
+
 function initializeStatisticsInputs() {
 	if (!Singleton.instance.statistics) return;
 	Object.keys(Singleton.instance.statistics.checkpoints).forEach(checkpointId => {
@@ -201,6 +217,7 @@ function initializeSetup() {
 	generateLanguages();
 	generateGroups();
 	initializeBrandingInputs();
+	initializeActionsInputs();
 	initializeStatisticsInputs();
 }
 
@@ -222,6 +239,7 @@ $(function () {
 
 	$('#language_input').hide();
 	$('#branding_input').hide();
+	$('#actions_input').hide();
 	$('#statistics_input').hide();
 	$('#encodeddata').hide();
 
@@ -243,6 +261,11 @@ $(function () {
 
 	$('#btn_step_2_next').click(function () {
 		$('#branding_input').hide(500);
+		$('#actions_input').show(500);
+	});
+
+	$('#btn_step_3_next').click(function () {
+		$('#actions_input').hide(500);
 		$('#statistics_input').show(500);
 	});
 
@@ -253,6 +276,11 @@ $(function () {
 
 	$('#btn_step_3_prev').click(function () {
 		$('#branding_input').show(500);
+		$('#actions_input').hide(500);
+	});
+
+	$('#btn_step_4_prev').click(function () {
+		$('#actions_input').show(500);
 		$('#statistics_input').hide(500);
 	});
 

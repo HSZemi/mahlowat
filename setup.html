@@ -88,7 +88,7 @@
 
 				<p>Der Vote-O-Mat kann mit einem Logo von z.B. der verantwortlichen Organisation versehen werden, um ihm einen offiziellen Charakter zu geben. Dieses Logo wird sowohl in den eigentlichen Vote-O-Mat-Instanzen als auch auf der Startseite gemeinsam mit einem textuellen Zusatz angezeigt.</p>
 				
-				<img src="img/internal/branding-example.png" alt="Beispielbild für das Logo auf der Startseite und in der Vote-O-Mat-Instanz" title="Beispielbild für das Logo auf der Startseite und in der Vote-O-Mat-Instanz style="max-width: 1000px" width="100%"/>
+				<img src="img/internal/branding-example.png" alt="Beispielbild für das Logo auf der Startseite und in der Vote-O-Mat-Instanz" title="Beispielbild für das Logo auf der Startseite und in der Vote-O-Mat-Instanz" style="max-width: 1000px" width="100%"/>
 				
 				<div class="alert alert-primary" role="alert" style="margin-top: 1em;">
 					Möchtest du eine Funktion nicht nutzen, lasse das entsprechende Feld frei.
@@ -126,37 +126,47 @@
 
 			</div>
 
-			<div id="statistics_input">
-				<h2>Schritt 3: Statistiken</h2>
+			<div id="actions_input">
+				<h2>Schritt 3: Call to Action</h2>
 
-				<p>Der Vote-O-Mat kann anonyme Statistiken zur Nutzung erstellen. Damit sind grobe Aussagen zum allgemeinen Nutzungsverhalten im zeitlichen Verlauf möglich.</p>
+				<p>Auf der Ergebnisseite können so genannte "Calls to Action", Aufforderungen zu Aktionen, angezeigt werden. Die Nutzenden können so z.B. direkt dazu animiert werden Briefwahl zu beantragen oder zu einer Übersicht der Listenprogramme oder verfügbaren Wahllokale geleitet werden.</p>
+
+				<img src="img/internal/actions-example.png" alt="Beispielbild Call to Action" title="Beispielbild für oberen Call to Action" style="max-width: 1000px" width="100%"/>
+
 				<div class="alert alert-primary" role="alert" style="margin: 1em auto;">
-					Möchtest du die Statistiken nicht aktivieren, stelle sicher, dass unten alle Haken abgewählt sind und erstelle direkt die Konfiguration.
+					Möchtest du keine Calls to Action anzeigen, stelle sicher, dass unten alle Haken abgewählt sind und gehe direkt weiter.
 				</div>
-				<p><strong>Die Datensammlung funktioniert so:</strong> Im Vote-O-Maten gibt es verschiedene "Checkpoints". Ein Checkpoint kann zum Beispiel der Moment sein, in dem die Ergebnisse angezeigt werden. Das Statistik-Modul speichert, wann welcher Checkpoint erreicht wurde. Zu keinem Zeitpunkt werden durch den Vote-O-Maten nutzerbezogene Daten oder Daten zu den eingegebenen Meinungen erhoben.
-				<br>Das Statistik-Modul bereitet die gesammelten Daten visuell auf. Außerdem können sie zur weiteren Analyse heruntergeladen werden.</p>
-				
-				<p>Im Folgenden kannst du einstellen, welche Checkpoints aktiviert werden sollen.</p>
+
+				<p>Es gibt zwei Positionen, an denen je ein Call to Action angezeigt werden kann. Wähle aus, welche aktiviert werden sollen.</p>
 
 				<div class="card bg-light" style="margin-bottom: 1em">
 					<div class="card-header">
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="input_statistics_enter_enable">
-							<label class="form-check-label" for="input_statistics_enter_enable">
-								Aufruf
+							<input class="form-check-input" type="checkbox" value="" id="input_actions_top_enable">
+							<label class="form-check-label" for="input_actions_top_enable">
+								Oberer Call to Action
 							</label>
 						</div>
 					</div>
 					<div class="card-body">
 						<div class="form-row">
 							<div class="col">
-								Erheben, dass die Website des Vote-O-Maten aufgerufen wurde.
+								Wird direkt unterhalb der Ergebnisübersicht angezeigt.
 							</div>
 							<div class="col">
 								<div class="form-group">
-									<label>Benutzerdefinierte Checkpoint-ID</label>
-									<input type="text" class="form-control" id="input_statistics_enter_name" placeholder="enter">
-									<small id="customCheckpointHelp" class="form-text text-muted">Hier kannst du einen eigenen Namen für den Checkpoint vergeben. Standardmäßig <tt>enter</tt>. Der Checkpoint-Name muss einzigartig sein.</small>
+									<label>Farbe des Call-to-Action-Felds</label>
+									<select class="form-control" id="input_actions_top_color_select">
+										<option value="bg-primary text-white">Blau</option>
+										<option value="bg-secondary text-white">Grau</option>
+										<option value="bg-success text-white">Grün</option>
+										<option value="bg-danger text-white">Rot</option>
+										<option value="bg-warning text-dark">Gelb</option>
+										<option value="bg-info text-white">Türkis</option>
+										<option value="bg-light text-dark">Hellgrau</option>
+										<option value="bg-dark text-white">Dunkelgrau</option>
+										<option value="bg-white text-dark">Weiß</option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -166,22 +176,31 @@
 				<div class="card bg-light" style="margin-bottom: 1em">
 					<div class="card-header">
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="input_statistics_start_enable">
-							<label class="form-check-label" for="input_statistics_start_enable">
-								Start
+							<input class="form-check-input" type="checkbox" value="" id="input_actions_bottom_enable">
+							<label class="form-check-label" for="input_actions_bottom_enable">
+								Unterer Call to Action
 							</label>
 						</div>
 					</div>
 					<div class="card-body">
 						<div class="form-row">
 							<div class="col">
-								Erheben, dass der Button "Vote-O-Mat starten" gedrückt wurde.
+								Wird ganz am Ende der Ergebnisseite angezeigt, unterhalb der Antworten der Listen.
 							</div>
 							<div class="col">
 								<div class="form-group">
-									<label>Benutzerdefinierte Checkpoint-ID</label>
-									<input type="text" class="form-control" id="input_statistics_start_name" placeholder="start">
-									<small id="customCheckpointHelp" class="form-text text-muted">Hier kannst du einen eigenen Namen für den Checkpoint vergeben. Standardmäßig <tt>start</tt>. Der Checkpoint-Name muss einzigartig sein.</small>
+									<label>Farbe des Call-to-Action-Felds</label>
+									<select class="form-control" id="input_actions_bottom_color_select">
+										<option value="bg-primary text-white">Blau</option>
+										<option value="bg-secondary text-white">Grau</option>
+										<option value="bg-success text-white">Grün</option>
+										<option value="bg-danger text-white">Rot</option>
+										<option value="bg-warning text-dark">Gelb</option>
+										<option value="bg-info text-white">Türkis</option>
+										<option value="bg-light text-dark">Hellgrau</option>
+										<option value="bg-dark text-white">Dunkelgrau</option>
+										<option value="bg-white text-dark">Weiß</option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -189,84 +208,184 @@
 				</div>
 
 				<div class="card bg-light" style="margin-bottom: 1em">
-					<div class="card-header">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="input_statistics_result_enable">
-							<label class="form-check-label" for="input_statistics_result_enable">
-								Abschluss
-							</label>
-						</div>
-					</div>
-					<div class="card-body">
-						<div class="form-row">
-							<div class="col">
-								Erheben, dass die Ergebnisse angezeigt wurden.
-							</div>
-							<div class="col">
-								<div class="form-group">
-									<label>Benutzerdefinierte Checkpoint-ID</label>
-									<input type="text" class="form-control" id="input_statistics_result_name" placeholder="result">
-									<small id="customCheckpointHelp" class="form-text text-muted">Hier kannst du einen eigenen Namen für den Checkpoint vergeben. Standardmäßig <tt>result</tt>. Der Checkpoint-Name muss einzigartig sein.</small>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="card bg-light" style="margin-bottom: 1em">
-					<div class="card-header" id="groupOptionsHeader">
+					<div class="card-header" id="actionsTextInformationHeader">
 					  	<h5 class="mb-0">
-							<button class="btn btn-link" data-toggle="collapse" data-target="#groupOptionsBody" aria-expanded="true" aria-controls="collapseOne">
-								Nach Sprachen getrennte Statistiken
+							<button class="btn btn-link" data-toggle="collapse" data-target="#actionsTextInformationBody" aria-expanded="true" aria-controls="collapseOne">
+								Wie wird der textuelle Inhalt eingestellt?
 							</button>
 						</h5>
 					</div>
-					<div id="groupOptionsBody" class="collapse" aria-labelledby="groupOptionsBody">
+					<div id="actionsTextInformationBody" class="collapse" aria-labelledby="actionsTextInformationHeader">
 						<div class="card-body">
-							<p>Die Statistiken können nach Sprachen getrennt erfasst werden. Das geschieht, indem das Statistik-Modul jeden gespeicherten Checkpoint mit einem Präfix versieht, das die Sprache des verwendeten Vote-O-Maten angibt.</p>
-							<p>Im Folgenden kannst du einstellen, welche Sprache welches Präfix erhalten soll. Wenn die Statistiken nicht nach Sprachen getrennt erstellt werden sollen, lösche alle Präfixe.</p>
-							<p>Empfohlene Präfixe: "de-" für Deutsch, "en-" für Englisch und "fr-" für Französisch.</p>
-							<div id="group_list"></div>
-							<div id="statistics_group_list_buttons" class="col-md-12">
-								<button type="button" id='btn_add_group' class="btn btn-primary">Sprachpräfix hinzufügen</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="card bg-light" style="margin-bottom: 1em">
-					<div class="card-header" id="advancedOptionsHeader">
-					  	<h5 class="mb-0">
-							<button class="btn btn-link" data-toggle="collapse" data-target="#advancedOptionsBody" aria-expanded="true" aria-controls="collapseOne">
-								Fortgeschrittene Einstellungen
-							</button>
-						</h5>
-					</div>
-					<div id="advancedOptionsBody" class="collapse" aria-labelledby="advancedOptionsBody">
-						<div class="card-body">
-							<div class="alert alert-warning" role="alert" style="margin: 1em auto;">
-								Ändere diese Einstellungen nur, wenn du weißt, was du tust.
-							</div>
-							<div class="form-group">
-								<label>Pfad zur Log-Datei</label>
-								<input type="text" class="form-control" id="input_statistics_log" placeholder="../hits.log">
-								<small id="customLogHelp" class="form-text text-muted">Pfad zur Log-Datei, relativ zum Arbeitsverzeichnis des Statistik-Moduls. Standardmäßig <tt>hits.log</tt> im Arbeitsverzeichnis des Statistik-Moduls.</small>
-							</div>
-							<div class="form-group">
-								<label>URL zum Statistik-Modul</label>
-								<input type="text" class="form-control" id="input_statistics_url" placeholder="https://meintollerserver.de/vom-statistics">
-								<small id="customStatisticsHelp" class="form-text text-muted">Unter welcher URL ist das Statistik-Modul <code>vom-statistics</code> erreichbar? <a href="README-DE.md" target="_blank">Erfahre mehr</a></small>
-							</div>
+							<p>Der Call to Action besteht aus einem Titel, einem Text und einem Button, bei dessen Klick eine andere Website geöffnet werden kann.</p>
+							<p>Insgesamt können daher vier Angaben gemacht werden (siehe folgende Liste). Damit diese wie gewohnt in andere Sprachen übersetzt werden können, müssen sie direkt in den Sprach-Dateien, z.B. <tt>lang/de_de.js</tt>, <tt>lang/en_gb.js</tt> und <tt>lang/fr_fr.js</tt>, eingetragen werden.</p>
+							<p>Die folgenden Angaben können gemacht werden:</p>
+							<ul style="list-style-type: none">
+								<li><code>actions_top_title</code>: Titel des Call to Action. Optional (Überschrift fehlt wenn keine Angabe).</li>
+								<li><code>actions_top_text</code>: Text des Call to Action. Optional (Text fehlt wenn keine Angabe).</li>
+								<li><code>actions_top_button_caption</code>: Beschriftung des Buttons. Optional (Button fehlt wenn keine Angabe).</li>
+								<li><code>actions_top_button_link</code>: Geöffneter Link bei Button-Klick. Optional (Button fehlt wenn keine Angabe).</li>
+							</ul>
+							<p>Diese Angaben gelten für den oberen Call to Action. Die gleichen Angaben können auch für den unteren Call to Action gemacht werden. Ihre Bezeichnung beinhaltet dann <code>bottom</code> anstelle von <code>top</code>, also z.B. <code>actions_bottom_title</code>.</p>
+							<p>So werden die Angaben gemacht (für alle genutzten Sprach-Dateien wiederholen):</p>
+							<ol>
+								<li>Sprach-Datei öffnen (z.B. <tt>lang/de_de.js</tt>)</li>
+								<li>Nach der gewünschten Angaben suchen (z.B. <tt>actions_top_title</tt>. Es sollte ein Eintrag wie <code>actions_top_title = ""</code> auftauchen.</li>
+								<li>In das <code>""</code> den gewünschten Inhalt eintragen (z.B. <code>"Meine Tolle Überschrift"</code>). Für die Angabe des Button-Links den zu öffnenden Link eintragen (z.B. <code>actions_top_button_link = "https://example.com/deutscher-button-klick"</code>).</li>
+								<li>Für alle gewünschten Angaben in allen genutzten Sprach-Dateien wiederholen.</li>
+							</ol>
 						</div>
 					</div>
 				</div>
 
 				<div id="logo_topbuttonrow" class="col-md-12">
 					<button type="button" id="btn_step_3_prev" class="btn btn-default">Zurück</button>
-					<button type="button" id="btn_generate" class="btn btn-success">Konfiguration erstellen</button>
+					<button type="button" id="btn_step_3_next" class="btn btn-success">Weiter</button>
 				</div>
 
 			</div>
+		</div>
+
+		<div id="statistics_input">
+			<h2>Schritt 4: Statistiken</h2>
+
+			<p>Der Vote-O-Mat kann anonyme Statistiken zur Nutzung erstellen. Damit sind grobe Aussagen zum allgemeinen Nutzungsverhalten im zeitlichen Verlauf möglich.</p>
+			<div class="alert alert-primary" role="alert" style="margin: 1em auto;">
+				Möchtest du die Statistiken nicht aktivieren, stelle sicher, dass unten alle Haken abgewählt sind und erstelle direkt die Konfiguration.
+			</div>
+			<p><strong>Die Datensammlung funktioniert so:</strong> Im Vote-O-Maten gibt es verschiedene "Checkpoints". Ein Checkpoint kann zum Beispiel der Moment sein, in dem die Ergebnisse angezeigt werden. Das Statistik-Modul speichert, wann welcher Checkpoint erreicht wurde. Zu keinem Zeitpunkt werden durch den Vote-O-Maten nutzerbezogene Daten oder Daten zu den eingegebenen Meinungen erhoben.
+			<br>Das Statistik-Modul bereitet die gesammelten Daten visuell auf. Außerdem können sie zur weiteren Analyse heruntergeladen werden.</p>
+			
+			<p>Im Folgenden kannst du einstellen, welche Checkpoints aktiviert werden sollen.</p>
+
+			<div class="card bg-light" style="margin-bottom: 1em">
+				<div class="card-header">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="input_statistics_enter_enable">
+						<label class="form-check-label" for="input_statistics_enter_enable">
+							Aufruf
+						</label>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="form-row">
+						<div class="col">
+							Erheben, dass die Website des Vote-O-Maten aufgerufen wurde.
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label>Benutzerdefinierte Checkpoint-ID</label>
+								<input type="text" class="form-control" id="input_statistics_enter_name" placeholder="enter">
+								<small id="customCheckpointHelp" class="form-text text-muted">Hier kannst du einen eigenen Namen für den Checkpoint vergeben. Standardmäßig <tt>enter</tt>. Der Checkpoint-Name muss einzigartig sein.</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card bg-light" style="margin-bottom: 1em">
+				<div class="card-header">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="input_statistics_start_enable">
+						<label class="form-check-label" for="input_statistics_start_enable">
+							Start
+						</label>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="form-row">
+						<div class="col">
+							Erheben, dass der Button "Vote-O-Mat starten" gedrückt wurde.
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label>Benutzerdefinierte Checkpoint-ID</label>
+								<input type="text" class="form-control" id="input_statistics_start_name" placeholder="start">
+								<small id="customCheckpointHelp" class="form-text text-muted">Hier kannst du einen eigenen Namen für den Checkpoint vergeben. Standardmäßig <tt>start</tt>. Der Checkpoint-Name muss einzigartig sein.</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card bg-light" style="margin-bottom: 1em">
+				<div class="card-header">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="input_statistics_result_enable">
+						<label class="form-check-label" for="input_statistics_result_enable">
+							Abschluss
+						</label>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="form-row">
+						<div class="col">
+							Erheben, dass die Ergebnisse angezeigt wurden.
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label>Benutzerdefinierte Checkpoint-ID</label>
+								<input type="text" class="form-control" id="input_statistics_result_name" placeholder="result">
+								<small id="customCheckpointHelp" class="form-text text-muted">Hier kannst du einen eigenen Namen für den Checkpoint vergeben. Standardmäßig <tt>result</tt>. Der Checkpoint-Name muss einzigartig sein.</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card bg-light" style="margin-bottom: 1em">
+				<div class="card-header" id="groupOptionsHeader">
+					<h5 class="mb-0">
+						<button class="btn btn-link" data-toggle="collapse" data-target="#groupOptionsBody" aria-expanded="true" aria-controls="collapseOne">
+							Nach Sprachen getrennte Statistiken
+						</button>
+					</h5>
+				</div>
+				<div id="groupOptionsBody" class="collapse" aria-labelledby="groupOptionsHeader">
+					<div class="card-body">
+						<p>Die Statistiken können nach Sprachen getrennt erfasst werden. Das geschieht, indem das Statistik-Modul jeden gespeicherten Checkpoint mit einem Präfix versieht, das die Sprache des verwendeten Vote-O-Maten angibt.</p>
+						<p>Im Folgenden kannst du einstellen, welche Sprache welches Präfix erhalten soll. Wenn die Statistiken nicht nach Sprachen getrennt erstellt werden sollen, lösche alle Präfixe.</p>
+						<p>Empfohlene Präfixe: "de-" für Deutsch, "en-" für Englisch und "fr-" für Französisch.</p>
+						<div id="group_list"></div>
+						<div id="statistics_group_list_buttons" class="col-md-12">
+							<button type="button" id='btn_add_group' class="btn btn-primary">Sprachpräfix hinzufügen</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card bg-light" style="margin-bottom: 1em">
+				<div class="card-header" id="advancedOptionsHeader">
+					<h5 class="mb-0">
+						<button class="btn btn-link" data-toggle="collapse" data-target="#advancedOptionsBody" aria-expanded="true" aria-controls="collapseOne">
+							Fortgeschrittene Einstellungen
+						</button>
+					</h5>
+				</div>
+				<div id="advancedOptionsBody" class="collapse" aria-labelledby="advancedOptionsHeader">
+					<div class="card-body">
+						<div class="alert alert-warning" role="alert" style="margin: 1em auto;">
+							Ändere diese Einstellungen nur, wenn du weißt, was du tust.
+						</div>
+						<div class="form-group">
+							<label>Pfad zur Log-Datei</label>
+							<input type="text" class="form-control" id="input_statistics_log" placeholder="../hits.log">
+							<small id="customLogHelp" class="form-text text-muted">Pfad zur Log-Datei, relativ zum Arbeitsverzeichnis des Statistik-Moduls. Standardmäßig <tt>hits.log</tt> im Arbeitsverzeichnis des Statistik-Moduls.</small>
+						</div>
+						<div class="form-group">
+							<label>URL zum Statistik-Modul</label>
+							<input type="text" class="form-control" id="input_statistics_url" placeholder="https://meintollerserver.de/vom-statistics">
+							<small id="customStatisticsHelp" class="form-text text-muted">Unter welcher URL ist das Statistik-Modul <code>vom-statistics</code> erreichbar? <a href="README-DE.md" target="_blank">Erfahre mehr</a></small>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="logo_topbuttonrow" class="col-md-12">
+				<button type="button" id="btn_step_4_prev" class="btn btn-default">Zurück</button>
+				<button type="button" id="btn_generate" class="btn btn-success">Konfiguration erstellen</button>
+			</div>
+
 		</div>
 
 		<div id="encodeddata">
