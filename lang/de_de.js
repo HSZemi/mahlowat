@@ -87,6 +87,14 @@ function () {
     this.btn_results_show_start = "Zurück zur Startseite";
     this.btn_results_show_qa = "Fragen &amp; Antworten";
     this.no_log_data = "Der Vote-O-Mat wurde bisher nicht genutzt.";
+    this.actions_top_title = "";
+    this.actions_top_text = "";
+    this.actions_top_button_caption = "";
+    this.actions_top_button_link = "";
+    this.actions_bottom_title = "";
+    this.actions_bottom_text = "";
+    this.actions_bottom_button_caption = "";
+    this.actions_bottom_button_link = "";
   }
 
   _createClass(T, [{

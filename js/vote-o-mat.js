@@ -89,6 +89,7 @@ function init() {
 		.done(function (jsondata) {
 			setup = jsondata;
 			setBranding(jsondata.branding);
+			setActions(jsondata.actions);
 		})
 		.fail(function () {
 			$('#error-msg').html('<div class="alert alert-danger" role="alert">' + t.error_loading_setup_file + '</div>');
@@ -148,6 +149,12 @@ function setBranding(branding) {
 	});
 }
 
+function setActions(actions) {
+	if (!actions) return;
+	if (!!actions.top) $('#actions-top').replaceWith(getActionsHTML('top', actions.top));
+	if (!!actions.bottom) $('#actions-bottom').replaceWith(getActionsHTML('bottom', actions.bottom));
+}
+
 function getBrandingHTML(branding) {
 	let brandingText = branding.appendix || "";
 	if (!brandingText) return getBrandingLogoHTML(branding, "height: 1.5em; margin-top: -0.25em");
@@ -161,6 +168,38 @@ function getBrandingLogoHTML(branding, style="") {
 	if (!branding.url) return brandingLogo;
 
 	return `<a href="${branding.url}" title="Website öffnen" target="_blank">${brandingLogo}</a>`;
+}
+
+function getActionsHTML(position, action) {
+	if (!action) return "";
+
+	const title = !!t[`actions_${position}_title`] ? `<h4>${t[`actions_${position}_title`]}</h4>` : '';
+	const text = !!t[`actions_${position}_text`] ? `<span>${t[`actions_${position}_text`]}</span>` : '';
+	
+	let textDiv = '';
+	if (title || text) {
+		textDiv = 	`<div style="text-align: left; margin: 0.5rem 0">
+						${title}
+						${text}
+					</div>`;
+	}
+	
+	let button = '';
+	if (t[`actions_${position}_button_caption`] && t[`actions_${position}_button_link`]) {
+		let btnClass = action.includes('text-dark') ? 'btn-outline-dark' : 'btn-outline-light';
+		button = `<div style="margin: 0.5rem 0">
+			<button id="actions-${position}-button" class="btn btn-lg ${btnClass}" onClick="window.open('${t[`actions_${position}_button_link`]}', '_blank')">
+				${t[`actions_${position}_button_caption`]}
+			</button>
+		</div>`;
+	}
+
+	const actionDiv = `<div id="actions-${position}" class="${action}" style="border-radius: .25rem; display: flex; flex-wrap: wrap; justify-content: space-evenly; align-items: center; padding: 1rem 0; margin: 1rem 0 1.5rem">
+							${textDiv}
+							${button}
+						</div>`
+
+	return actionDiv;
 }
 
 function showQA() {
