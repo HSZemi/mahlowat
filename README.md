@@ -5,6 +5,17 @@
 Mahlowat is an implementation of a voting advice application (VAA). It allows users to compare their opinion on selected theses
 to the opinions of groups or individuals competing in an election.
 
+Extended Features
+-----------------
+
+Take a look at [Vote-O-Mat](https://github.com/SilvanVerhoeven/vote-o-mat), if you need one of these features:
+
+- built-in support for multiple languages
+- anonymous usage statistics
+- branding of Mahlowat (e.g. via a Logo)
+
+Vote-O-Mat is an extension of Mahlowat and works equally in the fundamentals.
+
 
 General Approach
 ----------------
