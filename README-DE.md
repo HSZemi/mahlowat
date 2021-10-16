@@ -2,10 +2,19 @@
 
 [English Version](README.md)
 
-Mahlowat ist eine Implementierung eines Wahlpositionsvergleichswerkzeugs (voting advice application, VAA).
-
-Mahlowat ermöglicht es, die eigenen Positionen zu Thesen mit den Positionen von Gruppen oder Personen zu vergleichen,
+Mahlowat ist eine Implementierung eines Wahlpositionsvergleichswerkzeugs (voting advice application, VAA). Mahlowat ermöglicht es, die eigenen Positionen zu Thesen mit den Positionen von Gruppen oder Personen zu vergleichen,
 die zu einer Wahl kandidieren.
+
+Erweiterter Funktionsumfang
+---------------------------
+
+Wirf einen Blick auf [Vote-O-Mat](https://github.com/SilvanVerhoeven/vote-o-mat), falls du eine dieser Funktionen benötigst:
+
+- eingebaute Unterstützung für mehrere Sprachen
+- anonyme Nutzungsstatistiken
+- Anpassung von Mahlowat an eine bestimmte Marke (z.B. durch ein Logo)
+
+Vote-O-Mat ist eine Erweiterung von Mahlowat und funktioniert im Grundsatz gleich.
 
 
 Allgemeine Vorgehensweise
