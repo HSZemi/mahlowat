@@ -49,7 +49,9 @@ Thesen, die Namen der antretenden Gruppen sowie deren Positionen und Begründung
 
 Zur Erstellung dieser Konfigurationsdatei bietet sich der mitgelieferte Konfigurator (`generator.html`) an. Falls bereits
 eine Konfigurationsdatei existiert, werden deren Inhalte direkt geladen. Für Korrekturen oder das Hinzufügen von
-Inhalten muss also nicht immer von vorn begonnen werden.
+Inhalten muss also nicht immer von vorn begonnen werden.  
+**Obacht:** Eine bestehende `config/data.json` kann nur geladen werden, falls `generator.html` von einem Webserver geladen wird.
+Wenn die Datei direkt aus dem lokalen Dateisystem geöffnet wird, kann eine bestehende `config/data.json` nicht geladen werden.
 
 Nach drei Schritten erhält man einen Text, der nur noch in die Konfigurationsdatei `config/data.json` kopiert werden muss. 
 Hinweis: Die Datei muss `UTF-8`-kodiert gespeichert werden.
@@ -144,7 +146,7 @@ Fehlerbehandlung
 #### Klicken auf den Start!-Knopf führt zu keiner Reaktion
 
 Die Konfigurationsdatei konnte wohl nicht geladen werden. Stelle sicher, dass sie existiert, vom Webserver gelesen werden kann
-(das kann z.B. durch direkten Aufruf der Datei https://example.com/config/data.json mit dem Webbroeser überprüft werden) und 
+(das kann z.B. durch direkten Aufruf der Datei https://example.com/config/data.json mit dem Webbrowser überprüft werden) und 
 syntaktisch korrekt ist.
 
 
@@ -167,6 +169,11 @@ zum Testen starten.
 Wenn die Dateien hingegen bereits auf einem Webserver liegen und dennoch die Fehlermeldung auftaucht, dann lies sie: Existiert die Datei?
 Lässt sich sich mit dem Webbrowser direkt aufrufen oder kommt eine Fehlermeldung? Und nicht zuletzt, enthält sie keine Syntaxfehler?
 
+
+#### Die `generator.html` lädt meine existierende `config/data.json` nicht!
+
+Öffnest du die Datei von einem Webserver?
+Falls `generator.html` direkt aus dem Dateisystem im Webbrowser geöffnet wird, kann die `config/data.json` nicht geladen werden.
 
 Freud und Leid
 ------------

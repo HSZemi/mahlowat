@@ -48,9 +48,11 @@ Mahlowat uses a single file, `config/data.json`, which contains the theses, info
 responses and statements.
 
 You should probably use `generator.html` to generate this configuration file. It will load the data from an existing 
-`config/data.json`, so you won't have to start all over again if you want to correct or add something.
+`config/data.json`, so you won't have to start all over again if you want to correct or add something.  
+**Warning:** An existing `config/data.json` can only be loaded if `generator.html` is opened from a web server.
+If you directly open the file from your file system, it will not be able to load an existing `config/data.json`.
 
-At the end of a three step process, the generator yields the contents to the `config/data.json` file, which you will
+At the end of a three step process, the generator yields the (new) contents to the `config/data.json` file, which you will
 have to enter there manually (please copy-paste). Make sure the file is saved with the `UTF-8` encoding.
 
 ### Language
@@ -158,6 +160,12 @@ to a web server and opening it from there instead. Or run a web server locally f
 
 If you did in fact access it from a web server, do as the error message says: Does the file exist? Can you access it with your web browser
 directly or do you get an error message? And lastly, does it not contain syntax errors?
+
+
+#### The `generator.html` does not load my existing `config/data.json`!
+
+Are you opening the generator from a web server?
+Loading an existing `config/data.json` will not work if you open the `generator.html` directly from your file system.
 
 
 Weal and Woe
